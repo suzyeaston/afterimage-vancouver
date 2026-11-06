@@ -1,0 +1,409 @@
+{
+  "title": "AFTERIMAGE / VANCOUVER",
+  "generated_at": "2026-11-06T23:51:33+00:00",
+  "max_freshness_days": 14,
+  "sources_refreshed": [],
+  "refresh_errors": [],
+  "employers": [
+    {
+      "id": "disney-animation",
+      "name": "Walt Disney Animation Studios",
+      "sector": "film",
+      "district": "Yaletown",
+      "lat": 49.2748,
+      "lng": -123.1219,
+      "precision": "approximate",
+      "address": "1132 Hamilton St, Vancouver",
+      "description": "The interesting overlap: production engineering, AI tooling, pipelines and the humans making animated worlds.",
+      "website": "https://disneyanimation.com/",
+      "careers": "https://www.disneycareers.com/en/employment/vancouver-british-columbia-canada-technologie-jobs/391/26715/6251999-5909050-5965814-6173331/4",
+      "source": "https://www.disneycareers.com/en/job/vancouver/sr-software-engineer-emerging-technology/391/102471835424",
+      "tags": [
+        "AI",
+        "pipelines",
+        "animation",
+        "MCP"
+      ],
+      "fit": 96,
+      "recent_roles": 2,
+      "interest_forms": 0
+    },
+    {
+      "id": "netflix-animation",
+      "name": "Netflix Animation Studios",
+      "sector": "film",
+      "district": "Mount Pleasant",
+      "lat": 49.2666,
+      "lng": -123.1026,
+      "precision": "approximate",
+      "address": "110 E 5th Ave, Vancouver",
+      "description": "Production tools, cloud systems, rendering, and studio-side engineering where technology becomes cinema.",
+      "website": "https://www.netflix.com/",
+      "careers": "https://explore.jobs.netflix.net/careers?location=Canada",
+      "source": "https://explore.jobs.netflix.net/careers?domain=netflix.com&pid=790318358916",
+      "tags": [
+        "production tools",
+        "rendering",
+        "web",
+        "animation"
+      ],
+      "fit": 94,
+      "recent_roles": 2,
+      "interest_forms": 0
+    },
+    {
+      "id": "sony-imageworks",
+      "name": "Sony Pictures Imageworks",
+      "sector": "film",
+      "district": "Downtown",
+      "lat": 49.2796,
+      "lng": -123.1163,
+      "precision": "approximate",
+      "address": "658 Homer St, Vancouver",
+      "description": "Large-scale VFX and animation. A city within a city, built from render queues, pipeline code, and strange creatures.",
+      "website": "https://www.imageworks.com/",
+      "careers": "https://job-boards.greenhouse.io/sonypicturesimageworks",
+      "source": "https://www.imageworks.com/job-postings",
+      "ats": {
+        "type": "greenhouse",
+        "board": "sonypicturesimageworks"
+      },
+      "tags": [
+        "VFX",
+        "engineering",
+        "pipeline",
+        "rendering"
+      ],
+      "fit": 88,
+      "recent_roles": 1,
+      "interest_forms": 0
+    },
+    {
+      "id": "image-engine",
+      "name": "Image Engine",
+      "sector": "film",
+      "district": "Mount Pleasant",
+      "lat": 49.267,
+      "lng": -123.1025,
+      "precision": "approximate",
+      "address": "2043 Quebec St, Vancouver",
+      "description": "Practical engineering and production support underneath impossible visual effects.",
+      "website": "https://image-engine.com/",
+      "careers": "https://image-engine.com/jobs/",
+      "source": "https://image-engine.com/contact/",
+      "tags": [
+        "VFX",
+        "studio IT",
+        "rendering",
+        "pipeline"
+      ],
+      "fit": 93,
+      "recent_roles": 1,
+      "interest_forms": 1
+    },
+    {
+      "id": "blackbird",
+      "name": "Blackbird Interactive",
+      "sector": "games",
+      "district": "Gastown",
+      "lat": 49.2824,
+      "lng": -123.1063,
+      "precision": "approximate",
+      "address": "112 W Hastings St, Vancouver",
+      "description": "Independent world builders. Engine-room code, art tools, real-time effects and a distinctive game-making culture.",
+      "website": "https://www.blackbirdinteractive.com/",
+      "careers": "https://jobs.lever.co/blackbirdinteractive",
+      "source": "https://www.blackbirdinteractive.com/",
+      "ats": {
+        "type": "lever",
+        "board": "blackbirdinteractive"
+      },
+      "tags": [
+        "games",
+        "Unreal",
+        "creative coding",
+        "technical art"
+      ],
+      "fit": 82,
+      "recent_roles": 1,
+      "interest_forms": 1
+    },
+    {
+      "id": "ilm-vancouver",
+      "name": "Industrial Light & Magic",
+      "sector": "film",
+      "district": "Vancouver (approx.)",
+      "lat": 49.2814,
+      "lng": -123.1194,
+      "precision": "city",
+      "address": "Vancouver, BC (not a verified office pinpoint)",
+      "description": "Creature work, digital cinematography, production engineering and big-screen illusion systems.",
+      "website": "https://www.ilm.com/",
+      "careers": "https://www.disneycareers.com/",
+      "source": "https://www.disneycareers.com/en/location/%E3%83%8F%E3%83%B3%E3%82%AF%E3%83%BC%E3%83%8F%E3%83%BC-jobs/391/6251999-5909050-6173331/4/1",
+      "tags": [
+        "film",
+        "virtual production",
+        "pipeline"
+      ],
+      "fit": 85,
+      "recent_roles": 0,
+      "interest_forms": 0
+    },
+    {
+      "id": "ea-vancouver",
+      "name": "Electronic Arts",
+      "sector": "games",
+      "district": "Burnaby",
+      "lat": 49.2478,
+      "lng": -123.0057,
+      "precision": "approximate",
+      "address": "Burnaby campus (approximate)",
+      "description": "A major game and interactive technology anchor. Watch for developer tools, platform infrastructure and audio engineering.",
+      "website": "https://www.ea.com/",
+      "careers": "https://jobs.ea.com/",
+      "source": "https://jobs.ea.com/",
+      "tags": [
+        "games",
+        "audio",
+        "platform",
+        "tools"
+      ],
+      "fit": 76,
+      "recent_roles": 0,
+      "interest_forms": 0
+    },
+    {
+      "id": "beatdapp",
+      "name": "Beatdapp",
+      "sector": "audio",
+      "district": "Vancouver (approx.)",
+      "lat": 49.2775,
+      "lng": -123.1244,
+      "precision": "city",
+      "address": "Vancouver, BC (not a verified office pinpoint)",
+      "description": "Music data, streaming analytics, and the beautiful collision of audio and software systems.",
+      "website": "https://beatdapp.com/",
+      "careers": "https://beatdapp.com/",
+      "source": "https://beatdapp.com/",
+      "tags": [
+        "music",
+        "data",
+        "AI",
+        "streaming"
+      ],
+      "fit": 91,
+      "recent_roles": 0,
+      "interest_forms": 0
+    },
+    {
+      "id": "tradablebits",
+      "name": "Tradable Bits",
+      "sector": "audio",
+      "district": "Vancouver (approx.)",
+      "lat": 49.2832,
+      "lng": -123.124,
+      "precision": "city",
+      "address": "Vancouver, BC (not a verified office pinpoint)",
+      "description": "Digital experiences for music, sports and entertainment. An unusual bridge between artist culture and production systems.",
+      "website": "https://www.tradablebits.com/",
+      "careers": "https://www.tradablebits.com/",
+      "source": "https://builtinvancouver.org/job/digital-activations-specialist/11528841",
+      "tags": [
+        "music",
+        "live events",
+        "integrations"
+      ],
+      "fit": 83,
+      "recent_roles": 0,
+      "interest_forms": 0
+    },
+    {
+      "id": "kanto-audio",
+      "name": "Kanto Audio",
+      "sector": "audio",
+      "district": "Langley / Metro Vancouver",
+      "lat": 49.1058,
+      "lng": -122.668,
+      "precision": "city",
+      "address": "Langley, BC (approximate area)",
+      "description": "Physical audio products and engineering. Interesting, though farther from Vancouver proper.",
+      "website": "https://kantoaudio.com/",
+      "careers": "https://kantoaudio.com/en-ca/pages/careers",
+      "source": "https://kantoaudio.com/en-ca/pages/careers",
+      "tags": [
+        "audio hardware",
+        "engineering",
+        "design"
+      ],
+      "fit": 65,
+      "recent_roles": 1,
+      "interest_forms": 0
+    }
+  ],
+  "jobs": [
+    {
+      "id": "blackbird-vfx-five-month",
+      "employer_id": "blackbird",
+      "title": "VFX Artist, 5-month contract",
+      "url": "https://jobs.lever.co/blackbirdinteractive/134a5b7d-12c8-4e1f-889d-216b1ceed2d8",
+      "observed_at": "2026-11-06",
+      "type": "contract",
+      "track": "technical art",
+      "note": "Realtime Unreal Engine 5 effects; remote-first, Canada resident eligibility.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "disney-sre-2026",
+      "employer_id": "disney-animation",
+      "title": "Senior Site Reliability Engineer",
+      "url": "https://www.disneycareers.com/en/employment/vancouver-british-columbia-canada-technologie-jobs/391/26715/6251999-5909050-5965814-6173331/4",
+      "observed_at": "2026-11-06",
+      "posted_at": "2026-10-17",
+      "type": "full-time",
+      "track": "infrastructure",
+      "note": "Listed on Disney's Vancouver technology jobs page; check the linked listing for requirements.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "disney-10163816",
+      "employer_id": "disney-animation",
+      "title": "Sr. Software Engineer, Emerging Technology",
+      "url": "https://www.disneycareers.com/en/job/vancouver/sr-software-engineer-emerging-technology/391/102471835424",
+      "observed_at": "2026-11-06",
+      "posted_at": "2026-10-26",
+      "type": "full-time",
+      "track": "AI / engineering",
+      "note": "Agent workflows, MCPs, secure studio integrations, creative tools; CA$120,700–161,800 listed.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "imageengine-render-junior",
+      "employer_id": "image-engine",
+      "title": "Software Engineer, Rendering (Junior)",
+      "url": "https://image-engine.com/jobs/",
+      "observed_at": "2026-11-06",
+      "type": "full-time",
+      "track": "creative software",
+      "note": "Listed under Development; BC-based hybrid studio role.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "kanto-director-eng",
+      "employer_id": "kanto-audio",
+      "title": "Director of Engineering",
+      "url": "https://kantoaudio.com/en-ca/pages/careers",
+      "observed_at": "2026-11-06",
+      "type": "full-time",
+      "track": "engineering leadership",
+      "note": "Greater Vancouver hybrid. Audio hardware; senior leadership scope.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "netflix-jr42454",
+      "employer_id": "netflix-animation",
+      "title": "Front-End Developer, Netflix Animation Studios",
+      "url": "https://explore.jobs.netflix.net/careers?domain=netflix.com&pid=790318358916",
+      "observed_at": "2026-11-06",
+      "type": "full-time",
+      "track": "creative software",
+      "note": "Production management web applications and studio tools; onsite Vancouver.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "netflix-jr39977",
+      "employer_id": "netflix-animation",
+      "title": "Software Engineer, Rendering",
+      "url": "https://explore.jobs.netflix.net/careers?query=netflix+internships+2026",
+      "observed_at": "2026-11-06",
+      "type": "full-time",
+      "track": "creative software",
+      "note": "Vancouver animation rendering engineering; follow source to confirm requirements.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "sony-7598348003",
+      "employer_id": "sony-imageworks",
+      "title": "CFX Pipeline Tech",
+      "url": "https://job-boards.greenhouse.io/sonypicturesimageworks/jobs/7598348003",
+      "observed_at": "2026-11-06",
+      "type": "full-time",
+      "track": "creative software",
+      "note": "Character FX pipeline engineering. Official listing explicitly encourages applicants with deep programming experience.",
+      "origin": "manual",
+      "status": "recently-listed"
+    },
+    {
+      "id": "blackbird-general",
+      "employer_id": "blackbird",
+      "title": "General Application",
+      "url": "https://jobs.lever.co/blackbirdinteractive/498bb3c2-b23f-4aed-8fdd-ee80649e381d",
+      "observed_at": "2026-11-06",
+      "type": "expression-of-interest",
+      "track": "creative software",
+      "note": "Open interest form, not a verified vacancy.",
+      "origin": "manual",
+      "status": "interest-only"
+    },
+    {
+      "id": "imageengine-tech-expression",
+      "employer_id": "image-engine",
+      "title": "General Application, Technology (IT / Software / Pipeline)",
+      "url": "https://image-engine.com/jobs/",
+      "observed_at": "2026-11-06",
+      "type": "expression-of-interest",
+      "track": "studio operations",
+      "note": "Speculative application, not a confirmed vacancy. Useful relationship-building channel.",
+      "origin": "manual",
+      "status": "interest-only"
+    }
+  ],
+  "signals": [
+    {
+      "id": "signal-ai-studio",
+      "title": "Film studios are building AI workflows",
+      "category": "emerging",
+      "summary": "Disney's Vancouver emerging-technology opening calls out MCPs, memory systems and agent orchestration. A concrete signal that production engineering is entering its agent era.",
+      "source": "https://www.disneycareers.com/en/job/vancouver/sr-software-engineer-emerging-technology/391/102471835424",
+      "observed_at": "2026-11-06"
+    },
+    {
+      "id": "signal-pipeline",
+      "title": "Pipeline engineers are creative practitioners",
+      "category": "pattern",
+      "summary": "Sony and Image Engine both advertise pipeline-oriented technical roles. Rendering, procedural tools and studio support remain an interesting bridge between engineering and art.",
+      "source": "https://image-engine.com/jobs/",
+      "observed_at": "2026-11-06"
+    },
+    {
+      "id": "signal-animation",
+      "title": "Vancouver's animation tools are having a moment",
+      "category": "pattern",
+      "summary": "Netflix Animation lists front-end production tooling and rendering engineering roles, not just artist positions.",
+      "source": "https://explore.jobs.netflix.net/careers?domain=netflix.com&pid=790318358916",
+      "observed_at": "2026-11-06"
+    },
+    {
+      "id": "signal-sonic",
+      "title": "The sonic industries deserve their own layer",
+      "category": "hypothesis",
+      "summary": "Audio software, streaming analytics, technical sound design and live-event systems rarely appear together on conventional job boards. We will map that overlap deliberately.",
+      "source": "https://beatdapp.com/",
+      "observed_at": "2026-11-06"
+    }
+  ],
+  "counts": {
+    "employers": 10,
+    "recent_roles": 8,
+    "interest_forms": 2,
+    "needs_review": 0
+  },
+  "disclaimer": "Recently listed is not guaranteed open. Confirm each role at the official source. Pins represent public offices or approximate areas, never an exact job site unless indicated."
+}

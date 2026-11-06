@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080c15">
+  <meta name="description" content="AFTERIMAGE is an experimental, source-backed atlas of creative technology, engineering and media work around Vancouver. Follow the signals.">
+  <meta property="og:title" content="AFTERIMAGE // VANCOUVER">
+  <meta property="og:description" content="The city is sending signals. An atlas of creative work, strange intersections and engineering opportunities.">
+  <title>AFTERIMAGE / VANCOUVER — a creative work atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzxg+QwLDfEOBvkN9e+3KwNSmS4=" crossorigin="">
+  <link rel="stylesheet" href="./assets/style.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Afterimage home"><span class="brand-symbol" aria-hidden="true">✳</span><span>AFTER<span class="brand-ghost">IMAGE</span></span><small>/ VANCOUVER</small></a>
+      <div class="top-signal"><span class="live-led"></span> SIGNAL ARCHIVE <span class="top-dash">//</span> VANCOUVER, BC <span class="top-dash">//</span> <span id="utc-clock">PACIFIC SIGNAL</span></div>
+      <a href="https://suzyeaston.ca" class="outside-link" target="_blank" rel="noopener">BY SUZY EASTON <span>↗</span></a>
+    </header>
+
+    <main class="workspace" id="home">
+      <aside class="sidebar" aria-label="Atlas controls">
+        <div class="hero-block">
+          <div class="eyebrow"><span class="mini-led"></span> FIELD NOTES / NO. 001</div>
+          <h1>THE CITY<br>IS <em>SENDING</em><br>SIGNALS<span class="period">.</span></h1>
+          <p>An atlas of people building strange, beautiful, useful things. Creative technology, engineering, image-making and sound. Vancouver is the instrument.</p>
+          <div class="hero-rule"><span>49° 16' N</span><span>123° 07' W</span><span>☽  PACIFIC</span></div>
+        </div>
+
+        <div class="stat-strip" role="status" aria-live="polite">
+          <div><strong id="employer-count">—</strong><small>PLACES</small></div>
+          <div><strong id="job-count">—</strong><small>LISTED ROLES</small></div>
+          <div><strong id="signal-count">—</strong><small>DISPATCHES</small></div>
+        </div>
+
+        <section class="control-section" aria-label="Explore the field">
+          <div class="section-head"><span>01 / TUNE THE FREQUENCY</span><span class="tiny-star">✳</span></div>
+          <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search studios, roles, technologies..." autocomplete="off" aria-label="Search companies and jobs"><kbd>/</kbd></label>
+          <div class="filter-grid" id="sector-filters" aria-label="Filter by industry">
+            <button type="button" class="chip is-active" data-sector="all" aria-pressed="true">ALL SIGNALS</button>
+            <button type="button" class="chip" data-sector="film" aria-pressed="false">◉ FILM + VFX</button>
+            <button type="button" class="chip" data-sector="audio" aria-pressed="false">♫ AUDIO</button>
+            <button type="button" class="chip" data-sector="games" aria-pressed="false">✧ GAMES</button>
+          </div>
+          <label class="toggle-row"><input id="roles-only" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Show places with recently listed roles</span><span class="toggle-right">LIVE-ISH</span></label>
+        </section>
+
+        <section class="list-section" aria-label="Employer directory">
+          <div class="section-head"><span>02 / SIGNALS IN RANGE</span><span id="visible-count">— LOCATED</span></div>
+          <div id="company-list" class="company-list"><div class="list-loading">SEARCHING THE STATIC...</div></div>
+        </section>
+
+        <footer class="side-footer"><span>NO RECRUITING FUNNEL. NO GROWTH HACKS.</span><span>JUST A MAP OF POSSIBLE FUTURES.</span><a href="https://github.com/suzyeaston/afterimage-vancouver" target="_blank" rel="noopener">OPEN SOURCE ↗</a></footer>
+      </aside>
+
+      <section class="stage" aria-label="Interactive map of Vancouver creative companies">
+        <div class="map-wrap">
+          <div class="map-grid" aria-hidden="true"></div>
+          <div id="map" role="application" aria-label="Map of creative and technology employers around Vancouver"></div>
+          <div class="map-vignette" aria-hidden="true"></div>
+          <div class="map-topline"><span><span class="live-led"></span> SIGNAL FIELD // VANCOUVER</span><span class="map-grid-pos">LOCAL COORDINATES / APPROXIMATE</span></div>
+          <div class="map-compass" aria-hidden="true"><span>N</span><span class="compass-arrow">↑</span></div>
+          <div class="map-bottomline"><div><span class="key-dot film"></span> FILM / VFX <span class="key-dot audio"></span> AUDIO <span class="key-dot games"></span> GAMES</div><div>CLICK A PULSE TO FOLLOW IT <span aria-hidden="true">↗</span></div></div>
+          <div id="no-map" class="map-unavailable" hidden>Map tiles unavailable. The directory still works. <a href="https://www.openstreetmap.org/#map=12/49.27/-123.11" target="_blank" rel="noopener">View Vancouver map ↗</a></div>
+          <div class="map-annotation" aria-hidden="true">YOU ARE HERE, <span>PROBABLY</span><svg width="86" height="29" viewBox="0 0 86 29"><path d="M1 4 C32 6 36 25 83 16" stroke="currentColor" fill="none" stroke-width="1" stroke-dasharray="3 4"/></svg></div>
+        </div>
+
+        <div class="dispatch">
+          <div class="dispatch-title"><span>03 / TRANSMISSIONS</span><small>FIELD OBSERVATIONS, NOT HOT TAKES</small></div>
+          <div class="dispatch-track" id="signals-list"></div>
+          <div class="dispatch-footer"><span id="snapshot-label">LOADING SNAPSHOT...</span><span>OPEN THE SOURCE. CHECK THE DATE. MAKE YOUR OWN MAP.</span></div>
+        </div>
+
+        <section class="detail" id="detail" aria-label="Selected company details" aria-live="polite" hidden>
+          <div class="detail-header"><span id="detail-code">FOUND SIGNAL</span><button id="close-detail" type="button" aria-label="Close details">✕</button></div>
+          <div id="detail-body"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
