@@ -1,0 +1,863 @@
+{
+  "title": "AFTERIMAGE / ORG CONSTELLATION",
+  "status": "archival_organization_network_not_current_partnership_verification",
+  "notice": "Historical public organization links from The Observatory. A connection is not evidence of a current partnership, affiliation, endorsement, job vacancy or event. Organization network positions are conceptual, NOT geographic.",
+  "source": {
+    "name": "The Observatory — BC + AI ecosystem map",
+    "repo": "https://github.com/WalksWithASwagger/official-observer",
+    "revision": "732ca559c91105709ebab1ae2ea1fd6c79ff647c",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "entities_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+    "relationships_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/relationships.json",
+    "changes": "Selected public organization entities and organization-related relationships; omitted people; rebuilt related names and org-org lines; rendered positions as a non-geographic constellation.",
+    "caution": "Original archive is frozen and may not reflect contemporary relationships. No affiliation or endorsement implied."
+  },
+  "organizations": [
+    {
+      "id": "org-amii",
+      "name": "Amii",
+      "description": "Alberta Machine Intelligence Institute — a national AI institute and partner.",
+      "region": "national",
+      "tags": [
+        "academic",
+        "partner",
+        "national"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-bc-ai-ecosystem-association",
+      "name": "BC AI Ecosystem Association",
+      "description": "Registered BC nonprofit serving as the umbrella for community building, education, and partnerships, with an Indigenous-leadership focus.",
+      "region": "provincial",
+      "tags": [
+        "nonprofit",
+        "governance",
+        "hub"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": "https://bc-ai.ca",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-ai-happy-hour",
+          "name": "AI Happy Hour",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-ai-in-education-meetup",
+          "name": "AI in Education Meetup",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-bc-ai-film-club",
+          "name": "BC + AI Film Club",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-bc-ai-office-hours",
+          "name": "BC + AI Office Hours",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-comox-valley-ai",
+          "name": "Comox Valley AI",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-fraser-valley-ai",
+          "name": "Fraser Valley AI",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-futureproof-festival-2026",
+          "name": "Futureproof Festival 2026",
+          "kind": "event",
+          "relation": "produces",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-life-sciences-ai-sig",
+          "name": "Life Sciences AI SIG",
+          "kind": "event",
+          "relation": "convenes",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-mac-mind-ai-consciousness",
+          "name": "MAC — Mind, AI & Consciousness",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-vancouver-ai-meetup",
+          "name": "Vancouver AI Meetup",
+          "kind": "event",
+          "relation": "runs",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-web-summit-vancouver-2026",
+          "name": "Web Summit Vancouver 2026",
+          "kind": "event",
+          "relation": "presented-at",
+          "direction": "outgoing"
+        },
+        {
+          "id": "initiative-bc-ai",
+          "name": "BC + AI",
+          "kind": "initiative",
+          "relation": "stewards",
+          "direction": "outgoing"
+        },
+        {
+          "id": "initiative-ed-ai",
+          "name": "ED + AI",
+          "kind": "initiative",
+          "relation": "stewards",
+          "direction": "outgoing"
+        },
+        {
+          "id": "initiative-futureproof",
+          "name": "Futureproof",
+          "kind": "initiative",
+          "relation": "stewards",
+          "direction": "outgoing"
+        },
+        {
+          "id": "org-amii",
+          "name": "Amii",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-bc-ministry-of-ai",
+          "name": "BC Ministry of AI",
+          "kind": "org",
+          "relation": "engages",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-genome-bc",
+          "name": "Genome BC",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-indigenomics-institute",
+          "name": "Indigenomics Institute",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-innovate-bc",
+          "name": "Innovate BC",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-mila",
+          "name": "Mila",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-multimodal-media-lab-sfu",
+          "name": "Multimodal Media Lab (SFU)",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-northeastern-university-vancouver",
+          "name": "Northeastern University Vancouver",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-real-youth",
+          "name": "Real Youth",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-rival-technologies",
+          "name": "Rival Technologies",
+          "kind": "org",
+          "relation": "sponsors",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-segev-law",
+          "name": "Segev Law",
+          "kind": "org",
+          "relation": "sponsors",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-squamish-nation",
+          "name": "Squamish Nation",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-the-upgrade",
+          "name": "The Upgrade",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        },
+        {
+          "id": "org-ubc",
+          "name": "UBC",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-vector-institute",
+          "name": "Vector Institute",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "org-viatec",
+          "name": "VIATEC",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "project-bc-ai-directory",
+          "name": "BC AI Directory",
+          "kind": "project",
+          "relation": "publishes",
+          "direction": "outgoing"
+        },
+        {
+          "id": "project-the-observatory",
+          "name": "The Observatory",
+          "kind": "project",
+          "relation": "operates",
+          "direction": "outgoing"
+        },
+        {
+          "id": "project-theory-of-change",
+          "name": "Theory of Change",
+          "kind": "project",
+          "relation": "maintains",
+          "direction": "outgoing"
+        },
+        {
+          "id": "project-wild-salmon-programme",
+          "name": "Wild Salmon Programme",
+          "kind": "project",
+          "relation": "leads",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-bc-ministry-of-ai",
+      "name": "BC Ministry of AI",
+      "description": "Provincial ministry engaging BC + AI as a stakeholder in responsible-AI policy.",
+      "region": "provincial",
+      "tags": [
+        "government",
+        "policy"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "engages",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-eth-s-lab",
+      "name": "Ethọ́s Lab",
+      "description": "Vancouver learning space hosting the AI in Education meetup and youth-focused programming.",
+      "region": "vancouver",
+      "tags": [
+        "venue",
+        "youth",
+        "education"
+      ],
+      "initiatives": [
+        "ed-ai",
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-ai-in-education-meetup",
+          "name": "AI in Education Meetup",
+          "kind": "event",
+          "relation": "hosts",
+          "direction": "outgoing"
+        },
+        {
+          "id": "initiative-ed-ai",
+          "name": "ED + AI",
+          "kind": "initiative",
+          "relation": "part-of",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-friends-quarters",
+      "name": "Friends Quarters",
+      "description": "Vancouver venue hosting the community AI Happy Hour socials.",
+      "region": "vancouver",
+      "tags": [
+        "venue"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-ai-happy-hour",
+          "name": "AI Happy Hour",
+          "kind": "event",
+          "relation": "hosts",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-genome-bc",
+      "name": "Genome BC",
+      "description": "Genomics organization engaged as a stakeholder in the Life Sciences AI conversation.",
+      "region": "provincial",
+      "tags": [
+        "life-sciences",
+        "partner"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-life-sciences-ai-sig",
+          "name": "Life Sciences AI SIG",
+          "kind": "event",
+          "relation": "engages",
+          "direction": "outgoing"
+        },
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-h-r-macmillan-space-centre",
+      "name": "H.R. MacMillan Space Centre",
+      "description": "Vancouver venue partner hosting the monthly Vancouver AI meetup and the Futureproof Festival.",
+      "region": "vancouver",
+      "tags": [
+        "venue",
+        "partner"
+      ],
+      "initiatives": [
+        "bc-ai",
+        "futureproof"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-futureproof-festival-2026",
+          "name": "Futureproof Festival 2026",
+          "kind": "event",
+          "relation": "hosts",
+          "direction": "outgoing"
+        },
+        {
+          "id": "event-vancouver-ai-meetup",
+          "name": "Vancouver AI Meetup",
+          "kind": "event",
+          "relation": "hosts",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-indigenomics-institute",
+      "name": "Indigenomics Institute",
+      "description": "Indigenous economic leadership organization informing BC + AI's Indigenous-led approach.",
+      "region": "provincial",
+      "tags": [
+        "indigenous",
+        "partner",
+        "governance"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-innovate-bc",
+      "name": "Innovate BC",
+      "description": "Provincial innovation agency and ecosystem partner supporting BC's tech and AI sectors.",
+      "region": "provincial",
+      "tags": [
+        "partner",
+        "government"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-mila",
+      "name": "Mila",
+      "description": "Montreal AI research institute — a national partner across graduate networks.",
+      "region": "national",
+      "tags": [
+        "academic",
+        "partner",
+        "national"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-multimodal-media-lab-sfu",
+      "name": "Multimodal Media Lab (SFU)",
+      "description": "SFU lab and venue partner for the BC + AI Film Club and generative media work.",
+      "region": "vancouver",
+      "tags": [
+        "venue",
+        "academic",
+        "media"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "event-bc-ai-film-club",
+          "name": "BC + AI Film Club",
+          "kind": "event",
+          "relation": "hosts",
+          "direction": "outgoing"
+        },
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-northeastern-university-vancouver",
+      "name": "Northeastern University Vancouver",
+      "description": "Vancouver campus collaborating on AI research and community programming.",
+      "region": "vancouver",
+      "tags": [
+        "academic",
+        "research"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-real-youth",
+      "name": "Real Youth",
+      "description": "Youth-serving organization partnering on advisory and programming.",
+      "region": "vancouver",
+      "tags": [
+        "youth",
+        "partner"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-rival-technologies",
+      "name": "Rival Technologies",
+      "description": "Vancouver technology company and community sponsor (hackathon support).",
+      "region": "vancouver",
+      "tags": [
+        "sponsor",
+        "industry"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "sponsors",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-segev-law",
+      "name": "Segev Law",
+      "description": "Law firm providing legal support as a community sponsor.",
+      "region": "vancouver",
+      "tags": [
+        "sponsor",
+        "legal"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "sponsors",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-squamish-nation",
+      "name": "Squamish Nation",
+      "description": "Indigenous community partner in BC + AI's relationship-building work.",
+      "region": "vancouver",
+      "tags": [
+        "indigenous",
+        "partner"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-the-upgrade",
+      "name": "The Upgrade",
+      "description": "AI training studio delivering hands-on, responsible-AI upskilling for creative and media professionals.",
+      "region": "vancouver",
+      "tags": [
+        "training",
+        "education"
+      ],
+      "initiatives": [
+        "ed-ai",
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "initiative-ed-ai",
+          "name": "ED + AI",
+          "kind": "initiative",
+          "relation": "part-of",
+          "direction": "outgoing"
+        },
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "incoming"
+        },
+        {
+          "id": "project-responsible-ai-professional-program",
+          "name": "Responsible AI Professional Program",
+          "kind": "project",
+          "relation": "runs",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-ubc",
+      "name": "UBC",
+      "description": "University of British Columbia — research partner across emerging media, cognitive systems, and neuroscience.",
+      "region": "vancouver",
+      "tags": [
+        "academic",
+        "research"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "collaborates",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-vector-institute",
+      "name": "Vector Institute",
+      "description": "Toronto AI research institute — a national partner in the CIFAR network.",
+      "region": "national",
+      "tags": [
+        "academic",
+        "partner",
+        "national"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    },
+    {
+      "id": "org-viatec",
+      "name": "VIATEC",
+      "description": "Victoria Innovation, Advanced Technology & Entrepreneurship Council — a regional ecosystem peer.",
+      "region": "victoria",
+      "tags": [
+        "partner",
+        "ecosystem",
+        "chapter"
+      ],
+      "initiatives": [
+        "bc-ai"
+      ],
+      "website": null,
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json",
+      "connections": [
+        {
+          "id": "org-bc-ai-ecosystem-association",
+          "name": "BC AI Ecosystem Association",
+          "kind": "org",
+          "relation": "partners",
+          "direction": "outgoing"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "org-amii",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-bc-ai-ecosystem-association",
+      "target": "org-the-upgrade",
+      "relation": "partners"
+    },
+    {
+      "source": "org-bc-ministry-of-ai",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "engages"
+    },
+    {
+      "source": "org-genome-bc",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-indigenomics-institute",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-innovate-bc",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-mila",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-multimodal-media-lab-sfu",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "collaborates"
+    },
+    {
+      "source": "org-northeastern-university-vancouver",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "collaborates"
+    },
+    {
+      "source": "org-real-youth",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-rival-technologies",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "sponsors"
+    },
+    {
+      "source": "org-segev-law",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "sponsors"
+    },
+    {
+      "source": "org-squamish-nation",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-ubc",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "collaborates"
+    },
+    {
+      "source": "org-vector-institute",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    },
+    {
+      "source": "org-viatec",
+      "target": "org-bc-ai-ecosystem-association",
+      "relation": "partners"
+    }
+  ]
+}
