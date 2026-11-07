@@ -86,8 +86,10 @@
   function initMap(){
     if(!window.L){$('no-map').hidden=false;return;}
     app.map=window.L.map('map',{scrollWheelZoom:false,zoomControl:false,preferCanvas:true,minZoom:9,maxZoom:18}).setView([49.269,-123.102],12);
-    window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>',maxZoom:19,subdomains:'abcd'
+    // We borrowed a city, not an API-key-shaped watermark. Keyless, low-volume OSM tiles.
+    // No prefetch, forced reloads or cache-busting; obey the normal browser tile cache.
+    window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>',maxZoom:19
     }).on('tileerror',()=>{$('no-map').hidden=false;}).addTo(app.map);
     window.L.control.zoom({position:'bottomright'}).addTo(app.map);
     setTimeout(()=>app.map?.invalidateSize(),250);
