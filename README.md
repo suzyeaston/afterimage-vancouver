@@ -105,6 +105,20 @@ We did **not** fork an archived application simply to borrow its data. The sourc
 
 The organization layer is **not** an extension of the job-openings database: it helps discover organizations and communities to research separately. The employer cards still link to official job sources and only those are permitted to imply a recently observed role.
 
+## BC AI Compass / source-checked organization discovery
+
+Martin Montero's [BC AI Compass](https://bc-aicompass.ca/) contains a publicly licensed, source-checked BC organization directory. AFTERIMAGE includes an **optional, separately labeled** local research lens based on its `public/ecosystem.json` export.
+
+- **99 organizations** selected from the pinned public export: 90 in Metro Vancouver, 9 province-wide. Records are not job vacancies and do not add to the employer-openings count.
+- Source export is dated **August 20, 2026**. The upstream README mentions a larger current count; the imported dataset is explicitly a dated snapshot and does not claim live re-verification.
+- Original source URL, source-check date, category and original verification flags remain on every record. Clicking a record opens its original website/evidence page and links back to the BC AI Compass project.
+- **Geographic honesty:** Metro Vancouver's 90 records have only 6 distinct mapped positions in this particular export, often shared municipal centroids. AFTERIMAGE groups identical positions into count markers; a centroid is **never** presented as the location of an organization's office. Province-wide entries have no fabricated pins.
+- Organization-only; no professional profiles, personal emails, or contact collections are imported. The project and its data remain Martin's, and there is no implied partnership, endorsement, or hiring relationship.
+- Source [license](https://github.com/MartinMontero/BCAICompass/blob/main/LICENSE): the organization dataset is **CC BY 4.0**. Attribution: **BC AI Compass (bc-aicompass.ca), by Martin Montero**. Our transformation and pinned source SHA are recorded in `data/compass.json`.
+- Rebuild the derived subset from the original pinned export with `python3 scripts/import_compass.py`, or run `python3 scripts/import_compass.py --input /path/to/ecosystem.json` to work offline. A fresh source revision requires a new provenance/freshness review before publishing.
+
+Use **Explore source-checked BC organizations** to access this lens. It is separate from **Connect the organizations**, which illustrates historical relationships from The Observatory. Neither mode asserts an active job opening. The live hiring map remains based on employer career links.
+
 ### A basemap migration note
 
 The original CARTO dark tiles began displaying **API KEY REQUIRED** watermarks after CARTO introduced API keys in September 2026. AFTERIMAGE now uses the [OpenStreetMap tile service](https://operations.osmfoundation.org/policies/tiles/) directly at low volume, using browser caching, proper attribution, and a locally applied CSS dark treatment. No key, no bulk tile downloads, no silent watermarking. For significant traffic, evaluate an appropriate paid or self-hosted basemap provider.
