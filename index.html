@@ -58,6 +58,7 @@
             <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">THE OBSERVATORY / BC + AI ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed for AFTERIMAGE. No endorsement implied. <a href="https://github.com/bc-ai-ecosystem/vancouver-ai" target="_blank" rel="noopener noreferrer">Meetup archive ↗</a></p>
           </div>
 
+          <label class="toggle-row compass-switch"><input id="compass-toggle" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Explore source-checked BC organizations</span><span class="toggle-right">COMPASS</span></label>
           <label class="toggle-row organization-switch"><input id="org-network-toggle" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Connect the organizations</span><span class="toggle-right">NETWORK</span></label>
           <div class="organization-panel" id="organization-panel" hidden>
             <div class="community-eyebrow">✳ THE ORGANIZATION CONSTELLATION</div>
@@ -76,6 +77,19 @@
             <div id="organization-list" class="organization-list" aria-label="Documented organizations"></div>
             <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">SOURCE: THE OBSERVATORY ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed. No endorsement or current partnership implied.</p>
           </div>
+        </section>
+
+        <section class="compass-panel" id="compass-panel" aria-label="BC AI Compass organization directory" hidden>
+          <div class="compass-heading"><strong>✳ BC AI COMPASS / VERIFIED SOURCE ARCHIVE</strong><span id="compass-count">—</span></div>
+          <p>Research organizations by original evidence, not by who might be hiring. Directory is a dated subset of a separate community project.</p>
+          <label class="compass-label" for="compass-search">TUNE IN</label>
+          <input id="compass-search" type="search" placeholder="Organizations, skills, places…" autocomplete="off" aria-label="Search source-checked organizations">
+          <label class="compass-label" for="compass-category">TYPE OF SIGNAL</label>
+          <select id="compass-category" aria-label="Filter organizations by sector"><option value="all">All kinds of organizations</option></select>
+          <label class="compass-show"><input id="compass-local-only" type="checkbox" checked> Metro Vancouver only</label>
+          <div class="compass-entries" id="compass-list" aria-label="Source checked organizations"></div>
+          <div class="compass-credit"><a href="https://bc-aicompass.ca/" target="_blank" rel="noopener noreferrer">EXPLORE MARTIN'S ORIGINAL COMPASS ↗</a><br>
+          Source: <a href="https://github.com/MartinMontero/BCAICompass" target="_blank" rel="noopener noreferrer">BC AI Compass</a>, CC BY 4.0. Subset adapted for AFTERIMAGE; independent project, no endorsement implied.</div>
         </section>
 
         <section class="list-section" aria-label="Employer directory">
