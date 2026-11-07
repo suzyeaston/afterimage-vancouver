@@ -50,6 +50,13 @@
             <button type="button" class="chip" data-sector="games" aria-pressed="false">✧ GAMES</button>
           </div>
           <label class="toggle-row"><input id="roles-only" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Show places with recently listed roles</span><span class="toggle-right">LIVE-ISH</span></label>
+          <label class="toggle-row community-switch"><input id="community-enabled" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Plot BC + AI community echoes</span><span class="toggle-right">ARCHIVE</span></label>
+          <div class="community-panel" id="community-panel" hidden>
+            <div class="community-eyebrow">✳ RECLAIMED TRANSMISSIONS / NOT JOBS</div>
+            <p id="community-note">Historical community records, not a live events calendar. Source data licensed CC BY 4.0.</p>
+            <div id="community-entries" class="community-entries" aria-label="Archival community events"></div>
+            <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">THE OBSERVATORY / BC + AI ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed for AFTERIMAGE. No endorsement implied. <a href="https://github.com/bc-ai-ecosystem/vancouver-ai" target="_blank" rel="noopener noreferrer">Meetup archive ↗</a></p>
+          </div>
         </section>
 
         <section class="list-section" aria-label="Employer directory">
@@ -67,7 +74,7 @@
           <div class="map-vignette" aria-hidden="true"></div>
           <div class="map-topline"><span><span class="live-led"></span> SIGNAL FIELD // VANCOUVER</span><span class="map-grid-pos">LOCAL COORDINATES / APPROXIMATE</span></div>
           <div class="map-compass" aria-hidden="true"><span>N</span><span class="compass-arrow">↑</span></div>
-          <div class="map-bottomline"><div><span class="key-dot film"></span> FILM / VFX <span class="key-dot audio"></span> AUDIO <span class="key-dot games"></span> GAMES</div><div>CLICK A PULSE TO FOLLOW IT <span aria-hidden="true">↗</span></div></div>
+          <div class="map-bottomline"><div><span class="key-dot film"></span> FILM / VFX <span class="key-dot audio"></span> AUDIO <span class="key-dot games"></span> GAMES <span class="key-dot community"></span> COMMUNITY ARCHIVE</div><div>CLICK A PULSE TO FOLLOW IT <span aria-hidden="true">↗</span></div></div>
           <div id="no-map" class="map-unavailable" hidden>Map tiles unavailable. The directory still works. <a href="https://www.openstreetmap.org/#map=12/49.27/-123.11" target="_blank" rel="noopener">View Vancouver map ↗</a></div>
           <div class="map-annotation" aria-hidden="true">YOU ARE HERE, <span>PROBABLY</span><svg width="86" height="29" viewBox="0 0 86 29"><path d="M1 4 C32 6 36 25 83 16" stroke="currentColor" fill="none" stroke-width="1" stroke-dasharray="3 4"/></svg></div>
         </div>
