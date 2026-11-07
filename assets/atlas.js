@@ -253,6 +253,39 @@
     scheduleHeight();
   }
 
+  let embedReady = false;
+  function trustedParentOrigin(){
+    try{
+      const origin=new URL(document.referrer).origin;
+      return ['https://suzyeaston.ca','https://www.suzyeaston.ca'].includes(origin) ? origin : null;
+    }catch{return null;}
+  }
+  function jumpTo(id){
+    const target=document.getElementById(id);
+    if(!target)return;
+    const origin=trustedParentOrigin();
+    if(embedReady && window.parent!==window && origin){
+      const y=target.getBoundingClientRect().top+window.scrollY;
+      window.parent.postMessage({type:'afterimage:scroll',y},origin);
+    }else{
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
+  window.addEventListener('message', event=>{
+    if(event.source!==window.parent || event.origin!==trustedParentOrigin())return;
+    if(event.data?.type==='afterimage:ready')embedReady=true;
+  });
+  // Anchor navigation must scroll the actual WordPress document, not an iframe
+  // that's already expanded to its full height.
+  document.addEventListener('click',event=>{
+    const anchor=event.target.closest('a[href^="#"]');
+    if(!anchor||!embedReady||window.parent===window)return;
+    const id=anchor.getAttribute('href').slice(1);
+    if(!document.getElementById(id))return;
+    event.preventDefault();
+    jumpTo(id);
+  });
+
   function scheduleHeight(){
     if(window.parent===window)return;
     if(scheduleHeight.pending)return;
@@ -314,12 +347,12 @@
   });
   $('relationship-map').addEventListener('click',event=>{
     const element=event.target.closest('[data-network-id]');
-    if(element)document.getElementById('network-'+element.dataset.networkId)?.scrollIntoView({behavior:'smooth'});
+    if(element)jumpTo('network-'+element.dataset.networkId);
   });
   $('relationship-map').addEventListener('keydown',event=>{
     if(!['Enter',' '].includes(event.key))return;
     const element=event.target.closest('[data-network-id]');
-    if(element){event.preventDefault();document.getElementById('network-'+element.dataset.networkId)?.scrollIntoView({behavior:'smooth'});}
+    if(element){event.preventDefault();jumpTo('network-'+element.dataset.networkId);}
   });
   $('global-search').addEventListener('input',event=>{
     state.term=event.target.value.trim().toLowerCase();
