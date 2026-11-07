@@ -29,6 +29,7 @@ jobs:
           node --check assets/atlas-core.js
           node --check assets/atlas.js
           node --check assets/city-map.js
+          node --check assets/city-futures.js
           node --test tests/atlas.test.cjs
       - uses: actions/configure-pages@v5
       - name: Assemble static site
@@ -36,7 +37,7 @@ jobs:
           mkdir -p _site/assets _site/data
           cp index.html _site/index.html
           cp assets/* _site/assets/
-          cp data/catalog.json data/history.json data/community.json data/organizations.json data/compass.json _site/data/
+          cp data/catalog.json data/history.json data/community.json data/organizations.json data/compass.json data/civic.json data/city-news.json _site/data/
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
