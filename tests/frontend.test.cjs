@@ -51,3 +51,31 @@ test('published snapshot includes attributed organization graph', () => {
   assert.equal(data.links.length,16);
   assert.equal(data.source.licence,'CC BY 4.0');
 });
+
+
+test('BC AI Compass runs as a distinct organization-only layer with provenance', () => {
+  const html=read('index.html');
+  const js=read('assets/app.js');
+  const data=JSON.parse(read('data/compass.json'));
+  assert.match(html,/id="compass-toggle"/);
+  assert.match(html,/id="compass-panel"/);
+  assert.match(html,/id="compass-category"/);
+  assert.match(html,/id="compass-local-only"/);
+  assert.match(js,/data\/compass\.json/);
+  assert.match(js,/compassLocationGroups/);
+  assert.match(js,/MUNICIPAL CENTROID \/ NOT AN OFFICE ADDRESS/);
+  assert.match(js,/DOCUMENTED ORG \/ NOT A JOB POSTING/);
+  assert.match(js,/Source-checked ≠ verified currently hiring/);
+  assert.match(html,/bc-aicompass\.ca/);
+  assert.equal(data.count,99);
+  assert.equal(data.source.licence,'CC BY 4.0');
+});
+
+test('Compass JSON is included in GitHub Pages deployment and not mixed with employer records', () => {
+  const workflow=read('.github/workflows/publish.yml');
+  assert.match(workflow,/data\/compass\.json/);
+  const js=read('assets/app.js');
+  assert.match(js,/compassMode/);
+  assert.match(js,/app\.compassLayer/);
+  assert.match(js,/app\.map\.removeLayer\(marker\)/);
+});
