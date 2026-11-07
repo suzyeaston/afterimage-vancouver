@@ -155,7 +155,15 @@
   function start(){
     const element=$('city-map');
     if(!element)return;
-    if(!window.maplibregl || !window.maplibregl.supported()){
+    // The official MapLibre 6 loader is an asynchronous ES module.
+    // Wait for it instead of displaying a false unavailable message.
+    if(!window.maplibregl){
+      window.addEventListener('afterimage:maplibre-ready',start,{once:true});
+      window.addEventListener('afterimage:maplibre-failed',unavailable,{once:true});
+      window.setTimeout(()=>{if(!city.map)unavailable();},25000);
+      return;
+    }
+    if(!window.maplibregl.supported()){
       unavailable();return;
     }
     const lib=window.maplibregl;
