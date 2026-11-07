@@ -63,6 +63,9 @@ test('child resizes WordPress iframe with constrained referrer and no secret dat
   const js=read('assets/atlas.js');
   assert.match(js,/afterimage:resize/);
   assert.match(js,/https:\/\/suzyeaston\.ca/);
+  assert.match(js,/afterimage:ready/);
+  assert.match(js,/afterimage:scroll/);
+  assert.match(js,/jumpTo\(id\)/);
   assert.match(js,/ResizeObserver/);
   assert.match(read('index.html'),/SOURCE CODE/);
 });
