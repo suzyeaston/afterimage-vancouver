@@ -80,6 +80,22 @@ python3 scripts/track.py list
 
 That file is `private/applications.db` and ignored by git. **Do not paste private recruiter conversations or personal financial information into the public JSON files.**
 
+## BC + AI / community echoes
+
+The **optional archival community layer** connects AFTERIMAGE with public, non-person community event records from [The Observatory](https://github.com/WalksWithASwagger/official-observer) (the archived public ecosystem map that is now maintained elsewhere). This is a **separate lens** from job listings: events are clearly marked *historical*, never presented as current RSVPs or hiring signals. A map marker is shown only where the venue is independently corroborated (H.R. MacMillan Space Centre). Other records appear as a source-linked historical directory without made-up coordinates.
+
+- Original data: **“The Observatory — BC + AI ecosystem map”**, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Modification: selected non-person Vancouver event entities from the upstream public data, omitted relationships and other regions, and added a corroborated venue pin.
+- Source revision: `732ca559c91105709ebab1ae2ea1fd6c79ff647c` (archived snapshot).
+- [Vancouver AI Meetup Archive](https://github.com/bc-ai-ecosystem/vancouver-ai) provides additional public transcripts and recaps; it is linked rather than copied here.
+- Refresh from the pinned upstream source using `python3 scripts/import_observatory.py`. Use `--input` to work from a verified local public `entities.json` file.
+
+We did **not** fork an archived application simply to borrow its data. The source remains credited, and the atlas stays its own creative instrument. No private community contact graphs or identifiable profiles enter the site.
+
+### A basemap migration note
+
+The original CARTO dark tiles began displaying **API KEY REQUIRED** watermarks after CARTO introduced API keys in September 2026. AFTERIMAGE now uses the [OpenStreetMap tile service](https://operations.osmfoundation.org/policies/tiles/) directly at low volume, using browser caching, proper attribution, and a locally applied CSS dark treatment. No key, no bulk tile downloads, no silent watermarking. For significant traffic, evaluate an appropriate paid or self-hosted basemap provider.
+
 ## Next mutations
 
 - Expand source adapters beyond the current two verified ATS boards; validate one at a time.
@@ -91,6 +107,6 @@ That file is `private/applications.db` and ignored by git. **Do not paste privat
 
 ## Respect the city
 
-Vancouver is on the unceded territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh (Squamish Nation) and səlilwətaɬ (Tsleil-Waututh Nation). The map uses OpenStreetMap data styled by CARTO. Attribution is shown on the map. CSS and artwork here are original; no third-party poster or photography is embedded.
+Vancouver is on the unceded territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh (Squamish Nation) and səlilwətaɬ (Tsleil-Waututh Nation). The map uses OpenStreetMap tiles and a local dark CSS treatment. Attribution is shown on the map. CSS and artwork here are original; no third-party poster or photography is embedded.
 
 MIT-licensed project code. Links and company names belong to their respective owners.
