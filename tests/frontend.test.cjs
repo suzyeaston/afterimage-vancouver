@@ -79,3 +79,15 @@ test('Compass JSON is included in GitHub Pages deployment and not mixed with emp
   assert.match(js,/app\.compassLayer/);
   assert.match(js,/app\.map\.removeLayer\(marker\)/);
 });
+
+
+test('curated same-entity Compass links do not imply current partnerships',()=>{
+  const js=read('assets/app.js');
+  const data=JSON.parse(read('data/compass.json'));
+  assert.equal(data.crosswalk.length,4);
+  assert.match(js,/data-compass-crosswalk/);
+  assert.match(js,/data-observer-crosswalk/);
+  assert.match(js,/navigateToCompass/);
+  assert.match(js,/navigateToObserver/);
+  assert.match(js,/NOT PROOF OF A CURRENT RELATIONSHIP/);
+});
