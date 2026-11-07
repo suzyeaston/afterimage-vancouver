@@ -3,135 +3,119 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080c15">
-  <meta name="description" content="AFTERIMAGE is an experimental, source-backed atlas of creative technology, engineering and media work around Vancouver. Follow the signals.">
-  <meta property="og:title" content="AFTERIMAGE // VANCOUVER">
-  <meta property="og:description" content="The city is sending signals. An atlas of creative work, strange intersections and engineering opportunities.">
-  <title>AFTERIMAGE / VANCOUVER — a creative work atlas</title>
+  <meta name="theme-color" content="#080e17">
+  <meta name="description" content="AFTERIMAGE: creative work, source-checked organizations and historical community connections around Vancouver. A city-scale field recording by Suzy Easton.">
+  <meta property="og:title" content="AFTERIMAGE / VANCOUVER">
+  <title>AFTERIMAGE / VANCOUVER · Creative work atlas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzxg+QwLDfEOBvkN9e+3KwNSmS4=" crossorigin="">
-  <link rel="stylesheet" href="./assets/style.css">
-  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script defer src="./assets/app.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="./assets/atlas.css">
+  <script defer src="./assets/atlas-core.js"></script>
+  <script defer src="./assets/atlas.js"></script>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="shell">
-    <header class="topbar">
-      <a class="brand" href="#home" aria-label="Afterimage home"><span class="brand-symbol" aria-hidden="true">✳</span><span>AFTER<span class="brand-ghost">IMAGE</span></span><small>/ VANCOUVER</small></a>
-      <div class="top-signal"><span class="live-led"></span> SIGNAL ARCHIVE <span class="top-dash">//</span> VANCOUVER, BC <span class="top-dash">//</span> <span id="utc-clock">PACIFIC SIGNAL</span></div>
-      <a href="https://suzyeaston.ca" class="outside-link" target="_blank" rel="noopener">BY SUZY EASTON <span>↗</span></a>
+  <a class="skip-link" href="#field">Skip to the atlas</a>
+  <div class="site">
+    <header class="mast">
+      <div class="mast-top">
+        <a class="wordmark" href="#top" aria-label="AFTERIMAGE Vancouver home"><span class="asterisk">✳</span> AFTER<span class="accent-pink">IMAGE</span><small> / VANCOUVER</small></a>
+        <span class="mast-meta"><span class="live-dot"></span> PUBLIC SIGNALS · NOT A RECRUITING FUNNEL</span>
+        <a class="suzy-link" href="https://suzyeaston.ca/" target="_blank" rel="noopener noreferrer">AN INSTRUMENT BY SUZY EASTON ↗</a>
+      </div>
+      <nav class="jump" aria-label="Explore AFTERIMAGE">
+        <a href="#field">01 / Signal map</a>
+        <a href="#jobs">02 / Job leads</a>
+        <a href="#directory">03 / BC AI directory</a>
+        <a href="#connections">04 / Connections</a>
+        <a href="#community">05 / Community</a>
+      </nav>
     </header>
 
-    <main class="workspace" id="home">
-      <aside class="sidebar" aria-label="Atlas controls">
-        <div class="hero-block">
-          <div class="eyebrow"><span class="mini-led"></span> FIELD NOTES / NO. 001</div>
-          <h1>THE CITY<br>IS <em>SENDING</em><br>SIGNALS<span class="period">.</span></h1>
-          <p>An atlas of people building strange, beautiful, useful things. Creative technology, engineering, image-making and sound. Vancouver is the instrument.</p>
-          <div class="hero-rule"><span>49° 16' N</span><span>123° 07' W</span><span>☽  PACIFIC</span></div>
+    <main id="top">
+      <section class="intro" aria-labelledby="hero">
+        <div>
+          <p class="eyebrow">TRANSMISSION NO. 002 · 49° 16′ N, 123° 07′ W</p>
+          <h1 id="hero">THE CITY IS<br><span>SENDING SIGNALS.</span></h1>
+          <p class="dek">Studios making worlds. Engineers making improbable things work. Communities creating the next scene. A public, source-linked atlas of creative work in Vancouver.</p>
+          <p class="intro-joke">Not LinkedIn with mountains. The mountains are innocent.</p>
         </div>
-
-        <div class="stat-strip" role="status" aria-live="polite">
-          <div><strong id="employer-count">—</strong><small>PLACES</small></div>
-          <div><strong id="job-count">—</strong><small>LISTED ROLES</small></div>
-          <div><strong id="signal-count">—</strong><small>DISPATCHES</small></div>
+        <div class="stats" aria-label="Public dataset totals">
+          <div><strong id="stat-employers">…</strong><span>CREATIVE EMPLOYERS</span></div>
+          <div><strong id="stat-jobs">…</strong><span>RECENTLY OBSERVED ROLES*</span></div>
+          <div><strong id="stat-directory">…</strong><span>COMPASS RESEARCH RECORDS</span></div>
+          <div><strong id="stat-connections">…</strong><span>HISTORICAL NETWORK NODES</span></div>
+          <p>* Observed listings are not guaranteed still open. Always follow the source.</p>
         </div>
+      </section>
 
-        <section class="control-section" aria-label="Explore the field">
-          <div class="section-head"><span>01 / TUNE THE FREQUENCY</span><span class="tiny-star">✳</span></div>
-          <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search studios, roles, technologies..." autocomplete="off" aria-label="Search companies and jobs"><kbd>/</kbd></label>
-          <div class="filter-grid" id="sector-filters" aria-label="Filter by industry">
-            <button type="button" class="chip is-active" data-sector="all" aria-pressed="true">ALL SIGNALS</button>
-            <button type="button" class="chip" data-sector="film" aria-pressed="false">◉ FILM + VFX</button>
-            <button type="button" class="chip" data-sector="audio" aria-pressed="false">♫ AUDIO</button>
-            <button type="button" class="chip" data-sector="games" aria-pressed="false">✧ GAMES</button>
+      <section class="search-section" aria-label="Search every public record">
+        <label for="global-search">SEARCH THE WHOLE TRANSMISSION</label>
+        <div class="searchbar"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="e.g. music, VFX, animation, research, UBC…" autocomplete="off"><kbd>/</kbd></div>
+        <p id="search-feedback" role="status">Every frequency is on. Search only if you want to narrow the signal.</p>
+      </section>
+
+      <section id="field" class="feature section" aria-labelledby="field-title">
+        <div class="section-heading"><div><p class="eyebrow">01 / THE FIELD</p><h2 id="field-title">A map that actually works.</h2></div><p class="section-aside">No API keys. No missing map tiles. The coordinates are real; the star chart is deliberately schematic.</p></div>
+        <div class="map-layout">
+          <div class="map-canvas">
+            <div class="map-canvas-top"><span>VANCOUVER // COORDINATE FIELD</span><span>N ↑</span></div>
+            <svg id="signal-map" viewBox="0 0 1200 690" role="group" aria-label="Schematic Vancouver coordinate map with employer, Compass research and community markers" preserveAspectRatio="xMidYMid meet">
+              <g id="map-background" aria-hidden="true"></g>
+              <g id="map-signals"></g>
+            </svg>
+            <div class="map-key"><span><i class="dot pink"></i> CREATIVE EMPLOYERS</span><span><i class="dot mint"></i> SOURCED ORGANIZATIONS</span><span><i class="dot amber"></i> COMMUNITY VENUE</span></div>
+            <p class="map-note">Point locations follow their stored coordinates. Shared municipal centroids appear as one numbered cluster, not 60 imaginary offices. <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">Need streets? Open OpenStreetMap ↗</a></p>
           </div>
-          <label class="toggle-row"><input id="roles-only" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Show places with recently listed roles</span><span class="toggle-right">LIVE-ISH</span></label>
-          <label class="toggle-row community-switch"><input id="community-enabled" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Plot BC + AI community echoes</span><span class="toggle-right">ARCHIVE</span></label>
-          <div class="community-panel" id="community-panel" hidden>
-            <div class="community-eyebrow">✳ RECLAIMED TRANSMISSIONS / NOT JOBS</div>
-            <p id="community-note">Historical community records, not a live events calendar. Source data licensed CC BY 4.0.</p>
-            <div id="community-entries" class="community-entries" aria-label="Archival community events"></div>
-            <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">THE OBSERVATORY / BC + AI ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed for AFTERIMAGE. No endorsement implied. <a href="https://github.com/bc-ai-ecosystem/vancouver-ai" target="_blank" rel="noopener noreferrer">Meetup archive ↗</a></p>
-          </div>
-
-          <label class="toggle-row compass-switch"><input id="compass-toggle" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Explore source-checked BC organizations</span><span class="toggle-right">COMPASS</span></label>
-          <label class="toggle-row organization-switch"><input id="org-network-toggle" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Connect the organizations</span><span class="toggle-right">NETWORK</span></label>
-          <div class="organization-panel" id="organization-panel" hidden>
-            <div class="community-eyebrow">✳ THE ORGANIZATION CONSTELLATION</div>
-            <p class="org-intro">Historical community relationships, not recruiting signals. Node positions are conceptual, not geographic.</p>
-            <label class="org-field-label" for="organization-search">SEARCH THE NETWORK</label>
-            <input id="organization-search" type="search" placeholder="Organizations, tags, connections…" autocomplete="off" aria-label="Search public organizations">
-            <label class="org-field-label" for="organization-region">SCOPE</label>
-            <select id="organization-region" aria-label="Filter organizations by region">
-              <option value="all">All regions</option>
-              <option value="vancouver">Vancouver</option>
-              <option value="provincial">BC / provincial</option>
-              <option value="victoria">Victoria</option>
-              <option value="national">National</option>
-            </select>
-            <div class="org-list-head"><span>ARCHIVED NODES</span><span id="organization-count">LOADING</span></div>
-            <div id="organization-list" class="organization-list" aria-label="Documented organizations"></div>
-            <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">SOURCE: THE OBSERVATORY ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed. No endorsement or current partnership implied.</p>
-          </div>
-        </section>
-
-        <section class="compass-panel" id="compass-panel" aria-label="BC AI Compass organization directory" hidden>
-          <div class="compass-heading"><strong>✳ BC AI COMPASS / VERIFIED SOURCE ARCHIVE</strong><span id="compass-count">—</span></div>
-          <p class="compass-asof" id="compass-asof">PUBLIC DATASET SNAPSHOT / CHECKING DATE...</p>
-          <p>Research organizations by original evidence, not by who might be hiring. Directory is a dated subset of a separate community project.</p>
-          <label class="compass-label" for="compass-search">TUNE IN</label>
-          <input id="compass-search" type="search" placeholder="Organizations, skills, places…" autocomplete="off" aria-label="Search source-checked organizations">
-          <label class="compass-label" for="compass-category">TYPE OF SIGNAL</label>
-          <select id="compass-category" aria-label="Filter organizations by sector"><option value="all">All kinds of organizations</option></select>
-          <label class="compass-show"><input id="compass-local-only" type="checkbox" checked> Metro Vancouver only</label>
-          <div class="compass-entries" id="compass-list" aria-label="Source checked organizations"></div>
-          <div class="compass-credit"><a href="https://bc-aicompass.ca/" target="_blank" rel="noopener noreferrer">EXPLORE MARTIN'S ORIGINAL COMPASS ↗</a><br>
-          Source: <a href="https://github.com/MartinMontero/BCAICompass" target="_blank" rel="noopener noreferrer">BC AI Compass</a>, CC BY 4.0. Subset adapted for AFTERIMAGE; independent project, no endorsement implied.</div>
-        </section>
-
-        <section class="list-section" aria-label="Employer directory">
-          <div class="section-head"><span>02 / SIGNALS IN RANGE</span><span id="visible-count">— LOCATED</span></div>
-          <div id="company-list" class="company-list"><div class="list-loading">SEARCHING THE STATIC...</div></div>
-        </section>
-
-        <footer class="side-footer"><span>NO RECRUITING FUNNEL. NO GROWTH HACKS.</span><span>JUST A MAP OF POSSIBLE FUTURES.</span><a href="https://github.com/suzyeaston/afterimage-vancouver" target="_blank" rel="noopener">OPEN SOURCE ↗</a></footer>
-      </aside>
-
-      <section class="stage" aria-label="Interactive map of Vancouver creative companies">
-        <div class="map-wrap">
-          <div class="map-grid" aria-hidden="true"></div>
-          <div id="org-network-layer" class="org-network-layer" hidden>
-            <div class="org-network-mast"><strong>ORGANIZATION CONSTELLATION</strong><span>20 PUBLIC ARCHIVE NODES // NOT A STREET MAP</span></div>
-            <svg id="org-network" viewBox="0 0 1000 660" role="group" aria-label="Organization network with clickable connected nodes"></svg>
-            <div class="org-network-foot"><span id="org-network-status">RECEIVING PUBLIC ORGANIZATIONS...</span><span>ARCHIVED CONNECTIONS ≠ CURRENT PARTNERSHIPS OR JOB OPENINGS</span></div>
-          </div>
-
-          <div id="map" role="application" aria-label="Map of creative and technology employers around Vancouver"></div>
-          <div class="map-vignette" aria-hidden="true"></div>
-          <div class="map-topline"><span><span class="live-led"></span> SIGNAL FIELD // VANCOUVER</span><span class="map-grid-pos">LOCAL COORDINATES / APPROXIMATE</span></div>
-          <div class="compass-map-meta" id="compass-map-meta" aria-live="polite">SOURCE-LOCATED CLUSTERS</div>
-          <div class="map-compass" aria-hidden="true"><span>N</span><span class="compass-arrow">↑</span></div>
-          <div class="map-bottomline"><div><span class="key-dot film"></span> FILM / VFX <span class="key-dot audio"></span> AUDIO <span class="key-dot games"></span> GAMES <span class="key-dot community"></span> COMMUNITY ARCHIVE</div><div>CLICK A PULSE TO FOLLOW IT <span aria-hidden="true">↗</span></div></div>
-          <div id="no-map" class="map-unavailable" hidden>Map tiles unavailable. The directory still works. <a href="https://www.openstreetmap.org/#map=12/49.27/-123.11" target="_blank" rel="noopener">View Vancouver map ↗</a></div>
-          <div class="map-annotation" aria-hidden="true">YOU ARE HERE, <span>PROBABLY</span><svg width="86" height="29" viewBox="0 0 86 29"><path d="M1 4 C32 6 36 25 83 16" stroke="currentColor" fill="none" stroke-width="1" stroke-dasharray="3 4"/></svg></div>
+          <aside class="readout" aria-label="Selected map signal" id="map-readout">
+            <span class="eyebrow">SIGNAL RECEIVER / READY</span>
+            <h3>Pick a pulse.</h3>
+            <p>Pink dots are creative employers. Mint clusters are research leads. Amber is one historical community venue. Everyone is welcome. Not everyone is hiring.</p>
+            <p class="readout-note">Click a marker to see the source and jump to its record.</p>
+          </aside>
         </div>
+      </section>
 
-        <div class="dispatch">
-          <div class="dispatch-title"><span>03 / TRANSMISSIONS</span><small>FIELD OBSERVATIONS, NOT HOT TAKES</small></div>
-          <div class="dispatch-track" id="signals-list"></div>
-          <div class="dispatch-footer"><span id="snapshot-label">LOADING SNAPSHOT...</span><span>OPEN THE SOURCE. CHECK THE DATE. MAKE YOUR OWN MAP.</span></div>
+      <section id="jobs" class="section" aria-labelledby="jobs-title">
+        <div class="section-heading"><div><p class="eyebrow">02 / CREATIVE ECONOMY</p><h2 id="jobs-title">Job leads, not job-board theatre.</h2></div><p class="section-aside">A small, curated starting set. Each role keeps its sighting date and original listing. A watched company is not automatically hiring.</p></div>
+        <div class="section-toolbar"><span id="jobs-count" role="status">READING SOURCE DATA…</span><span class="toolbar-note">FILM / SOUND / GAMES</span></div>
+        <div id="jobs-list" class="cards jobs-grid"><p class="placeholder">Tuning the career receiver…</p></div>
+      </section>
+
+      <section id="directory" class="section directory-section" aria-labelledby="directory-title">
+        <div class="section-heading"><div><p class="eyebrow">03 / SOURCE-CHECKED RESEARCH</p><h2 id="directory-title">99 doors. Not 99 job offers.</h2></div><p class="section-aside">Adapted from Martin Montero's <a href="https://bc-aicompass.ca" target="_blank" rel="noopener noreferrer">BC AI Compass ↗</a>. Source-checked as of the dates shown, not continuously re-verified.</p></div>
+        <div class="section-toolbar directory-toolbar"><span id="directory-count" role="status">READING SOURCE DATA…</span><label for="directory-category">BROWSE BY CATEGORY <select id="directory-category"><option value="all">All categories</option></select></label></div>
+        <div id="directory-list" class="directory-list"><p class="placeholder">Looking for the source of the source…</p></div>
+        <p class="attribution">Dataset: <a href="https://github.com/MartinMontero/BCAICompass" target="_blank" rel="noopener noreferrer">BC AI Compass</a> by Martin Montero, CC BY 4.0. Export dated August 20, 2026. This is independent work; no partnership or endorsement implied. <span>Map coordinates in this dataset are mostly municipal centroids.</span></p>
+      </section>
+
+      <section id="connections" class="section" aria-labelledby="connections-title">
+        <div class="section-heading"><div><p class="eyebrow">04 / HISTORICAL RELATIONSHIPS</p><h2 id="connections-title">Follow the weird little threads.</h2></div><p class="section-aside">A constellation adapted from The Observatory's archived public records. Connection verbs describe historical source data, not guaranteed current partnerships.</p></div>
+        <div class="network-panel">
+          <svg id="relationship-map" viewBox="0 0 1200 600" role="group" aria-label="Archived relationship constellation of public BC AI organizations"></svg>
+          <p>These positions are conceptual. Absolutely no one is headquartered in the constellation.</p>
         </div>
+        <div class="section-toolbar"><span id="network-count">LOADING CONNECTIONS…</span><span class="toolbar-note">SOURCE: THE OBSERVATORY / CC BY 4.0</span></div>
+        <div id="network-list" class="network-list"><p class="placeholder">Following the documented wires…</p></div>
+      </section>
 
-        <section class="detail" id="detail" aria-label="Selected company details" aria-live="polite" hidden>
-          <div class="detail-header"><span id="detail-code">FOUND SIGNAL</span><button id="close-detail" type="button" aria-label="Close details">✕</button></div>
-          <div id="detail-body"></div>
-        </section>
+      <section id="community" class="section" aria-labelledby="community-title">
+        <div class="section-heading"><div><p class="eyebrow">05 / THE SCENE</p><h2 id="community-title">Community echoes.</h2></div><p class="section-aside">Seven historical BC + AI and Futureproof programme records. This is an archive, not a current event calendar. Please do not arrive at a venue based on a fossil.</p></div>
+        <div id="community-list" class="community-grid"><p class="placeholder">Retrieving archived transmissions…</p></div>
+        <p class="attribution">Historical data: <a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">The Observatory</a>, CC BY 4.0. <a href="https://github.com/bc-ai-ecosystem/vancouver-ai" target="_blank" rel="noopener noreferrer">Vancouver AI meetup archive ↗</a></p>
+      </section>
+
+      <section id="transmissions" class="section" aria-labelledby="transmissions-title">
+        <div class="section-heading"><div><p class="eyebrow">06 / FIELD OBSERVATIONS</p><h2 id="transmissions-title">Unsolicited transmissions.</h2></div><p class="section-aside">Research notes with sources, not a prophecy engine.</p></div>
+        <div id="signals-list" class="signals-grid"><p class="placeholder">Receiving dispatches…</p></div>
       </section>
     </main>
+
+    <footer class="footer">
+      <div><span class="asterisk">✳</span> AFTERIMAGE <span class="dim">/ VANCOUVER</span></div>
+      <p>Built by Suzy Easton. No algorithmic career destiny. Just an unusual instrument for spotting real doors.</p>
+      <p><a href="https://github.com/suzyeaston/afterimage-vancouver" target="_blank" rel="noopener noreferrer">SOURCE CODE ↗</a> · <a href="https://bc-aicompass.ca" target="_blank" rel="noopener noreferrer">BC AI COMPASS ↗</a> · <a href="https://official.observer" target="_blank" rel="noopener noreferrer">THE OBSERVATORY ↗</a></p>
+    </footer>
   </div>
 </body>
 </html>
