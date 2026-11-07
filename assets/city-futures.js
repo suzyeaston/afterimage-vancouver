@@ -71,6 +71,7 @@
     renderIssues();renderMilestones();renderNews();renderContacts();
     $('futures-status').textContent=state.civic.issues.length+' TRACKED TOPICS · '
       +(state.news?.items.length||0)+' LINKED HEADLINES · CURATED '+state.civic.as_of
+      +' · NEWS CHECK '+(state.news?.observed_at||'NOT YET REFRESHED')
       +' · NO ELECTORAL FORECASTS';
   }
   async function get(name){
