@@ -11,17 +11,21 @@ const { chromium } = require('playwright');
   const launch = { headless:true, args:['--enable-webgl','--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'] };
   if (process.env.CHROME_BIN) launch.executablePath = process.env.CHROME_BIN;
   let browser;
+  let page;
+  const errors=[];
+  const failedRequests=[];
   try {
     browser = await chromium.launch(launch);
-    const page = await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
-    const errors = [];
+    page = await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
+    page.on('requestfailed',req=>failedRequests.push(req.url()+' '+(req.failure()?.errorText||'')));
+    page.on('console',msg=>{if(msg.type()==='error'||msg.type()==='warning')console.log('BROWSER '+msg.type()+': '+msg.text());});
     page.on('pageerror', err=>errors.push(err.message));
     await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded',timeout:30000});
     await page.waitForFunction(() => {
       const status = window.AfterimageCityMap?.status?.();
       return !!(status && status.ready && status.employers === 10 &&
         status.organizations === 99 && status.compassClusters === 6);
-    },null,{timeout:65000});
+    },null,{timeout:22000});
     const status = await page.evaluate(()=>window.AfterimageCityMap.status());
     assert.equal(status.loaded,true,'MapLibre loaded a vector-map style');
     assert.equal(status.fallback,false,'The map is visible, not the error fallback');
@@ -46,6 +50,21 @@ const { chromium } = require('playwright');
     console.log('SUCCESS: real vector streets loaded with 10 employers, 6 Compass centroid groups, 99 directory records.');
   } catch (error) {
     console.error('Real browser map smoke test failed:',error.message);
+    console.error('Failed requests:',failedRequests.slice(0,30));
+    console.error('Page errors:',errors.slice(0,30));
+    if(page){
+      try{
+        console.error('Map diagnostic:',JSON.stringify(await page.evaluate(()=>({
+          status:window.AfterimageCityMap?.status?.()||null,
+          maplibrePresent:!!window.maplibregl,
+          supported:window.maplibregl?.supported?.(),
+          mapElement:!!document.getElementById('city-map'),
+          fallbackText:document.getElementById('city-map-fallback')?.innerText,
+          mapStylesheets:[...document.styleSheets].map(x=>x.href).filter(Boolean)
+        }))));
+        await page.screenshot({path:path.join(out,'map-error.png'),fullPage:false});
+      }catch(inner){console.error('Failed to capture map diagnostic:',inner.message);}
+    }
     throw error;
   } finally {
     if(browser)await browser.close();
