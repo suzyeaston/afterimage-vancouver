@@ -15,6 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 REVISION = "4d0de44c99e482100d9946c6f494093b393cec36"
 SOURCE = "https://raw.githubusercontent.com/MartinMontero/BCAICompass/" + REVISION + "/public/ecosystem.json"
 REGIONS = {"Metro Vancouver", "Province-wide"}
+CROSSWALK = [
+    {"observer_id": "org-bc-ai-ecosystem-association", "compass_id": "compass-bc-ai-ecosystem-association"},
+    {"observer_id": "org-eth-s-lab", "compass_id": "compass-ethos-lab"},
+    {"observer_id": "org-innovate-bc", "compass_id": "compass-innovate-bc"},
+    {"observer_id": "org-ubc", "compass_id": "compass-ubc"},
+]
 BC_BOX = (-140, -113, 48, 60)
 
 
@@ -83,9 +89,10 @@ def build_view(dataset: dict) -> dict:
             "licence": "CC BY 4.0",
             "licence_url": "https://creativecommons.org/licenses/by/4.0/",
             "attribution": "BC AI Compass (bc-aicompass.ca), dataset by Martin Montero, CC BY 4.0",
-            "changes": "Filtered to Metro Vancouver and Province-wide verified organizations, removed people and contact fields; kept source URLs/dates/coordinates/precision; grouped identical points rather than inventing office locations.",
+            "changes": "Filtered to Metro Vancouver and Province-wide verified organizations, removed people and contact fields; kept source URLs/dates/coordinates/precision; grouped identical points rather than inventing office locations. Added a four-record editorial ID/name crosswalk to matching Observatory archive entries (same-entity references, NOT partnership claims).",
             "affiliate_notice": "AFTERIMAGE is independently made; this import does not claim BC AI Compass or listed organizations endorse AFTERIMAGE.",
         },
+        "crosswalk": [link for link in CROSSWALK if link["compass_id"] in {"compass-" + ident for ident in seen}],
         "count": len(records),
         "regions": ["Metro Vancouver", "Province-wide"],
         "categories": dataset["categories"],
