@@ -1,93 +1,54 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const read = name => fs.readFileSync(path.join(__dirname, '..', name), 'utf8');
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const read=name=>fs.readFileSync(path.join(__dirname,'..',name),'utf8');
 
-test('map uses attributed OSM tiles without secret or paid CARTO tiles', () => {
-  const js = read('assets/app.js');
-  assert.match(js, /https:\/\/tile\.openstreetmap\.org\/\{z\}\/\{x\}\/\{y\}\.png/);
-  assert.match(js, /OpenStreetMap contributors/);
-  assert.doesNotMatch(js, /basemaps\.cartocdn\.com/);
-});
-
-test('community is opt-in and never presented as current hiring', () => {
-  const html = read('index.html');
-  const js = read('assets/app.js');
-  assert.match(html, /id="community-enabled" type="checkbox"/);
-  assert.match(html, /RECLAIMED TRANSMISSIONS \/ NOT JOBS/);
-  assert.match(js, /ARCHIVE RECEIVED/);
-  assert.match(js, /NOT A JOB OPENING/);
-  assert.match(js, /app\.showCommunity/);
-  assert.match(js, /data\/community\.json/);
-  assert.match(html, /creativecommons\.org\/licenses\/by\/4\.0/);
-});
-
-test('publisher includes the committed public community dataset', () => {
-  const wf = read('.github/workflows/publish.yml');
-  assert.match(wf, /data\/community\.json/);
-});
-
-test('org constellation is separated from the hiring and geographic layers', () => {
+test('v2 ships one visible page with all data and original sources',()=>{
   const html=read('index.html');
-  const js=read('assets/app.js');
-  const css=read('assets/style.css');
-  assert.match(html, /id="org-network-toggle"/);
-  assert.match(html, /id="org-network-layer"/);
-  assert.match(html, /id="organization-list"/);
-  assert.match(js, /data\/organizations\.json/);
-  assert.match(js, /renderOrganizationGraph/);
-  assert.match(js, /orgPositions/);
-  assert.match(js, /NOT A JOB LISTING/);
-  assert.match(js, /POSITIONS ARE CONCEPTUAL, NOT LOCATIONS/);
-  assert.match(css, /org-network-layer\[hidden\]/);
-});
-
-test('published snapshot includes attributed organization graph', () => {
-  const manifest=read('.github/workflows/publish.yml');
-  assert.match(manifest,/data\/organizations\.json/);
-  const data=JSON.parse(read('data/organizations.json'));
-  assert.equal(data.organizations.length,20);
-  assert.equal(data.links.length,16);
-  assert.equal(data.source.licence,'CC BY 4.0');
-});
-
-
-test('BC AI Compass runs as a distinct organization-only layer with provenance', () => {
-  const html=read('index.html');
-  const js=read('assets/app.js');
-  const data=JSON.parse(read('data/compass.json'));
-  assert.match(html,/id="compass-toggle"/);
-  assert.match(html,/id="compass-panel"/);
-  assert.match(html,/id="compass-category"/);
-  assert.match(html,/id="compass-local-only"/);
-  assert.match(js,/data\/compass\.json/);
-  assert.match(js,/compassLocationGroups/);
-  assert.match(js,/MUNICIPAL CENTROID \/ NOT AN OFFICE ADDRESS/);
-  assert.match(js,/DOCUMENTED ORG \/ NOT A JOB POSTING/);
-  assert.match(js,/Source-checked ≠ verified currently hiring/);
+  for(const id of ['field','jobs','directory','connections','community','transmissions']){
+    assert.match(html,new RegExp('id="'+id+'"'));
+  }
+  assert.match(html,/atlas\.css/);
+  assert.match(html,/atlas-core\.js/);
+  assert.match(html,/atlas\.js/);
   assert.match(html,/bc-aicompass\.ca/);
-  assert.equal(data.count,99);
-  assert.equal(data.source.licence,'CC BY 4.0');
+  assert.match(html,/WalksWithASwagger\/official-observer/);
+  assert.doesNotMatch(html,/type="checkbox"/);
+  assert.doesNotMatch(html,/leaflet/i);
 });
 
-test('Compass JSON is included in GitHub Pages deployment and not mixed with employer records', () => {
-  const workflow=read('.github/workflows/publish.yml');
-  assert.match(workflow,/data\/compass\.json/);
-  const js=read('assets/app.js');
-  assert.match(js,/compassMode/);
-  assert.match(js,/app\.compassLayer/);
-  assert.match(js,/app\.map\.removeLayer\(marker\)/);
+test('all published public datasets are retained and credited',()=>{
+  const snapshot=JSON.parse(read('data/catalog.json'));
+  const compass=JSON.parse(read('data/compass.json'));
+  const graph=JSON.parse(read('data/organizations.json'));
+  const community=JSON.parse(read('data/community.json'));
+  assert.equal(snapshot.employers.length,10);
+  assert.equal(compass.organizations.length,99);
+  assert.equal(graph.organizations.length,20);
+  assert.equal(community.events.length,7);
+  assert.equal(compass.source.licence,'CC BY 4.0');
+  assert.equal(graph.source.licence,'CC BY 4.0');
+  assert.equal(community.source.licence,'CC BY 4.0');
+  assert.equal(compass.crosswalk.length,4);
+  assert.ok(snapshot.jobs.every(j=>j.url.startsWith('https://')));
 });
 
+test('original job sightings still have explicit fresh vs review statuses',()=>{
+  const js=read('assets/atlas.js');
+  assert.match(js,/jobStatus\(j\)/);
+  assert.match(js,/dateLabel\(j\.observed_at\)/);
+  assert.match(js,/WATCHLIST ONLY/);
+  assert.match(js,/OFFICIAL CAREERS/);
+  assert.match(js,/OPEN ORIGINAL LISTING/);
+  assert.match(js,/SOURCE-CHECKED ORGANIZATIONS/);
+});
 
-test('curated same-entity Compass links do not imply current partnerships',()=>{
-  const js=read('assets/app.js');
-  const data=JSON.parse(read('data/compass.json'));
-  assert.equal(data.crosswalk.length,4);
-  assert.match(js,/data-compass-crosswalk/);
-  assert.match(js,/data-observer-crosswalk/);
-  assert.match(js,/navigateToCompass/);
-  assert.match(js,/navigateToObserver/);
-  assert.match(js,/NOT PROOF OF A CURRENT RELATIONSHIP/);
+test('publication remains dependency-free and includes all four datasets',()=>{
+  const wf=read('.github/workflows/publish.yml');
+  for(const name of ['catalog.json','history.json','community.json','organizations.json','compass.json']){
+    assert.ok(wf.includes('data/'+name),name+' must be published');
+  }
+  assert.match(wf,/node --check assets\/atlas\.js/);
+  assert.match(wf,/node --test tests\/atlas\.test\.cjs/);
 });
