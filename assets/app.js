@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = {data:null, community:null, showCommunity:false, communityMarker:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
+  const app = {data:null, community:null, showCommunity:false, communityMarker:null, organizations:null, orgMode:false, orgSelected:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
   const $ = (id) => document.getElementById(id);
   const safe = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const link = (u) => {try {const url = new URL(u); return url.protocol === 'https:' ? url.href : '#';} catch {return '#';}};
@@ -156,7 +156,126 @@
     renderCommunity();render();
   }
 
-  function closeDetail(){app.selected=null;$('detail').hidden=true;render();}
+
+  // Organizations form a relationship graph, never a pseudo-geographic office map.
+  function organizationsInView(){
+    if(!app.organizations) return [];
+    const q=($('organization-search').value||'').trim().toLowerCase();
+    const region=$('organization-region').value;
+    return app.organizations.organizations.filter(o=>{
+      if(region!=='all' && o.region!==region)return false;
+      return !q || [o.name,o.region,o.description,...o.tags,...o.connections.map(c=>c.name)].join(' ').toLowerCase().includes(q);
+    });
+  }
+
+  function orgPositions(nodes){
+    const centerId='org-bc-ai-ecosystem-association';
+    const local=nodes.filter(n=>n.id!==centerId&&n.region==='vancouver');
+    const outer=nodes.filter(n=>n.id!==centerId&&n.region!=='vancouver');
+    const pos=new Map();
+    if(nodes.find(n=>n.id===centerId))pos.set(centerId,{x:500,y:330});
+    const ring=(records,rx,ry,start)=>{
+      records.forEach((node,i)=>{
+        const a=start+(2*Math.PI*i/Math.max(records.length,1));
+        pos.set(node.id,{x:500+rx*Math.cos(a),y:330+ry*Math.sin(a)});
+      });
+    };
+    ring(local,270,178,-Math.PI/2);
+    ring(outer,412,275,-Math.PI/2+0.19);
+    return pos;
+  }
+
+  function renderOrganizationGraph(nodes){
+    const surface=$('org-network');
+    const status=$('org-network-status');
+    if(!app.organizations){
+      status.textContent='ARCHIVE UNAVAILABLE / HIRING SIGNALS UNAFFECTED';
+      surface.innerHTML='';
+      return;
+    }
+    const positions=orgPositions(nodes);
+    const ids=new Set(nodes.map(n=>n.id));
+    const edges=app.organizations.links.filter(e=>ids.has(e.source)&&ids.has(e.target));
+    const lines=edges.map(e=>{
+      const a=positions.get(e.source),b=positions.get(e.target);
+      return '<line class="org-edge" x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'" aria-hidden="true"/>';
+    }).join('');
+    const shapes=nodes.map(o=>{
+      const p=positions.get(o.id);
+      const hub=o.id==='org-bc-ai-ecosystem-association';
+      const name=o.name.length>24?o.name.slice(0,23)+'…':o.name;
+      return '<g role="button" tabindex="0" focusable="true" aria-label="Inspect '+safe(o.name)+'" data-org-id="'+safe(o.id)+'" class="org-graph-node '+safe(o.region)+(o.id===app.orgSelected?' is-selected':'')+'">'
+        +'<circle class="org-halo" cx="'+p.x+'" cy="'+p.y+'" r="'+(hub?38:23)+'"/>'
+        +'<circle class="org-core" cx="'+p.x+'" cy="'+p.y+'" r="'+(hub?18:10)+'"/>'
+        +'<text class="org-label" x="'+p.x+'" y="'+(p.y+(hub?54:36))+'" text-anchor="middle">'+safe(name)+'</text>'
+        +'</g>';
+    }).join('');
+    surface.innerHTML='<g class="org-links">'+lines+'</g><g class="org-nodes">'+shapes+'</g>';
+    status.textContent=nodes.length+' ORGANIZATIONS / '+edges.length+' DOCUMENTED ORG LINKS // PINNED ARCHIVE';
+  }
+
+  function renderOrganizations(){
+    $('organization-panel').hidden=!app.orgMode;
+    $('org-network-layer').hidden=!app.orgMode;
+    document.querySelector('.shell').classList.toggle('org-mode',app.orgMode);
+    if(!app.orgMode)return;
+    if(!app.organizations){
+      $('organization-list').textContent='Loading attributed organization records…';
+      $('organization-count').textContent='—';
+      renderOrganizationGraph([]);
+      return;
+    }
+    const nodes=organizationsInView();
+    $('organization-count').textContent=nodes.length+' / '+app.organizations.organizations.length;
+    $('organization-list').innerHTML=nodes.length?nodes.map(o=>{
+      return '<button type="button" class="org-list-entry" data-org-id="'+safe(o.id)+'" aria-current="'+(o.id===app.orgSelected)+'"><strong>'+safe(o.name)+'</strong><small>'+safe(o.region.toUpperCase())+' · '+o.connections.length+' LINKS · ARCHIVE</small></button>';
+    }).join(''):'<p class="status-muted">No organizations found on that frequency.</p>';
+    renderOrganizationGraph(nodes);
+  }
+
+  function inspectOrganization(id){
+    const o=app.organizations?.organizations.find(node=>node.id===id);
+    if(!o)return;
+    app.orgSelected=id;
+    app.selected=null;
+    $('detail-code').textContent='ORGANIZATION // SOURCE-BACKED ARCHIVE';
+    const names=new Set(app.organizations.organizations.map(x=>x.id));
+    const connections=o.connections.map(c=>{
+      const label=safe(c.relation.toUpperCase())+' · '+safe(c.kind.toUpperCase());
+      return names.has(c.id)
+        ?'<button class="org-connection" type="button" data-org-id="'+safe(c.id)+'"><strong>'+safe(c.name)+'</strong><small>'+label+' ↗</small></button>'
+        :'<div class="org-connection org-connection--static"><strong>'+safe(c.name)+'</strong><small>'+label+' · HISTORICAL</small></div>';
+    }).join('');
+    $('detail-body').innerHTML='<div class="details-sector community">✳ COMMUNITY ORGANIZATION / NOT A JOB LISTING</div>'
+      +'<h2>'+safe(o.name)+'</h2>'
+      +'<div class="details-meta">'+safe(o.region.toUpperCase())+' · ARCHIVED PUBLIC GRAPH<br>POSITIONS ARE CONCEPTUAL, NOT LOCATIONS</div>'
+      +'<p class="detail-desc">'+safe(o.description)+'</p>'
+      +'<div class="tag-row">'+o.tags.map(tag=>'<span>#'+safe(tag)+'</span>').join('')+'</div>'
+      +(o.website?'<a class="action-link" href="'+link(o.website)+'" target="_blank" rel="noopener noreferrer">VISIT SOURCE WEBSITE ↗</a>':'')
+      +'<hr class="detail-rule"><div class="detail-subheading">DOCUMENTED LINKS / '+o.connections.length+'</div>'
+      +(connections||'<p class="status-muted">No relationship records in this archive.</p>')
+      +'<p class="details-note">These are archived assertions in The Observatory, not independently verified current relationships. No endorsement, job opening or recruiting affiliation is implied.</p>'
+      +'<a class="secondary-link" href="'+link(o.source_url)+'" target="_blank" rel="noopener noreferrer">TRACE THE ORGANIZATION SOURCE ↗</a>'
+      +'<p class="details-note">Source: The Observatory — BC + AI ecosystem map. Adapted under CC BY 4.0.</p>';
+    $('detail').hidden=false;
+    renderOrganizations();
+    if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  async function loadOrganizations(){
+    try{
+      const response=await fetch('./data/organizations.json',{cache:'no-cache'});
+      if(!response.ok)throw new Error('HTTP '+response.status);
+      const data=await response.json();
+      if(data.status!=='archival_organization_network_not_current_partnership_verification'
+        || !Array.isArray(data.organizations) || !Array.isArray(data.links))
+        throw new Error('Unexpected organizations schema');
+      app.organizations=data;
+    }catch(err){console.warn('Optional organization network unavailable:',err);}
+    renderOrganizations();
+  }
+
+  function closeDetail(){app.selected=null;$('detail').hidden=true;render();app.orgSelected=null;renderOrganizations();}
   function renderSignals(){
     $('signals-list').innerHTML=app.data.signals.map((s,i)=>`<article class="signal-card"><div class="signal-meta"><span class="${safe(s.category)}">${String(i+1).padStart(2,'0')} / ${safe(s.category.toUpperCase())}</span><span>✳</span></div><h3>${safe(s.title)}</h3><p>${safe(s.summary)}</p><a href="${link(s.source)}" target="_blank" rel="noopener noreferrer">READ THE SIGNAL ↗</a></article>`).join('');
   }
@@ -183,7 +302,7 @@
       $('job-count').textContent=app.data.counts.recent_roles;
       $('signal-count').textContent=app.data.signals.length;
       $('snapshot-label').textContent=`SNAPSHOT ${fmtDate(app.data.generated_at.slice(0,10)).toUpperCase()} // ${app.data.counts.needs_review} AGED LISTINGS`;
-      renderSignals();initMap();render();loadCommunity();
+      renderSignals();initMap();render();loadCommunity();loadOrganizations();
     }catch(err){
       $('company-list').innerHTML=`<div class="empty-state">Unable to load the atlas (${safe(err.message)}). Serve this folder with <code>python3 -m http.server</code>; opening index.html as a file will not work.</div>`;
       $('snapshot-label').textContent='SIGNAL LOST / DATA UNAVAILABLE';
@@ -206,6 +325,33 @@
   $('community-enabled').addEventListener('change',e=>{app.showCommunity=e.target.checked;renderCommunity();render();});
   $('community-entries').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
   $('detail-body').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
+
+  $('org-network-toggle').addEventListener('change',e=>{
+    app.orgMode=e.target.checked;
+    app.orgSelected=null;
+    $('detail').hidden=true;
+    renderOrganizations();
+    if(!app.orgMode)setTimeout(()=>app.map?.invalidateSize(),50);
+  });
+  $('organization-search').addEventListener('input',renderOrganizations);
+  $('organization-region').addEventListener('change',renderOrganizations);
+  $('organization-list').addEventListener('click',e=>{
+    const btn=e.target.closest('[data-org-id]');
+    if(btn)inspectOrganization(btn.dataset.orgId);
+  });
+  $('org-network').addEventListener('click',e=>{
+    const n=e.target.closest('[data-org-id]');
+    if(n)inspectOrganization(n.dataset.orgId);
+  });
+  $('org-network').addEventListener('keydown',e=>{
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    const n=e.target.closest('[data-org-id]');
+    if(n){e.preventDefault();inspectOrganization(n.dataset.orgId);}
+  });
+  $('detail-body').addEventListener('click',e=>{
+    const btn=e.target.closest('[data-org-id]');
+    if(btn)inspectOrganization(btn.dataset.orgId);
+  });
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){closeDetail();return;}
     if(e.key==='/' && document.activeElement?.tagName!=='INPUT') {e.preventDefault();$('search').focus();}
