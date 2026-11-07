@@ -12,7 +12,24 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.css">
   <link rel="stylesheet" href="./assets/atlas.css">
-  <script defer src="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.js"></script>
+  <script type="module">
+    // MapLibre 6 is ESM-only. Loading the legacy .js path returns a 404.
+    // Two CDNs provide redundancy; the page still has useful directories offline.
+    try {
+      let lib;
+      try {
+        lib = await import('https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs');
+      } catch (primaryError) {
+        console.warn('Primary MapLibre CDN unavailable; trying backup',primaryError);
+        lib = await import('https://cdn.jsdelivr.net/npm/maplibre-gl@6.16.0/dist/maplibre-gl.mjs');
+      }
+      window.maplibregl = lib;
+      window.dispatchEvent(new Event('afterimage:maplibre-ready'));
+    } catch (error) {
+      console.warn('MapLibre unavailable; the public records remain visible',error);
+      window.dispatchEvent(new Event('afterimage:maplibre-failed'));
+    }
+  </script>
   <script defer src="./assets/atlas-core.js"></script>
   <script defer src="./assets/city-map.js"></script>
   <script defer src="./assets/atlas.js"></script>
