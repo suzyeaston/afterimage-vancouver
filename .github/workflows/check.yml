@@ -21,4 +21,5 @@ jobs:
           node --test tests/frontend.test.cjs
           node --check assets/atlas-core.js
           node --check assets/atlas.js
+          node --check assets/city-map.js
           node --test tests/atlas.test.cjs
