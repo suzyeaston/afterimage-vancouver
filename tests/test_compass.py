@@ -53,6 +53,10 @@ class CompassTests(unittest.TestCase):
         self.assertEqual(len([o for o in data["organizations"] if o["region"]=="Metro Vancouver"]),90)
         self.assertEqual(len([o for o in data["organizations"] if o["region"]=="Province-wide"]),9)
         self.assertEqual(len({o["id"] for o in data["organizations"]}),99)
+        self.assertEqual(len(data["crosswalk"]),4)
+        valid_ids={o["id"] for o in data["organizations"]}
+        self.assertTrue(all(x["compass_id"] in valid_ids for x in data["crosswalk"]))
+        self.assertTrue(all(x["observer_id"].startswith("org-") for x in data["crosswalk"]))
         self.assertEqual(len({(o["lat"],o["lng"]) for o in data["organizations"] if o["lat"] is not None}),6)
         self.assertNotIn("keyPeople",json.dumps(data))
         self.assertNotIn("people",data)
