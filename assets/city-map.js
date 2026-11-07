@@ -211,5 +211,16 @@
     render();
   }
 
-  window.AfterimageCityMap={start,update};
+  function status(){
+    return {
+      started:!!city.map,
+      loaded:city.loaded,
+      ready:city.ready,
+      employers:city.employers.length,
+      organizations:city.organizations.length,
+      compassClusters:city.compassGroups.size,
+      fallback:!$('city-map-fallback').hidden
+    };
+  }
+  window.AfterimageCityMap={start,update,status};
 })();
