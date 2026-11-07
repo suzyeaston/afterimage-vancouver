@@ -31,6 +31,7 @@ jobs:
           node --check assets/city-map.js
           node --check assets/city-futures.js
           node --test tests/atlas.test.cjs
+          node --test tests/city-futures.test.cjs
       - uses: actions/configure-pages@v5
       - name: Assemble static site
         run: |
