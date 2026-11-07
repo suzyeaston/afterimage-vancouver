@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = {data:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
+  const app = {data:null, community:null, showCommunity:false, communityMarker:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
   const $ = (id) => document.getElementById(id);
   const safe = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const link = (u) => {try {const url = new URL(u); return url.protocol === 'https:' ? url.href : '#';} catch {return '#';}};
@@ -37,6 +37,20 @@
       if(!visible.has(c.id) && app.map.hasLayer(marker)) app.map.removeLayer(marker);
       const node=marker.getElement();
       node?.querySelector('.pulse-marker')?.classList.toggle('is-selected',c.id===app.selected);
+    }
+    if(app.showCommunity && app.community?.venue){
+      if(!app.communityMarker){
+        const venue=app.community.venue;
+        app.communityMarker=window.L.marker([venue.lat,venue.lng],{
+          title:'BC + AI archive venue (historical)',keyboard:true,
+          icon:window.L.divIcon({html:'<div class="community-pin" aria-hidden="true"><span>✳</span><small>BC+AI</small></div>',iconSize:[56,46],iconAnchor:[28,23],className:'marker-wrapper'})
+        }).bindTooltip('H.R. MacMillan Space Centre / community archive',{
+          direction:'top',offset:[0,-16],className:'afterimage-tip'
+        }).on('click',showVenue);
+      }
+      if(!app.map.hasLayer(app.communityMarker)) app.communityMarker.addTo(app.map);
+    } else if(app.communityMarker && app.map.hasLayer(app.communityMarker)){
+      app.map.removeLayer(app.communityMarker);
     }
   }
 
@@ -78,6 +92,70 @@
     if(window.innerWidth < 760) $('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
+  function showCommunityEvent(id){
+    const event=app.community?.events.find(e=>e.id===id);
+    if(!event)return;
+    app.selected=null;
+    $('detail-code').textContent='BC + AI // ARCHIVE RECEIVED';
+    const venue=app.community.venue;
+    const here=venue.event_ids.includes(id);
+    $('detail-body').innerHTML=`
+      <div class="details-sector community">◉ COMMUNITY ECHO / NOT A JOB OPENING</div>
+      <h2>${safe(event.name)}</h2>
+      <div class="details-meta">HISTORICAL RECORD · ${safe(event.initiatives.join(' / ').toUpperCase())}<br>
+      ARCHIVED SCHEDULE REFERENCE: ${safe(event.last_upstream_scheduled_date||'UNDATED')}<br>
+      ${here?'DOCUMENTED VENUE: '+safe(venue.name)+' / '+safe(venue.address):'NO SPECIFIC PUBLIC VENUE PLOTTED'}</div>
+      <p class="detail-desc">${safe(event.description)}</p>
+      <p class="details-note">Archived source; dates and programmes may have changed. This is not evidence of an upcoming event, a vacancy, or affiliation with AFTERIMAGE.</p>
+      <a class="action-link" href="${link(event.source_url)}" target="_blank" rel="noopener noreferrer">EXPLORE SOURCE RECORD ↗</a>
+      <p class="details-note">Adapted from The Observatory — BC + AI ecosystem map (CC BY 4.0).</p>`;
+    $('detail').hidden=false;
+    render();
+    if(here&&app.map)app.map.flyTo([venue.lat,venue.lng],Math.max(app.map.getZoom(),13),{duration:1.1});
+    if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function showVenue(){
+    const venue=app.community?.venue;
+    if(!venue)return;
+    app.selected=null;
+    const related=app.community.events.filter(e=>venue.event_ids.includes(e.id));
+    $('detail-code').textContent='VENUE // HISTORICAL SIGNAL';
+    $('detail-body').innerHTML=`<div class="details-sector community">◉ COMMUNITY ARCHIVE</div>
+      <h2>${safe(venue.name)}</h2><div class="details-meta">${safe(venue.address)}<br>VENUE PIN · VERIFIED PUBLIC LOCATION</div>
+      <p class="detail-desc">This venue appears in archived BC + AI records. Not a current meetup schedule and not a hiring location.</p>
+      ${related.map(e=>`<button type="button" class="archive-venue-link" data-community-id="${safe(e.id)}">${safe(e.name)} ↗</button>`).join('')}
+      <p class="details-note">Records adapted from The Observatory — BC + AI ecosystem map (CC BY 4.0).</p>
+      <a href="${link(venue.source_url)}" target="_blank" rel="noopener noreferrer">VENUE SOURCE ↗</a>`;
+    $('detail').hidden=false;
+    render();
+  }
+
+  function renderCommunity(){
+    const panel=$('community-panel');
+    panel.hidden=!app.showCommunity;
+    if(!app.showCommunity)return;
+    if(!app.community){
+      $('community-entries').textContent='Archive source unavailable. Hiring signals still work.';
+      return;
+    }
+    $('community-note').textContent=app.community.notice;
+    $('community-entries').innerHTML=app.community.events.map(e=>`
+      <button type="button" class="community-entry" data-community-id="${safe(e.id)}">
+      <strong>${safe(e.name)}</strong><small>${safe(e.initiatives.join(' / ').toUpperCase())} · HISTORICAL</small></button>`).join('');
+  }
+
+  async function loadCommunity(){
+    try{
+      const response=await fetch('./data/community.json',{cache:'no-cache'});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      const data=await response.json();
+      if(data.status!=='archived_source_not_live_calendar'||!Array.isArray(data.events))throw new Error('Invalid community archive');
+      app.community=data;
+    }catch(error){console.warn('Optional BC + AI archive unavailable:',error);}
+    renderCommunity();render();
+  }
+
   function closeDetail(){app.selected=null;$('detail').hidden=true;render();}
   function renderSignals(){
     $('signals-list').innerHTML=app.data.signals.map((s,i)=>`<article class="signal-card"><div class="signal-meta"><span class="${safe(s.category)}">${String(i+1).padStart(2,'0')} / ${safe(s.category.toUpperCase())}</span><span>✳</span></div><h3>${safe(s.title)}</h3><p>${safe(s.summary)}</p><a href="${link(s.source)}" target="_blank" rel="noopener noreferrer">READ THE SIGNAL ↗</a></article>`).join('');
@@ -86,8 +164,11 @@
   function initMap(){
     if(!window.L){$('no-map').hidden=false;return;}
     app.map=window.L.map('map',{scrollWheelZoom:false,zoomControl:false,preferCanvas:true,minZoom:9,maxZoom:18}).setView([49.269,-123.102],12);
-    window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>',maxZoom:19,subdomains:'abcd'
+    // Keyless, low-volume OSM tiles: CARTO now requires a key and watermarking is not a map style.
+    // No prefetch or no-cache tiles; browsers honour OSM's normal HTTP cache policy.
+    window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>',
+      maxZoom:19
     }).on('tileerror',()=>{$('no-map').hidden=false;}).addTo(app.map);
     window.L.control.zoom({position:'bottomright'}).addTo(app.map);
     setTimeout(()=>app.map?.invalidateSize(),250);
@@ -102,7 +183,7 @@
       $('job-count').textContent=app.data.counts.recent_roles;
       $('signal-count').textContent=app.data.signals.length;
       $('snapshot-label').textContent=`SNAPSHOT ${fmtDate(app.data.generated_at.slice(0,10)).toUpperCase()} // ${app.data.counts.needs_review} AGED LISTINGS`;
-      renderSignals();initMap();render();
+      renderSignals();initMap();render();loadCommunity();
     }catch(err){
       $('company-list').innerHTML=`<div class="empty-state">Unable to load the atlas (${safe(err.message)}). Serve this folder with <code>python3 -m http.server</code>; opening index.html as a file will not work.</div>`;
       $('snapshot-label').textContent='SIGNAL LOST / DATA UNAVAILABLE';
@@ -122,6 +203,9 @@
   });
   $('search').addEventListener('input',e=>{app.search=e.target.value;render();});
   $('roles-only').addEventListener('change',e=>{app.rolesOnly=e.target.checked;render();});
+  $('community-enabled').addEventListener('change',e=>{app.showCommunity=e.target.checked;renderCommunity();render();});
+  $('community-entries').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
+  $('detail-body').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){closeDetail();return;}
     if(e.key==='/' && document.activeElement?.tagName!=='INPUT') {e.preventDefault();$('search').focus();}
