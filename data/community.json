@@ -1,0 +1,97 @@
+{
+  "title": "BC + AI / COMMUNITY ECHOES",
+  "status": "archived_source_not_live_calendar",
+  "notice": "Historical community map records only; archived schedule dates may no longer be valid. These are not job openings or confirmed upcoming events.",
+  "source": {
+    "name": "The Observatory — BC + AI ecosystem map",
+    "repo": "https://github.com/WalksWithASwagger/official-observer",
+    "revision": "732ca559c91105709ebab1ae2ea1fd6c79ff647c",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Filtered public Vancouver event entities; excluded all people, private connections and non-Vancouver records; added one independently verified venue marker.",
+    "extra_archive": "https://github.com/bc-ai-ecosystem/vancouver-ai"
+  },
+  "venue": {
+    "name": "H.R. MacMillan Space Centre",
+    "address": "1100 Chestnut Street, Vancouver",
+    "lat": 49.276354,
+    "lng": -123.144405,
+    "source_url": "https://events.nfb.ca/locations/h-r-macmillan-space-centre/",
+    "event_ids": [
+      "event-futureproof-festival-2026",
+      "event-vancouver-ai-meetup"
+    ]
+  },
+  "events": [
+    {
+      "id": "event-futureproof-festival-2026",
+      "name": "Futureproof Festival 2026",
+      "description": "Inaugural ideas festival, Oct 28–30 2026 at the H.R. MacMillan Space Centre — pillars of ethics, creativity, and community.",
+      "initiatives": [
+        "futureproof"
+      ],
+      "last_upstream_scheduled_date": "2026-10-28",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-vancouver-ai-meetup",
+      "name": "Vancouver AI Meetup",
+      "description": "The flagship monthly meetup — keynotes and community at the MacMillan Space Centre, 150–250+ attendees.",
+      "initiatives": [
+        "bc-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-07-29",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-bc-ai-film-club",
+      "name": "BC + AI Film Club",
+      "description": "Monthly gathering for AI animation, VFX, and generative film workflows — every human in every loop.",
+      "initiatives": [
+        "bc-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-08-13",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-ai-happy-hour",
+      "name": "AI Happy Hour",
+      "description": "Casual monthly social for the AI community in Vancouver.",
+      "initiatives": [
+        "bc-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-07-17",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-mac-mind-ai-consciousness",
+      "name": "MAC — Mind, AI & Consciousness",
+      "description": "Subgroup exploring philosophy, AI, and consciousness through regular discussion sessions.",
+      "initiatives": [
+        "bc-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-08-06",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-ai-in-education-meetup",
+      "name": "AI in Education Meetup",
+      "description": "Recurring gathering of teachers, professors, students, and tutors exploring AI in the classroom.",
+      "initiatives": [
+        "ed-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-07-15",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    },
+    {
+      "id": "event-life-sciences-ai-sig",
+      "name": "Life Sciences AI SIG",
+      "description": "Special interest group convening health, biotech, and clinical professionals around responsible AI.",
+      "initiatives": [
+        "bc-ai"
+      ],
+      "last_upstream_scheduled_date": "2026-08-27",
+      "source_url": "https://github.com/WalksWithASwagger/official-observer/blob/732ca559c91105709ebab1ae2ea1fd6c79ff647c/data/entities.json"
+    }
+  ]
+}
