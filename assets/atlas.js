@@ -168,7 +168,10 @@
         +'<p>'+desc+'</p><small>SOURCE CHECK: '+echo(dateLabel(o.source_date))+' · '+geo
         +(o.quote_pending?' · QUOTE PENDING':'')+'</small>'
         +'<div class="job-links">'+asLink(o.source_url,'CHECK ORIGINAL EVIDENCE ↗')
-        +(o.website?asLink(o.website,'ORGANIZATION WEBSITE ↗'):'')+'</div></article>';
+        +(o.website?asLink(o.website,'ORGANIZATION WEBSITE ↗'):'')
+        +(state.compass?.crosswalk?.some(x=>x.compass_id===o.id)
+          ?'<a href="#network-'+esc(state.compass.crosswalk.find(x=>x.compass_id===o.id).observer_id)+'">HISTORICAL LINKS ↗</a>':'')
+        +'</div></article>';
     }).join(''):empty('No source-checked organizations on that frequency.');
   }
 
@@ -212,7 +215,10 @@
       +'<small>'+echo(o.region.toUpperCase())+' · '+o.connections.length+' HISTORICAL CONNECTIONS</small>'
       +'<p>'+echo(o.description)+'</p>'
       +'<ul>'+o.connections.map(c=>'<li>'+echo(c.relation)+' → '+echo(c.name)+' <small>('+echo(c.kind)+')</small></li>').join('')+'</ul>'
-      +'<p>'+asLink(o.source_url,'ORIGINAL ARCHIVE RECORD ↗')+'</p></article>'
+      +'<p>'+asLink(o.source_url,'ORIGINAL ARCHIVE RECORD ↗')+'</p>'
+      +(state.compass?.crosswalk?.some(x=>x.observer_id===o.id)
+        ?'<p><a href="#dir-'+esc(state.compass.crosswalk.find(x=>x.observer_id===o.id).compass_id)+'">SOURCE-CHECKED COMPASS RECORD ↗</a></p>':'')
+      +'</article>'
     ).join(''):empty('No archive nodes match your search.');
   }
 
