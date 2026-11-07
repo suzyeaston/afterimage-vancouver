@@ -73,13 +73,30 @@
       +'<div class="readout-actions"><a class="action" href="#community">READ HISTORICAL RECORDS ↗</a></div>');
   }
 
+  function improveDarkStyleReadability(){
+    // The default dark style's label/road contrast is low in a small iframe.
+    // Brighten vector labels and roads at the style layer level, not with a
+    // CSS filter that breaks the canvas or obscures tile-loading state.
+    for(const layer of city.map.getStyle().layers||[]){
+      try{
+        if(layer.type==='symbol' && layer.layout?.['text-field']){
+          city.map.setPaintProperty(layer.id,'text-color','#b8d0da');
+          city.map.setPaintProperty(layer.id,'text-halo-color','#10202a');
+          city.map.setPaintProperty(layer.id,'text-halo-width',1.2);
+        }else if(layer.type==='line' && /road|transport|street|highway|motorway/i.test(layer.id)){
+          city.map.setPaintProperty(layer.id,'line-color','#415767');
+        }
+      }catch(error){console.warn('One basemap styling override was skipped',layer.id,error);}
+    }
+  }
+
   function layers(){
     const map=city.map;
     const blank=fc([]);
     map.addSource('atlas-compass',{type:'geojson',data:blank});
     map.addLayer({id:'atlas-compass-bubbles',type:'circle',source:'atlas-compass',
       paint:{
-        'circle-color':'#153f48','circle-radius':['step',['get','count'],16,3,20,15,24,35,30],
+        'circle-color':'#153f48','circle-radius':['step',['get','count'],12,3,15,15,18,35,23],
         'circle-stroke-color':'#99ffdf','circle-stroke-width':2.8,'circle-opacity':.93
       }});
     map.addLayer({id:'atlas-compass-count',type:'symbol',source:'atlas-compass',
@@ -87,11 +104,11 @@
       paint:{'text-color':'#b9ffe5'}});
     map.addSource('atlas-venue',{type:'geojson',data:blank});
     map.addLayer({id:'atlas-venue-point',type:'circle',source:'atlas-venue',
-      paint:{'circle-color':'#f6bd80','circle-radius':11,'circle-stroke-color':'#101b27','circle-stroke-width':3}});
+      paint:{'circle-color':'#f6bd80','circle-radius':9,'circle-stroke-color':'#101b27','circle-stroke-width':3}});
     map.addSource('atlas-employers',{type:'geojson',data:blank,cluster:true,clusterRadius:58,clusterMaxZoom:14});
     map.addLayer({id:'atlas-employer-clusters',type:'circle',source:'atlas-employers',
       filter:['has','point_count'],
-      paint:{'circle-color':'#492636','circle-radius':['step',['get','point_count'],19,4,24,8,29],
+      paint:{'circle-color':'#492636','circle-radius':['step',['get','point_count'],14,4,18,8,20],
         'circle-stroke-color':'#ff87bd','circle-stroke-width':2.5}});
     map.addLayer({id:'atlas-employer-cluster-count',type:'symbol',source:'atlas-employers',
       filter:['has','point_count'],layout:{'text-field':['get','point_count_abbreviated'],
@@ -190,10 +207,19 @@
       map.on('load',()=>{
         city.loaded=true;
         city.ready=true;
+        improveDarkStyleReadability();
         layers();
         render();
-        map.fitBounds([[-123.33,49.07],[-122.63,49.37]],{
-          padding:{top:65,bottom:60,left:35,right:35},duration:0,maxZoom:11.5
+        const mobile=window.innerWidth<700;
+        // The first mobile view prioritizes Vancouver + Burnaby; users can pan
+        // to Surrey and Langley instead of starting with Vancouver off-screen.
+        map.fitBounds(mobile
+          ? [[-123.24,49.14],[-122.92,49.36]]
+          : [[-123.33,49.07],[-122.63,49.37]],{
+          padding:mobile
+            ? {top:65,bottom:55,left:35,right:35}
+            : {top:65,bottom:60,left:35,right:35},
+          duration:0,maxZoom:11.5
         });
       });
       map.on('error',event=>{
