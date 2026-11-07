@@ -1,5 +1,15 @@
 # AFTERIMAGE // VANCOUVER
 
+## Interface / November 2026 redesign
+
+AFTERIMAGE v2 is an **open, single-scroll field guide** with one shared search and visible sections for job leads, BC AI Compass organizations, The Observatory's historical connections, community echoes and sourced field observations. There is no layer-switch maze and no third-party tile dependency.
+
+The map is a **self-rendered, non-street geographic coordinate plot**. Pins are projected from source coordinates using the pinned chart bounds in `assets/atlas-core.js`. It never invents office locations: Compass records sharing one municipal centroid become a count cluster. Use the linked OpenStreetMap map for street navigation. Its scenic background is graphic design, not imported cartography.
+
+Public page: `index.html` + `assets/atlas-core.js`, `assets/atlas.js`, `assets/atlas.css`. The previous Leaflet implementation (`assets/app.js` and `assets/style.css`) is retained temporarily as legacy code but **is not loaded or deployed as the user interface**. All datasets and source attribution are preserved. The standalone page can report its height to the trusted `suzyeaston.ca` embed via a restricted `postMessage` handshake, avoiding nested scrollbars when the companion WordPress change is deployed.
+
+**Scope reminder:** 10 curated employers are the only sources of observed job listings. The Compass dataset (99 organization records, August 20 source export), Observatory network (20 historical organization nodes), and the seven archived community events are research information, *not* active vacancies or endorsements. Always use the original source URLs and verification dates.
+
 **An experimental atlas of creative work.** Not a commodity job board. A cartographic field recorder for the overlap between film, VFX, games, music technology, AI systems, infrastructure, and the people building interesting things in Vancouver.
 
 Built by Suzy Easton. Designed to be a companion to [suzyeaston.ca](https://suzyeaston.ca), which already has a Vancouver radar, field audio, and a Gastown world-building experiment.
