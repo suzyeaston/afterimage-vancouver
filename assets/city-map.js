@@ -10,7 +10,7 @@
   const $ = id => document.getElementById(id);
   const city = {
     map:null, ready:false, loaded:false, triedFallback:false,
-    employers:[], organizations:[], venue:null, compassGroups:new Map(),
+    employers:[], organizations:[], venue:null, civicPoints:[], compassGroups:new Map(),
   };
   const fc = features => ({type:'FeatureCollection',features});
   const point = (lng,lat,properties) => ({
@@ -90,6 +90,16 @@
     }
   }
 
+  function readCivic(id){
+    const place=city.civicPoints.find(p=>p.id===id);
+    if(!place)return;
+    setReadout('<span class="eyebrow">BLUE / PUBLIC CIVIC OFFICE</span>'
+      +'<h3>'+escape(place.name)+'</h3>'
+      +'<p>'+escape(place.role)+'</p>'
+      +'<p class="readout-note">Policies affecting the whole city are NOT mapped to this office as if their effects occurred here.</p>'
+      +'<div class="readout-actions"><a class="action" href="#futures">EXPLORE CITY FUTURES ↗</a></div>');
+  }
+
   function layers(){
     const map=city.map;
     const blank=fc([]);
@@ -102,6 +112,9 @@
     map.addLayer({id:'atlas-compass-count',type:'symbol',source:'atlas-compass',
       layout:{'text-field':['to-string',['get','count']],'text-size':15,'text-font':['Noto Sans Regular'],'text-allow-overlap':true,'text-ignore-placement':true},
       paint:{'text-color':'#b9ffe5'}});
+    map.addSource('atlas-civic',{type:'geojson',data:blank});
+    map.addLayer({id:'atlas-civic-office',type:'circle',source:'atlas-civic',
+      paint:{'circle-color':'#a6c8fb','circle-radius':10,'circle-stroke-color':'#122337','circle-stroke-width':3}});
     map.addSource('atlas-venue',{type:'geojson',data:blank});
     map.addLayer({id:'atlas-venue-point',type:'circle',source:'atlas-venue',
       paint:{'circle-color':'#f6bd80','circle-radius':9,'circle-stroke-color':'#101b27','circle-stroke-width':3}});
@@ -123,6 +136,7 @@
       readCompass(city.compassGroups.get(id));
     });
     map.on('click','atlas-venue-point',()=>readVenue());
+    map.on('click','atlas-civic-office',e=>readCivic(e.features?.[0]?.properties?.id));
     map.on('click','atlas-employer-point',e=>{
       const id=e.features?.[0]?.properties?.id;
       const match=city.employers.find(x=>x.id===id);
@@ -146,7 +160,7 @@
         map.easeTo({center:feature.geometry.coordinates,zoom:Math.min(15,map.getZoom()+1),duration:500});
       }
     });
-    const clickLayers=['atlas-compass-bubbles','atlas-employer-point','atlas-employer-clusters','atlas-venue-point'];
+    const clickLayers=['atlas-compass-bubbles','atlas-employer-point','atlas-employer-clusters','atlas-venue-point','atlas-civic-office'];
     for(const layer of clickLayers){
       map.on('mouseenter',layer,()=>{map.getCanvas().style.cursor='pointer';});
       map.on('mouseleave',layer,()=>{map.getCanvas().style.cursor='';});
@@ -167,6 +181,9 @@
     city.map.getSource('atlas-compass').setData(compass);
     city.map.getSource('atlas-employers').setData(employers);
     city.map.getSource('atlas-venue').setData(venues);
+    city.map.getSource('atlas-civic').setData(fc(city.civicPoints
+      .filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lng))
+      .map(p=>point(p.lng,p.lat,{id:p.id,name:p.name}))));
   }
 
   function start(){
@@ -247,6 +264,11 @@
     render();
   }
 
+  function updateCivic(points){
+    city.civicPoints=Array.isArray(points)?points:[];
+    render();
+  }
+
   function status(){
     return {
       started:!!city.map,
@@ -255,8 +277,9 @@
       employers:city.employers.length,
       organizations:city.organizations.length,
       compassClusters:city.compassGroups.size,
+      civicMarkers:city.civicPoints.length,
       fallback:!$('city-map-fallback').hidden
     };
   }
-  window.AfterimageCityMap={start,update,status};
+  window.AfterimageCityMap={start,update,status,updateCivic};
 })();

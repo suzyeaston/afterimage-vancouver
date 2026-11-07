@@ -32,6 +32,7 @@
   </script>
   <script defer src="./assets/atlas-core.js"></script>
   <script defer src="./assets/city-map.js"></script>
+  <script defer src="./assets/city-futures.js"></script>
   <script defer src="./assets/atlas.js"></script>
 </head>
 <body>
@@ -45,6 +46,7 @@
       </div>
       <nav class="jump" aria-label="Explore AFTERIMAGE">
         <a href="#field">01 / Signal map</a>
+        <a href="#futures">02 / City Futures</a>
         <a href="#jobs">02 / Job leads</a>
         <a href="#directory">03 / BC AI directory</a>
         <a href="#connections">04 / Connections</a>
@@ -85,16 +87,31 @@
               <strong>The street map signal is offline.</strong>
               <p>The source-linked directories below still work. You can also <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">open Vancouver in OpenStreetMap ↗</a>.</p>
             </div>
-            <div class="map-key"><span><i class="dot pink"></i> CREATIVE EMPLOYERS</span><span><i class="dot mint"></i> SOURCED ORGANIZATIONS</span><span><i class="dot amber"></i> COMMUNITY VENUE</span></div>
+            <div class="map-key"><span><i class="dot pink"></i> CREATIVE EMPLOYERS</span><span><i class="dot mint"></i> SOURCED ORGANIZATIONS</span><span><i class="dot amber"></i> COMMUNITY VENUE</span><span><i class="dot ice"></i> PUBLIC CIVIC OFFICE</span></div>
             <p class="map-note">Street map: OpenFreeMap / OpenStreetMap. Wheel scroll stays on the page; use + / − to zoom. Mint counts are municipal research clusters, not shared office buildings. <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">Open in OpenStreetMap ↗</a></p>
           </div>
           <aside class="readout" aria-label="Selected map signal" id="map-readout">
             <span class="eyebrow">SIGNAL RECEIVER / READY</span>
             <h3>Pick a pulse.</h3>
-            <p>Pink dots are creative employers. Mint bubbles are source-checked research organizations, grouped by approximate municipality. Amber marks a historical community venue. No bubble is a promise of employment.</p>
+            <p>Pink dots are creative employers. Mint bubbles are source-checked research organizations, grouped by approximate municipality. Amber marks a historical community venue. Blue identifies a public civic office, not the reach of government policy. No bubble is a promise of employment.</p>
             <p class="readout-note">Click a marker for a short summary. Full evidence and dates live in the clearly labelled sections below.</p>
           </aside>
         </div>
+      </section>
+
+      <section id="futures" class="section futures" aria-labelledby="futures-title">
+        <div class="section-heading"><div><p class="eyebrow">02 / CIVIC WEATHER SYSTEM · EXPERIMENTAL</p><h2 id="futures-title">Tomorrow isn't a press release.</h2></div>
+          <p class="section-aside">Follow decisions, plans, reporting and public resources without pretending that trending headlines predict the future. The evidence is the instrument; the scenarios are questions.</p></div>
+        <div class="futures-intro"><div><strong>THE CITY FUTURES ENGINE</strong><p>What's been decided? What's scheduled? What might change if a published plan actually happens?</p></div>
+          <label for="futures-horizon">LOOK AHEAD <select id="futures-horizon" aria-label="Filter civic milestones by year"><option value="all">All milestones</option><option value="2026">2026</option><option value="2027">2027</option><option value="2030">2030</option><option value="2033">2033</option></select></label></div>
+        <div class="futures-statline"><span id="futures-status" role="status">TUNING INTO CITY HALL…</span><span>OBSERVED ≠ SCHEDULED ≠ SCENARIO</span></div>
+        <div id="futures-milestones" class="futures-milestones" aria-label="Published milestones"></div>
+        <div id="futures-issues" class="futures-issues" aria-label="Source-backed city issues"></div>
+        <div class="futures-columns">
+          <div><h3 class="futures-subtitle">NEWS DESK / PUBLIC HEADLINES</h3><p class="futures-muted">Government releases and independent newsroom links are labelled separately. Counts in these feeds describe media coverage, not civic importance.</p><div id="futures-news" class="futures-news"></div></div>
+          <div><h3 class="futures-subtitle">WHO TO ASK / PUBLIC CHANNELS</h3><p class="futures-muted">Official offices and newsrooms, not a database of people's private contacts. We don't send anything on your behalf.</p><div id="futures-contacts" class="futures-contacts"></div></div>
+        </div>
+        <p class="attribution">Primary evidence: <a href="https://vancouver.ca/your-government/city-council-meetings-and-decisions.aspx" target="_blank" rel="noopener noreferrer">Vancouver Council records ↗</a>, <a href="https://opendata.vancouver.ca/pages/home/" target="_blank" rel="noopener noreferrer">City Open Data ↗</a>, and linked independent publisher sources. All future outcomes are conditional, not probability forecasts.</p>
       </section>
 
       <section id="jobs" class="section" aria-labelledby="jobs-title">

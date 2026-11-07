@@ -1,0 +1,256 @@
+{
+  "title": "AFTERIMAGE / CITY FUTURES",
+  "as_of": "2026-11-06",
+  "version": 1,
+  "disclaimer": "This is a civic research layer, not political advice or an electoral forecast. Source evidence, plans and conditional scenarios remain distinct. No issue scores, endorsement or inferred impacts. Place pins identify publicly sourced offices, not policy effect boundaries.",
+  "issues": [
+    {
+      "id": "council",
+      "category": "governance",
+      "title": "New City Council, new decision timeline",
+      "observed_on": "2026-11-02",
+      "kind": "observed",
+      "summary": "Mayor Pete Fry and ten councillors began their 2026–2030 term on November 2. The ceremony was at the Orpheum, not City Hall.",
+      "watch": "Watch published agendas, minutes, budgets, and votes. A speech is not a recorded decision.",
+      "scenario": "IF major policies change during this term, compare actual decisions with the previous adopted plan; do not infer anyone's motivations.",
+      "source_url": "https://vancouver.ca/your-government/vancouver-city-council.aspx",
+      "scope": "citywide",
+      "contacts": [
+        "mayor-and-council",
+        "city-clerk"
+      ],
+      "datasets": [
+        "council-records",
+        "council-votes"
+      ],
+      "milestones": [
+        "council-term"
+      ]
+    },
+    {
+      "id": "housing",
+      "category": "housing",
+      "title": "83,000 housing approvals: a target, not a prediction",
+      "observed_on": "2026-04-08",
+      "kind": "target",
+      "summary": "The City's adopted 2024–2033 goal is 83,000 housing approvals. It reported 12,795 approvals in 2025; approvals and completed dwellings are different metrics.",
+      "watch": "Compare annual approvals with completions and non-market share. Use permit issuance only for what it actually measures.",
+      "scenario": "IF approvals grow without comparable completions, access and affordability might not change at the same pace. Compare evidence before drawing conclusions.",
+      "source_url": "https://vancouver.ca/people-programs/housing-vancouver-targets.aspx",
+      "scope": "citywide",
+      "contacts": [
+        "mayor-and-council"
+      ],
+      "datasets": [
+        "permits"
+      ],
+      "milestones": [
+        "housing-2033"
+      ],
+      "supporting_source": "https://vancouver.ca/news-calendar/vancouver-surpasses-2025-housing-targets-april-2026.aspx"
+    },
+    {
+      "id": "transit",
+      "category": "mobility",
+      "title": "Broadway Subway: a 2027 milestone",
+      "observed_on": "2026-11-06",
+      "kind": "scheduled",
+      "summary": "The Broadway Subway is an extension of the Millennium Line with six new underground stations, scheduled to open in 2027.",
+      "watch": "Track official opening notices, service changes and neighbouring development records.",
+      "scenario": "IF service begins in 2027, measure subsequent mobility and local business changes against earlier baseline data. Proximity is not evidence of causation.",
+      "source_url": "https://www.translink.ca/translink/plans-and-projects/projects/rapid-transit-projects/broadway-subway-project",
+      "scope": "Broadway corridor; not independently geocoded",
+      "milestones": [
+        "subway-2027"
+      ],
+      "datasets": [
+        "permits"
+      ]
+    },
+    {
+      "id": "culture",
+      "category": "arts",
+      "title": "The cost of keeping creative space alive",
+      "observed_on": "2026-11-02",
+      "kind": "open-program",
+      "summary": "Cultural Operating Funding – Spaces applications opened November 2, with a December 10, 2026 deadline for eligible arts-space operators. Individual artists are not generally direct applicants.",
+      "watch": "Check eligibility, deadlines, awarded projects and cultural space capacity, not just headline grant amounts.",
+      "scenario": "IF more eligible spaces receive support, compare documented access and affordability outcomes. A grant award does not guarantee new facilities.",
+      "source_url": "https://vancouver.ca/people-programs/cultural-spaces-grant-program.aspx",
+      "scope": "citywide",
+      "milestones": [
+        "spaces-deadline",
+        "culture-capital-2027"
+      ],
+      "contacts": [
+        "arts-office"
+      ]
+    },
+    {
+      "id": "development",
+      "category": "land-use",
+      "title": "The 30-year development plan enters its next chapter",
+      "observed_on": "2026-03-31",
+      "kind": "adopted-policy",
+      "summary": "Vancouver adopted its Official Development Plan March 31, 2026. The plan provides a land-use framework and does not itself rezone any individual lot.",
+      "watch": "Track ODP amendments, individual rezoning decisions, issued permits and the 2030 review.",
+      "scenario": "IF implementation changes local land use, link outcomes only to specific parcels or published neighbourhood statistics, not a guessed citywide effect.",
+      "source_url": "https://vancouver.ca/home-property-development/vancouver-official-development-plan.aspx",
+      "scope": "citywide",
+      "datasets": [
+        "permits",
+        "council-records"
+      ],
+      "milestones": [
+        "odp-2030"
+      ],
+      "contacts": [
+        "mayor-and-council",
+        "city-clerk"
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "id": "council-term",
+      "date": "2026-11-02",
+      "status": "observed",
+      "title": "2026–2030 Council term began",
+      "issue_id": "council",
+      "source_url": "https://vancouver.ca/your-government/vancouver-city-council.aspx"
+    },
+    {
+      "id": "spaces-deadline",
+      "date": "2026-12-10",
+      "status": "published deadline",
+      "title": "Cultural Operating Funding – Spaces applications due",
+      "issue_id": "culture",
+      "source_url": "https://vancouver.ca/people-programs/cultural-spaces-grant-program.aspx"
+    },
+    {
+      "id": "culture-capital-2027",
+      "date": "2027-01-13",
+      "status": "published schedule",
+      "title": "2027 cultural-space capital grants open",
+      "issue_id": "culture",
+      "source_url": "https://vancouver.ca/people-programs/cultural-spaces-grant-program.aspx"
+    },
+    {
+      "id": "subway-2027",
+      "year": 2027,
+      "status": "scheduled, not guaranteed",
+      "title": "Broadway Subway planned opening",
+      "issue_id": "transit",
+      "source_url": "https://www.translink.ca/translink/plans-and-projects/projects/rapid-transit-projects/broadway-subway-project"
+    },
+    {
+      "id": "odp-2030",
+      "year": 2030,
+      "status": "published review plan",
+      "title": "Official Development Plan review",
+      "issue_id": "development",
+      "source_url": "https://vancouver.ca/home-property-development/vancouver-official-development-plan.aspx"
+    },
+    {
+      "id": "housing-2033",
+      "year": 2033,
+      "status": "policy target",
+      "title": "End of 2024–2033 housing-approval target period",
+      "issue_id": "housing",
+      "source_url": "https://vancouver.ca/people-programs/housing-vancouver-targets.aspx"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "mayor-and-council",
+      "name": "Mayor & City Council",
+      "type": "government",
+      "role": "Share feedback on Council issues through the official public office",
+      "url": "https://vancouver.ca/your-government/contact-council.aspx",
+      "source": "https://vancouver.ca/your-government/city-council-meetings-and-decisions.aspx"
+    },
+    {
+      "id": "city-clerk",
+      "name": "City Clerk's Office",
+      "type": "government",
+      "role": "Speak at or participate in a City Council meeting",
+      "url": "https://vancouver.ca/your-government/city-council-meetings-and-decisions.aspx",
+      "email": "speaker.request@vancouver.ca",
+      "source": "https://vancouver.ca/your-government/city-council-meetings-and-decisions.aspx"
+    },
+    {
+      "id": "arts-office",
+      "name": "Arts & Culture",
+      "type": "government",
+      "role": "Grant programme eligibility and applications",
+      "url": "https://vancouver.ca/people-programs/cultural-grants-program.aspx",
+      "email": "arts.culture@vancouver.ca",
+      "source": "https://vancouver.ca/people-programs/cultural-grants-program.aspx"
+    },
+    {
+      "id": "city-media",
+      "name": "City of Vancouver media office",
+      "type": "government-press",
+      "role": "Official City statements, not an independent newsroom",
+      "url": "https://vancouver.ca/news-calendar/media-centre.aspx",
+      "email": "media@vancouver.ca",
+      "source": "https://vancouver.ca/news-calendar/media-centre.aspx"
+    },
+    {
+      "id": "global-bc",
+      "name": "Global BC news desk",
+      "type": "newsroom",
+      "role": "Public news tips; independent reporting contact",
+      "url": "https://globalnews.ca/pages/about-global-bc/",
+      "email": "globalbc.newstips@globaltv.com",
+      "source": "https://globalnews.ca/pages/about-global-bc/"
+    }
+  ],
+  "datasets": [
+    {
+      "id": "permits",
+      "title": "Issued building permits",
+      "url": "https://opendata.vancouver.ca/explore/assets/issued-building-permits/",
+      "caution": "Updated daily for current year; issued permits are not housing completions or permit status."
+    },
+    {
+      "id": "council-votes",
+      "title": "Council voting records",
+      "url": "https://opendata.vancouver.ca/explore/assets/council-voting-records/",
+      "caution": "Published following official minutes; consult minutes for the authoritative decision record."
+    },
+    {
+      "id": "council-records",
+      "title": "City Council reports, agendas and minutes",
+      "url": "https://vancouver.ca/your-government/search-council-documents.aspx",
+      "caution": "Meeting minutes and decisions, not predictions."
+    },
+    {
+      "id": "city-news",
+      "title": "City news RSS",
+      "url": "https://vancouver.ca/news-calendar/vancouver-news.rss",
+      "caution": "Government press releases, not independent news verification."
+    },
+    {
+      "id": "global-bc",
+      "title": "Global BC RSS",
+      "url": "https://globalnews.ca/bc/feed/",
+      "caution": "Publisher headlines, not verified geographic impact."
+    }
+  ],
+  "map_points": [
+    {
+      "id": "city-hall",
+      "name": "Vancouver City Hall",
+      "role": "Office of municipal government; NOT the location or geographic impact of each policy",
+      "lat": 49.2611,
+      "lng": -123.1139,
+      "precision": "approximate civic landmark",
+      "issue_ids": [
+        "council",
+        "development"
+      ],
+      "source_url": "https://vancouver.ca/your-government/contact-the-city-of-vancouver.aspx"
+    }
+  ]
+}

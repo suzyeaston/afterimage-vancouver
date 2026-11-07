@@ -151,6 +151,7 @@
     $('stat-directory').textContent=state.compass?.count||'—';
     $('stat-connections').textContent=state.orgs?.organizations.length||'—';
     renderJobs();renderDirectory();renderNetwork();renderCommunity();renderSignals();renderMap();
+    window.AfterimageFutures?.filter(state.term);
     $('search-feedback').textContent=state.term?
       'SEARCHING ALL PUBLIC DATASETS: '+state.term+' · Clear the field to see everything again.' :
       'Every frequency is visible by default. Use search only if you want to narrow it.';
@@ -213,6 +214,7 @@
 
   async function init(){
     window.AfterimageCityMap?.start();
+    window.AfterimageFutures?.start();
     const files=['catalog','compass','organizations','community'];
     await Promise.all(files.map(async (key)=>{
       try{
@@ -262,5 +264,6 @@
       event.preventDefault();$('global-search').focus();
     }
   });
+  window.AfterimageRequestHeight=scheduleHeight;
   init();
 })();

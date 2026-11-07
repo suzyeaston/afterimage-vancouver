@@ -33,6 +33,14 @@ const { chromium } = require('playwright');
     assert.equal(await page.locator('#city-map .maplibregl-ctrl-zoom-in').count(),1);
     assert.equal(await page.locator('#jobs-list .job-card').count(),10,'Job list still visible');
     assert.equal(await page.locator('#directory-list .dir-row').count(),99,'Directory still visible');
+    await page.waitForFunction(()=>window.AfterimageCityMap?.status?.().civicMarkers===1
+      && document.querySelectorAll('#futures-issues .futures-issue').length===5,null,{timeout:12000});
+    assert.equal(await page.locator('#futures-contacts .futures-contact').count(),5,'Official public contact pathways visible');
+    assert.equal(await page.locator('#futures-milestones .futures-milestone').count(),6,'All evidence-dated milestones visible');
+    await page.locator('#futures-horizon').selectOption('2027');
+    assert.equal(await page.locator('#futures-milestones .futures-milestone').count(),2,'Filter distinguishes 2027 milestones');
+    await page.locator('#futures-horizon').selectOption('all');
+    await page.locator('#futures').screenshot({path:path.join(out,'city-futures-desktop.png')});
     await page.locator('#field').scrollIntoViewIfNeeded();
     await page.waitForTimeout(1200); // let vector tiles and type labels settle
     await page.locator('.map-layout').screenshot({path:path.join(out,'map-desktop.png')});
@@ -57,6 +65,7 @@ const { chromium } = require('playwright');
     await page.locator('#field').scrollIntoViewIfNeeded();
     await page.waitForTimeout(450);
     await page.locator('.map-layout').screenshot({path:path.join(out,'map-mobile.png')});
+    await page.locator('#futures').screenshot({path:path.join(out,'city-futures-mobile.png')});
     assert.deepEqual(errors,[], 'No uncaught page errors');
     console.log('SUCCESS: real vector streets loaded with 10 employers, 6 Compass centroid groups, 99 directory records.');
   } catch (error) {
