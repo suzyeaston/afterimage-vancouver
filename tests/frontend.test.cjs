@@ -12,6 +12,8 @@ test('v2 ships one visible page with all data and original sources',()=>{
   assert.match(html,/atlas\.css/);
   assert.match(html,/atlas-core\.js/);
   assert.match(html,/atlas\.js/);
+  assert.match(html,/city-map\.js/);
+  assert.match(html,/maplibre-gl/);
   assert.match(html,/bc-aicompass\.ca/);
   assert.match(html,/WalksWithASwagger\/official-observer/);
   assert.doesNotMatch(html,/type="checkbox"/);
