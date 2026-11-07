@@ -43,7 +43,7 @@ test('original job sightings still have explicit fresh vs review statuses',()=>{
   assert.match(js,/WATCHLIST ONLY/);
   assert.match(js,/OFFICIAL CAREERS/);
   assert.match(js,/OPEN ORIGINAL LISTING/);
-  assert.match(js,/SOURCE-CHECKED ORGANIZATIONS/);
+  assert.match(read('assets/city-map.js'),/BC AI COMPASS/);
 });
 
 test('publication remains dependency-free and includes all four datasets',()=>{
