@@ -43,7 +43,14 @@ const { chromium } = require('playwright');
     await page.locator('#global-search').fill('');
     await page.waitForFunction(()=>window.AfterimageCityMap?.status?.().employers===10,null,{timeout:5000});
 
+    // A fresh narrow-screen navigation tests the *initial* mobile map fit,
+    // not a desktop map left with a stale camera after browser resizing.
     await page.setViewportSize({width:390,height:844});
+    await page.reload({waitUntil:'domcontentloaded'});
+    await page.waitForFunction(() => {
+      const state=window.AfterimageCityMap?.status?.();
+      return !!(state?.ready && state.employers===10 && state.compassClusters===6);
+    },null,{timeout:25000});
     await page.waitForTimeout(400);
     const overflow = await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+5);
     assert.equal(overflow,false,'Map must not cause horizontal mobile overflow');
