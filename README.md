@@ -92,6 +92,19 @@ The **optional archival community layer** connects AFTERIMAGE with public, non-p
 
 We did **not** fork an archived application simply to borrow its data. The source remains credited, and the atlas stays its own creative instrument. No private community contact graphs or identifiable profiles enter the site.
 
+## Organization constellation / opt-in network view
+
+**20 organizations, 16 org-to-org links and 59 directed organization-related connection records**, adapted from a *frozen public snapshot* of The Observatory. The graph distinguishes regions (Vancouver / BC / Victoria / national) using colored rings and an organization directory. **Node positions are conceptual**, not coordinates or business addresses.
+
+- Select **Connect the organizations** in the atlas, search by organization, tag, or relationship, and filter by region.
+- Click a node or a directory entry to read its public description and the explicitly sourced connections to other organizations, programmes, archived events, and initiatives. Linked organization nodes open one another.
+- The connection verbs (e.g. `hosts`, `partners`, `collaborates`) are taken from the archived source, **not independently checked for current accuracy**. This does not imply hiring, affiliation, endorsement, sponsorship, or a currently running event.
+- People and personal contact information are excluded. No extra geographic pins or fictitious connections are invented.
+- Dataset: `data/organizations.json`; source provenance and CC BY 4.0 modification notice are included in the JSON and the interface.
+- Reproduce from the pinned public archive using `python3 scripts/import_organizations.py` (network required), or use `--entities path/to/entities.json --relationships path/to/relationships.json` for an offline import. Refresh intentionally, not automatically from an unreviewed mutable feed.
+
+The organization layer is **not** an extension of the job-openings database: it helps discover organizations and communities to research separately. The employer cards still link to official job sources and only those are permitted to imply a recently observed role.
+
 ### A basemap migration note
 
 The original CARTO dark tiles began displaying **API KEY REQUIRED** watermarks after CARTO introduced API keys in September 2026. AFTERIMAGE now uses the [OpenStreetMap tile service](https://operations.osmfoundation.org/policies/tiles/) directly at low volume, using browser caching, proper attribution, and a locally applied CSS dark treatment. No key, no bulk tile downloads, no silent watermarking. For significant traffic, evaluate an appropriate paid or self-hosted basemap provider.
@@ -99,7 +112,7 @@ The original CARTO dark tiles began displaying **API KEY REQUIRED** watermarks a
 ## Next mutations
 
 - Expand source adapters beyond the current two verified ATS boards; validate one at a time.
-- Add optional concert venues, creative communities and studios as *network nodes*, visually distinct from employers and openings.
+- Add sourced creative spaces and grants/residencies as typed network nodes, distinct from employer openings.
 - Add event/grant/residency layers with separate source and date rules.
 - Plot week-over-week changes from `data/history.json`, not algorithmic claims about an entire industry.
 - Consider importing public City of Vancouver business/industry data for richer geographic context.

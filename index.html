@@ -57,6 +57,25 @@
             <div id="community-entries" class="community-entries" aria-label="Archival community events"></div>
             <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">THE OBSERVATORY / BC + AI ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed for AFTERIMAGE. No endorsement implied. <a href="https://github.com/bc-ai-ecosystem/vancouver-ai" target="_blank" rel="noopener noreferrer">Meetup archive ↗</a></p>
           </div>
+
+          <label class="toggle-row organization-switch"><input id="org-network-toggle" type="checkbox"><span class="toggle-switch" aria-hidden="true"></span><span>Connect the organizations</span><span class="toggle-right">NETWORK</span></label>
+          <div class="organization-panel" id="organization-panel" hidden>
+            <div class="community-eyebrow">✳ THE ORGANIZATION CONSTELLATION</div>
+            <p class="org-intro">Historical community relationships, not recruiting signals. Node positions are conceptual, not geographic.</p>
+            <label class="org-field-label" for="organization-search">SEARCH THE NETWORK</label>
+            <input id="organization-search" type="search" placeholder="Organizations, tags, connections…" autocomplete="off" aria-label="Search public organizations">
+            <label class="org-field-label" for="organization-region">SCOPE</label>
+            <select id="organization-region" aria-label="Filter organizations by region">
+              <option value="all">All regions</option>
+              <option value="vancouver">Vancouver</option>
+              <option value="provincial">BC / provincial</option>
+              <option value="victoria">Victoria</option>
+              <option value="national">National</option>
+            </select>
+            <div class="org-list-head"><span>ARCHIVED NODES</span><span id="organization-count">LOADING</span></div>
+            <div id="organization-list" class="organization-list" aria-label="Documented organizations"></div>
+            <p class="community-credit"><a href="https://github.com/WalksWithASwagger/official-observer" target="_blank" rel="noopener noreferrer">SOURCE: THE OBSERVATORY ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a><br>Filtered and remixed. No endorsement or current partnership implied.</p>
+          </div>
         </section>
 
         <section class="list-section" aria-label="Employer directory">
@@ -70,6 +89,12 @@
       <section class="stage" aria-label="Interactive map of Vancouver creative companies">
         <div class="map-wrap">
           <div class="map-grid" aria-hidden="true"></div>
+          <div id="org-network-layer" class="org-network-layer" hidden>
+            <div class="org-network-mast"><strong>ORGANIZATION CONSTELLATION</strong><span>20 PUBLIC ARCHIVE NODES // NOT A STREET MAP</span></div>
+            <svg id="org-network" viewBox="0 0 1000 660" role="group" aria-label="Organization network with clickable connected nodes"></svg>
+            <div class="org-network-foot"><span id="org-network-status">RECEIVING PUBLIC ORGANIZATIONS...</span><span>ARCHIVED CONNECTIONS ≠ CURRENT PARTNERSHIPS OR JOB OPENINGS</span></div>
+          </div>
+
           <div id="map" role="application" aria-label="Map of creative and technology employers around Vancouver"></div>
           <div class="map-vignette" aria-hidden="true"></div>
           <div class="map-topline"><span><span class="live-led"></span> SIGNAL FIELD // VANCOUVER</span><span class="map-grid-pos">LOCAL COORDINATES / APPROXIMATE</span></div>

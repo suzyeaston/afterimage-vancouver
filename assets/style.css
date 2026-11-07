@@ -19,3 +19,53 @@
 .archive-venue-link{display:block;margin:8px 0;width:100%;padding:11px;color:#c4d5ff;background:#121a33;border:1px solid #4e5985;text-align:left;font:11px 'DM Mono',monospace}
 .archive-venue-link:hover{border-color:#a0baf7}
 @media(max-width:760px){.community-panel{margin-bottom:10px}.community-entries{max-height:190px}}
+
+
+/* The org graph is a conceptual constellation, never a geographical employer layer. */
+.organization-switch{border-top:1px solid #283d50;padding-top:15px;margin-top:17px}
+.organization-panel{margin-top:15px;padding:16px 13px;background:linear-gradient(155deg,rgba(113,242,198,.09),rgba(125,145,240,.07));border:1px solid #355665}
+.organization-panel[hidden],.org-network-layer[hidden]{display:none!important}
+.org-intro{font-size:11px;line-height:1.65;color:#afc5c9;margin:12px 0}
+.org-field-label{display:block;margin:12px 0 5px;color:#9affdf;font:9px 'DM Mono',monospace;letter-spacing:1px}
+.organization-panel input,.organization-panel select{background:#0c1523;border:1px solid #41566b;color:#eef6f6;width:100%;min-height:36px;padding:8px 10px;font-size:12px;border-radius:0}
+.organization-panel input:focus-visible,.organization-panel select:focus-visible{outline:2px solid #9affdf;outline-offset:2px}
+.org-list-head{display:flex;justify-content:space-between;gap:8px;margin:16px 0 7px;color:#97aeba;font:9px 'DM Mono',monospace;letter-spacing:1px}
+.organization-list{max-height:330px;overflow-y:auto;display:grid;gap:4px;scrollbar-color:#365063 transparent}
+.org-list-entry{display:flex;flex-direction:column;gap:5px;text-align:left;color:#e9f2f5;background:#0d1725;border:1px solid #293c4e;padding:10px}
+.org-list-entry strong{font-size:12px;font-weight:600;line-height:1.25}
+.org-list-entry small{font:9px 'DM Mono',monospace;line-height:1.3;color:#8ca7b7}
+.org-list-entry:hover,.org-list-entry[aria-current="true"]{background:#192a39;border-color:#91eed3}
+.org-list-entry:focus-visible{outline:2px solid #9affdf;outline-offset:2px}
+.org-mode .list-section{display:none}
+.org-network-layer{position:absolute;inset:0;z-index:407;background:radial-gradient(ellipse at 50% 47%,#1b273c 0%,#101b2b 49%,#060a12 100%);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.org-network-layer::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.26;background-image:linear-gradient(#698da21e 1px,transparent 1px),linear-gradient(90deg,#698da21e 1px,transparent 1px);background-size:49px 49px}
+.org-network-mast,.org-network-foot{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;font:9px 'DM Mono',monospace;letter-spacing:1px}
+.org-network-mast{padding:22px 24px 5px;color:#acead5}
+.org-network-mast strong{font-size:11px;color:#b2ffe5}
+.org-network-mast span,.org-network-foot{color:#8197a8}
+.org-network-foot{padding:4px 22px 16px}
+#org-network{position:relative;z-index:2;width:100%;height:100%;min-height:0;flex:1}
+.org-edge{stroke:#5a94a6;stroke-width:1.5;stroke-opacity:.37;stroke-dasharray:4 7;pointer-events:none}
+.org-graph-node{cursor:pointer;outline:none}
+.org-graph-node .org-halo{fill:rgba(119,245,204,.025);stroke:#93eacb;stroke-width:1.4;stroke-opacity:.65}
+.org-graph-node .org-core{fill:#9affdf;stroke:#1e3d47;stroke-width:3}
+.org-graph-node.provincial .org-halo{stroke:#ff94cc}
+.org-graph-node.provincial .org-core{fill:#ff94cc}
+.org-graph-node.national .org-halo{stroke:#ffcd8c}
+.org-graph-node.national .org-core{fill:#ffcd8c}
+.org-graph-node.victoria .org-halo{stroke:#aac2ff}
+.org-graph-node.victoria .org-core{fill:#aac2ff}
+.org-graph-node .org-label{font:13px 'DM Mono',monospace;fill:#dae7eb;paint-order:stroke;stroke:#07101d;stroke-width:4px;stroke-linejoin:round}
+.org-graph-node:hover .org-halo,.org-graph-node:focus-visible .org-halo,.org-graph-node.is-selected .org-halo{stroke-width:4;stroke-opacity:1;fill:rgba(154,255,223,.14)}
+.org-graph-node:hover .org-label,.org-graph-node:focus-visible .org-label,.org-graph-node.is-selected .org-label{fill:#fff}
+.org-connection{display:flex;flex-direction:column;gap:4px;text-align:left;margin:5px 0;padding:10px 12px;width:100%;border:1px solid #2e4754;background:#102331;color:#eef7f7}
+.org-connection small{color:#9eb8c8;font:9px 'DM Mono',monospace}
+.org-connection:hover{border-color:#9affdf;background:#1b3b44}
+.org-connection--static{cursor:default;opacity:.82}
+.org-connection--static:hover{border-color:#2e4754;background:#102331}
+@media(max-width:760px){
+  .organization-panel{margin-top:15px}
+  .org-network-mast,.org-network-foot{padding:12px;font-size:8px}
+  .org-network-layer .org-label{font-size:15px}
+  .org-network-layer{min-height:420px}
+}
