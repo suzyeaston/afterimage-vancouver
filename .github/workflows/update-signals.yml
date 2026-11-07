@@ -17,11 +17,13 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Refresh only official public ATS feeds and expire old manual observations
         run: python3 scripts/build_catalog.py --refresh --append-history
+      - name: Refresh public news headlines (government and independent news kept distinct)
+        run: python3 scripts/update_civic_news.py
       - name: Commit public aggregate data if changed
         run: |
           git config user.name 'afterimage-bot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/catalog.json data/history.json
+          git add data/catalog.json data/history.json data/city-news.json
           if ! git diff --cached --quiet; then
             git commit -m 'data: refresh public Vancouver hiring signals'
             git push
