@@ -1,5 +1,20 @@
 # AFTERIMAGE // VANCOUVER
 
+## CITY FUTURES / Civic Weather System (experimental)
+
+This is the next layer beyond employer discovery: **the forces affecting creative life, the public decisions behind them, and the opportunities to participate**. It complements [BC AI Compass](https://bc-aicompass.ca/) rather than copying its directory work.
+
+- `data/civic.json` contains **five manually sourced** issues: the 2026–2030 Vancouver Council term, adopted housing approval targets, Broadway Subway's scheduled 2027 opening, cultural space funding windows, and the Official Development Plan. Each has an original source, observation date, watchable indicator, and separately labelled **conditional scenario**, not a forecast.
+- **No fake impact maps.** Only source-identifiable public geographic reference points can be shown on the street map. Initial civic marker is the City Hall public office with its role explicitly distinguished from a citywide policy's impact. Citywide issues appear as information cards without fabricated neighbourhood footprints.
+- Public government and newsroom contact routes are sourced, official, and role-based; no personal contact scraping, political profiling, automatic messaging, election odds, rankings or endorsements.
+- `data/city-news.json` contains **publisher headline references**, not full articles. The optional daily script `scripts/update_civic_news.py` reads the City of Vancouver's public RSS (government statements) and Global BC's BC RSS (independent newsroom), tags stories with transparent keyword rules, keeps the publisher distinction, and does **not** infer causal change, public opinion, issue importance or geographic impact from coverage.
+- Planned dates are **not** observed outcomes. The dropdown filters dated milestones, not the prediction of a winning future.
+- Primary sources to develop next: Council minutes and votes, daily issued permits, housing approvals and completions, geographically sourced developments, public cultural grants and verified transit milestones. All require unit, baseline, geography and date checks before being used in charts.
+
+### Method and ethics
+
+Information is arranged as **observed → scheduled → conditional**. RSS appearance measures only coverage in the selected feeds. A policy target measures intent; a permit is not a completed home; an estimated opening is not a delivered service. Political figures receive no scores, political preference models, inferred affiliations or predicted electoral outcomes. Contacts are institutional/official public routes. Published news links to the original outlet, with no full-text copying.
+
 ## Interface / November 2026 redesign
 
 AFTERIMAGE v2 is an **open, single-scroll field guide** with one shared search and visible sections for job leads, BC AI Compass organizations, The Observatory's historical connections, community echoes and sourced field observations. There is no layer-switch maze. The geographic map now uses an open, keyless vector basemap via OpenFreeMap and MapLibre.
