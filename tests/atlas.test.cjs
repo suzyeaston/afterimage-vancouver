@@ -5,13 +5,23 @@ const path=require('node:path');
 const read=name=>fs.readFileSync(path.join(__dirname,'..',name),'utf8');
 const core=require('../assets/atlas-core.js');
 
-test('coordinate map projects real points without requesting raster tiles',()=>{
-  const mid=core.project(49.25,-123.12);
-  assert.ok(mid.x>55&&mid.x<1145);
-  assert.ok(mid.y>55&&mid.y<635);
-  assert.deepEqual(core.project(NaN,-123),null);
-  assert.doesNotMatch(read('index.html'),/leaflet|tile\.openstreetmap|basemaps\.carto/i);
-  assert.doesNotMatch(read('assets/atlas.js'),/tileLayer|basemaps\.carto|leaflet/i);
+test('the map is a real interactive street map, not the fake coordinate grid',()=>{
+  const html=read('index.html');
+  const mapjs=read('assets/city-map.js');
+  const appjs=read('assets/atlas.js');
+  assert.match(html,/id="city-map"/);
+  assert.match(html,/maplibre-gl@6\.16\.0/);
+  assert.match(html,/city-map\.js/);
+  assert.doesNotMatch(html,/id="signal-map"|map-background|map-signals/);
+  assert.match(mapjs,/tiles\.openfreemap\.org\/styles\/dark/);
+  assert.match(mapjs,/tiles\.openfreemap\.org\/styles\/liberty/);
+  assert.match(mapjs,/new lib\.Map/);
+  assert.match(mapjs,/map\.scrollZoom\.disable\(\)/);
+  assert.match(mapjs,/map\.fitBounds/);
+  assert.match(mapjs,/atlas-employers/);
+  assert.match(mapjs,/cluster:true/);
+  assert.match(appjs,/AfterimageCityMap\?\.update/);
+  assert.doesNotMatch(appjs,/mapRoot|initMapBackground|map-signals/);
 });
 
 test('verified organizations sharing centroid become one cluster, not invented offices',()=>{
@@ -20,7 +30,8 @@ test('verified organizations sharing centroid become one cluster, not invented o
   assert.equal(data.organizations.length,99);
   assert.equal(groups.length,6);
   assert.ok(groups.some(g=>g.records.length>=50));
-  assert.match(read('assets/atlas.js'),/MUNICIPAL CENTROID|municipal centroid/);
+  assert.match(read('assets/city-map.js'),/municipal centroid|shared point/i);
+  assert.match(read('assets/city-map.js'),/slice\(0,4\)/);
 });
 
 test('every dataset is visible through its own section without toggle gates',()=>{
@@ -28,7 +39,7 @@ test('every dataset is visible through its own section without toggle gates',()=
   for(const anchor of ['field','jobs','directory','connections','community','transmissions']){
     assert.match(html,new RegExp('id="'+anchor+'"'));
   }
-  for(const slot of ['jobs-list','directory-list','network-list','community-list','signals-list','signal-map']){
+  for(const slot of ['jobs-list','directory-list','network-list','community-list','signals-list','city-map']){
     assert.match(html,new RegExp('id="'+slot+'"'));
   }
   assert.doesNotMatch(html,/type="checkbox"|id="org-network-toggle"|id="compass-toggle"|id="community-enabled"/);

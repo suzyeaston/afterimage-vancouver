@@ -12,6 +12,8 @@ test('v2 ships one visible page with all data and original sources',()=>{
   assert.match(html,/atlas\.css/);
   assert.match(html,/atlas-core\.js/);
   assert.match(html,/atlas\.js/);
+  assert.match(html,/city-map\.js/);
+  assert.match(html,/maplibre-gl/);
   assert.match(html,/bc-aicompass\.ca/);
   assert.match(html,/WalksWithASwagger\/official-observer/);
   assert.doesNotMatch(html,/type="checkbox"/);
@@ -41,7 +43,7 @@ test('original job sightings still have explicit fresh vs review statuses',()=>{
   assert.match(js,/WATCHLIST ONLY/);
   assert.match(js,/OFFICIAL CAREERS/);
   assert.match(js,/OPEN ORIGINAL LISTING/);
-  assert.match(js,/SOURCE-CHECKED ORGANIZATIONS/);
+  assert.match(read('assets/city-map.js'),/BC AI COMPASS/);
 });
 
 test('publication remains dependency-free and includes all four datasets',()=>{

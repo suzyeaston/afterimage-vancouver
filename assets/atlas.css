@@ -18,3 +18,32 @@ main{padding:0 clamp(18px,3.6vw,68px)}.intro{display:grid;grid-template-columns:
 @media(max-width:1150px){.intro{grid-template-columns:1fr}.stats{max-width:770px}.map-layout{grid-template-columns:1fr}.readout{min-height:150px}.mast-meta{display:none}.map-canvas-top{font-size:9px}}
 @media(max-width:700px){.mast-top{padding:18px}.wordmark small{display:none}.jump{display:grid;grid-template-columns:repeat(2,1fr)}.jump a{padding:11px;font-size:10px}.intro{padding:35px 0 28px;gap:25px}.intro h1{font-size:clamp(42px,11vw,74px)}.dek{font-size:17px}.stats>div{padding:14px}.stats strong{font-size:29px}.stats span{font-size:9px}.search-section{padding:15px}.searchbar input{font-size:14px}.section{padding:30px 0}.section-heading{display:block}.section-heading h2{margin-bottom:10px}.section-aside{font-size:13px;max-width:none}.map-key{gap:8px;font-size:9px}.map-note{font-size:9px}.cards,.directory-list,.network-list,.community-grid,.signals-grid{grid-template-columns:1fr}.directory-toolbar{align-items:start}.directory-toolbar label{width:100%;justify-content:space-between}.map-canvas-top{top:10px;left:10px;right:10px}.network-panel{padding:0}.network-node text{font-size:13px}.map-marker .map-label{font-size:14px}kbd{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* MAP FIX: actual keyless vector streets, not the old simulated coordinate field. */
+.map-canvas::before{display:none}
+.city-map{position:relative;z-index:1;width:100%;height:590px;min-height:500px;background:#111c2c}
+.city-map.is-unavailable{opacity:.4}
+.city-map-fallback{position:absolute;z-index:8;top:30%;left:50%;transform:translateX(-50%);width:min(420px,calc(100% - 40px));padding:22px 25px;background:#101b2afa;color:#f4f8fb;border:1px solid #80b1ba;box-shadow:0 12px 55px #0009}
+.city-map-fallback strong{display:block;font-size:21px;margin-bottom:9px}
+.city-map-fallback p{font-size:13px;color:#c5d6de}
+.map-canvas-top{z-index:5;padding:7px 10px;border:1px solid #385568;background:#0e1c2ae0;left:13px;right:13px;top:12px;max-width:calc(100% - 26px)}
+.city-map .maplibregl-ctrl-top-right{top:44px;right:7px}
+.city-map .maplibregl-ctrl-top-right .maplibregl-ctrl{box-shadow:0 0 0 1px #4f7287;background:#102231;border-radius:8px;overflow:hidden}
+.city-map .maplibregl-ctrl button{background:#0e2234;color:#d8fff2}
+.city-map .maplibregl-ctrl button:hover{background:#234358}
+.city-map .maplibregl-ctrl-attrib{font:10px 'DM Mono',monospace;background:#091624e6!important;color:#bbd0d5!important}
+.city-map .maplibregl-ctrl-attrib a{color:#c0fce6}
+.city-map .maplibregl-control-container{z-index:4}
+.map-key{padding-top:13px}
+.readout{overflow:hidden}
+.readout h3{font-size:clamp(23px,2.2vw,32px);overflow-wrap:anywhere}
+.readout .readout-list{max-height:200px;overflow-y:auto;padding-right:8px}
+.readout .readout-list li{margin-bottom:8px}
+.readout .readout-actions .action{font-size:10px}
+@media(max-width:700px){
+  .city-map{height:450px;min-height:420px}
+  .map-canvas-top{font-size:9px;letter-spacing:0}
+  .city-map .maplibregl-ctrl-top-right{top:45px}
+  .readout .readout-list{max-height:190px}
+}

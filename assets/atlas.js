@@ -9,7 +9,7 @@
     '<a href="' + esc(safeHref(url)) + '" target="_blank" rel="noopener noreferrer">' + echo(title) + '</a>';
   const queryMatches = (item) => !state.term || item.toLowerCase().includes(state.term);
   const empty = (message) => '<p class="placeholder">' + echo(message) + '</p>';
-  const mapRoot = $('signal-map');
+
 
   function employers() {
     return state.catalog?.employers.filter(e =>
@@ -31,110 +31,14 @@
         ...e.connections.map(c=>c.name)].join(' '))) || [];
   }
 
-  function initMapBackground() {
-    const lines = [];
-    for (let i=0;i<10;i++) {
-      const x=65+i*118;
-      lines.push('<line class="geo-line" x1="'+x+'" y1="40" x2="'+x+'" y2="640"/>');
-    }
-    for(let i=0;i<7;i++){
-      const y=68+i*90;
-      lines.push('<line class="geo-line" x1="45" y1="'+y+'" x2="1150" y2="'+y+'"/>');
-    }
-    const cities = [
-      ['VANCOUVER',49.289,-123.105], ['BURNABY',49.238,-122.99],
-      ['SURREY',49.142,-122.845], ['RICHMOND',49.165,-123.17],
-      ['NORTH VAN',49.326,-123.09]
-    ];
-    for(const [name,lat,lng] of cities){
-      const p=project(lat,lng);
-      lines.push('<circle class="city-halo" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="44"/>');
-      lines.push('<text class="city-label" x="'+(p.x+9).toFixed(1)+'" y="'+(p.y-47).toFixed(1)+'">'+esc(name)+'</text>');
-    }
-    lines.push('<text class="geo-label" x="70" y="660">49° N / COORDINATE FIELD / APPROXIMATE</text>');
-    $('map-background').innerHTML=lines.join('');
-  }
-
-  function employerGroups(records){
-    const groups=new Map();
-    for(const e of records){
-      const pt=project(e.lat,e.lng);
-      if(!pt)continue;
-      const key=Math.floor(pt.x/67)+'/'+Math.floor(pt.y/67);
-      if(!groups.has(key))groups.set(key,[]);
-      groups.get(key).push(e);
-    }
-    return [...groups.values()].map((items,i)=>({
-      key:'e'+i,records:items,lat:items.reduce((n,e)=>n+e.lat,0)/items.length,
-      lng:items.reduce((n,e)=>n+e.lng,0)/items.length
-    }));
-  }
-
-  function shape(x,y,type,n,key,name,small){
-    // For accessibility, title and aria-label are both populated.
-    const radius = type==='compass' ? (n>10?34:28) : (type==='venue'?26:24);
-    const c = type==='compass'?13: type==='venue'?12:11;
-    const count=n>1?'<text class="map-count" x="'+x+'" y="'+(y+7)+'" text-anchor="middle">'+n+'</text>':'';
-    const label=small?'<text class="map-label small-label" x="'+x+'" y="'+(y+radius+22)+'" text-anchor="middle">'+esc(small)+'</text>':'';
-    return '<g class="map-marker '+type+'" role="button" tabindex="0" focusable="true" data-map-kind="'+type+'" data-map-key="'+esc(key)+'" aria-label="'+esc(name)+'">'
-      +'<title>'+esc(name)+'</title><circle class="ring" cx="'+x+'" cy="'+y+'" r="'+radius+'"/>'
-      +'<circle class="center" cx="'+x+'" cy="'+y+'" r="'+(n>1?radius-7:c)+'"/>'
-      +count+label+'</g>';
-  }
-
-  let mapItems = new Map();
   function renderMap(){
-    const markers=[];mapItems=new Map();
-    employerGroups(employers()).forEach((g,i)=>{
-      const key='employer-'+i,pt=project(g.lat,g.lng);
-      if(!pt)return;
-      mapItems.set(key,{kind:'employer',records:g.records});
-      markers.push(shape(pt.x.toFixed(1),pt.y.toFixed(1),'employer',g.records.length,key,
-        g.records.map(e=>e.name).join(' / '),''));
+    // Geographic rendering lives in MapLibre; this file owns the data/search.
+    // All source categories are visible at once.
+    window.AfterimageCityMap?.update({
+      employers:employers(),
+      organizations:directory(),
+      venue:(!state.term || communityRecords().length)?state.community?.venue:null
     });
-    coordinateGroups(directory()).forEach((g,i)=>{
-      const key='compass-'+i,pt=project(g.lat,g.lng);
-      if(!pt)return;
-      mapItems.set(key,{kind:'compass',records:g.records});
-      markers.push(shape(pt.x.toFixed(1),pt.y.toFixed(1),'compass',g.records.length,key,
-        g.records.length+' sourced organizations at a shared coordinate',''));
-    });
-    if(state.community?.venue && (!state.term || communityRecords().length)){
-      const v=state.community.venue,pt=project(v.lat,v.lng);
-      if(pt){
-        mapItems.set('venue',{kind:'venue',venue:v});
-        markers.push(shape(pt.x.toFixed(1),pt.y.toFixed(1),'venue',1,'venue',
-          'H.R. MacMillan Space Centre / historical programme venue','SPACE CENTRE'));
-      }
-    }
-    $('map-signals').innerHTML=markers.join('');
-  }
-
-  function readout(item){
-    if(!item)return;
-    const box=$('map-readout');
-    if(item.kind==='employer'){
-      const group=item.records;
-      box.innerHTML='<span class="eyebrow">PINK FREQUENCY / CREATIVE EMPLOYERS</span>'
-        +'<h3>'+group.length+' employer'+(group.length===1?'':'s')+' on this pulse.</h3>'
-        +'<ul class="readout-list">'+group.map(e=>'<li>'+echo(e.name)+'</li>').join('')+'</ul>'
-        +'<p class="readout-note">Approximate location or grouped neighborhood. Follow official career sources to check actual availability.</p>'
-        +'<div class="readout-actions"><a class="action" href="#job-'+esc(group[0].id)+'">SEE EMPLOYER RECORD ↗</a></div>';
-    }else if(item.kind==='compass'){
-      const group=item.records;
-      box.innerHTML='<span class="eyebrow">MINT FREQUENCY / SOURCE-CHECKED ORGANIZATIONS</span>'
-        +'<h3>'+group.length+' organization'+(group.length===1?'':'s')+' at this marker.</h3>'
-        +'<p class="readout-note">These may share a municipal centroid, not an office. The city is not one big co-working space.</p>'
-        +'<ul class="readout-list">'+group.slice(0,12).map(e=>'<li>'+echo(e.name)+'</li>').join('')+'</ul>'
-        +(group.length>12?'<p>…and '+(group.length-12)+' more in the directory.</p>':'')
-        +'<div class="readout-actions"><a class="action" href="#directory">BROWSE SOURCED RECORDS ↗</a></div>';
-    }else{
-      box.innerHTML='<span class="eyebrow">AMBER FREQUENCY / COMMUNITY ARCHIVE</span>'
-        +'<h3>'+echo(item.venue.name)+'</h3>'
-        +'<p>'+echo(item.venue.address)+'</p>'
-        +'<p class="readout-note">Historical BC + AI and Futureproof venue, not a calendar. Check current events elsewhere before setting out.</p>'
-        +'<div class="readout-actions"><a class="action" href="#community">READ THE ARCHIVE ↗</a></div>';
-    }
   }
 
   function renderJobs(){
@@ -308,7 +212,7 @@
   }
 
   async function init(){
-    initMapBackground();
+    window.AfterimageCityMap?.start();
     const files=['catalog','compass','organizations','community'];
     await Promise.all(files.map(async (key)=>{
       try{
@@ -336,15 +240,6 @@
     else setTimeout(scheduleHeight,500);
   }
 
-  mapRoot.addEventListener('click',event=>{
-    const target=event.target.closest('[data-map-kind]');
-    if(target)readout(mapItems.get(target.dataset.mapKey));
-  });
-  mapRoot.addEventListener('keydown',event=>{
-    if(!['Enter',' '].includes(event.key))return;
-    const target=event.target.closest('[data-map-kind]');
-    if(target){event.preventDefault();readout(mapItems.get(target.dataset.mapKey));}
-  });
   $('relationship-map').addEventListener('click',event=>{
     const element=event.target.closest('[data-network-id]');
     if(element)jumpTo('network-'+element.dataset.networkId);

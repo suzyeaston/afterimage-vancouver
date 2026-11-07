@@ -21,4 +21,26 @@ jobs:
           node --test tests/frontend.test.cjs
           node --check assets/atlas-core.js
           node --check assets/atlas.js
+          node --check assets/city-map.js
           node --test tests/atlas.test.cjs
+      - name: Browser smoke test against actual MapLibre street tiles
+        run: |
+          npm install --no-save playwright@1.57.0
+          python3 -m http.server 8765 --bind 127.0.0.1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          CHROME_BIN=$(command -v google-chrome || command -v chromium || true)
+          if [ -n "$CHROME_BIN" ]; then
+            export CHROME_BIN
+          else
+            npx playwright install chromium
+          fi
+          node tests/map-browser.cjs
+      - name: Preserve map browser captures
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: afterimage-map-browser-captures
+          path: test-artifacts/
+          if-no-files-found: ignore
+

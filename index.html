@@ -10,8 +10,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.css">
   <link rel="stylesheet" href="./assets/atlas.css">
+  <script type="module">
+    // MapLibre 6 is ESM-only. Loading the legacy .js path returns a 404.
+    // Two CDNs provide redundancy; the page still has useful directories offline.
+    try {
+      let lib;
+      try {
+        lib = await import('https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs');
+      } catch (primaryError) {
+        console.warn('Primary MapLibre CDN unavailable; trying backup',primaryError);
+        lib = await import('https://cdn.jsdelivr.net/npm/maplibre-gl@6.16.0/dist/maplibre-gl.mjs');
+      }
+      window.maplibregl = lib;
+      window.dispatchEvent(new Event('afterimage:maplibre-ready'));
+    } catch (error) {
+      console.warn('MapLibre unavailable; the public records remain visible',error);
+      window.dispatchEvent(new Event('afterimage:maplibre-failed'));
+    }
+  </script>
   <script defer src="./assets/atlas-core.js"></script>
+  <script defer src="./assets/city-map.js"></script>
   <script defer src="./assets/atlas.js"></script>
 </head>
 <body>
@@ -56,22 +76,23 @@
       </section>
 
       <section id="field" class="feature section" aria-labelledby="field-title">
-        <div class="section-heading"><div><p class="eyebrow">01 / THE FIELD</p><h2 id="field-title">A map that actually works.</h2></div><p class="section-aside">No API keys. No missing map tiles. The coordinates are real; the star chart is deliberately schematic.</p></div>
+        <div class="section-heading"><div><p class="eyebrow">01 / THE FIELD</p><h2 id="field-title">Vancouver, finally on the map.</h2></div><p class="section-aside">A proper zoomable street map, with real place names and source-aware markers. No API key, no fake office addresses.</p></div>
         <div class="map-layout">
           <div class="map-canvas">
-            <div class="map-canvas-top"><span>VANCOUVER // COORDINATE FIELD</span><span>N ↑</span></div>
-            <svg id="signal-map" viewBox="0 0 1200 690" role="group" aria-label="Schematic Vancouver coordinate map with employer, Compass research and community markers" preserveAspectRatio="xMidYMid meet">
-              <g id="map-background" aria-hidden="true"></g>
-              <g id="map-signals"></g>
-            </svg>
+            <div class="map-canvas-top"><span>VANCOUVER // LIVE VECTOR STREETS</span><span>ZOOM + / −</span></div>
+            <div id="city-map" class="city-map" role="application" aria-label="Interactive street map of Vancouver and surrounding areas with employers, sourced organizations and historical community venue"></div>
+            <div id="city-map-fallback" class="city-map-fallback" hidden role="status">
+              <strong>The street map signal is offline.</strong>
+              <p>The source-linked directories below still work. You can also <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">open Vancouver in OpenStreetMap ↗</a>.</p>
+            </div>
             <div class="map-key"><span><i class="dot pink"></i> CREATIVE EMPLOYERS</span><span><i class="dot mint"></i> SOURCED ORGANIZATIONS</span><span><i class="dot amber"></i> COMMUNITY VENUE</span></div>
-            <p class="map-note">Point locations follow their stored coordinates. Shared municipal centroids appear as one numbered cluster, not 60 imaginary offices. <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">Need streets? Open OpenStreetMap ↗</a></p>
+            <p class="map-note">Street map: OpenFreeMap / OpenStreetMap. Wheel scroll stays on the page; use + / − to zoom. Mint counts are municipal research clusters, not shared office buildings. <a href="https://www.openstreetmap.org/#map=11/49.25/-123.12" target="_blank" rel="noopener noreferrer">Open in OpenStreetMap ↗</a></p>
           </div>
           <aside class="readout" aria-label="Selected map signal" id="map-readout">
             <span class="eyebrow">SIGNAL RECEIVER / READY</span>
             <h3>Pick a pulse.</h3>
-            <p>Pink dots are creative employers. Mint clusters are research leads. Amber is one historical community venue. Everyone is welcome. Not everyone is hiring.</p>
-            <p class="readout-note">Click a marker to see the source and jump to its record.</p>
+            <p>Pink dots are creative employers. Mint bubbles are source-checked research organizations, grouped by approximate municipality. Amber marks a historical community venue. No bubble is a promise of employment.</p>
+            <p class="readout-note">Click a marker for a short summary. Full evidence and dates live in the clearly labelled sections below.</p>
           </aside>
         </div>
       </section>
