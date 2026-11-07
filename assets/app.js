@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const app = {data:null, community:null, showCommunity:false, communityMarker:null, organizations:null, orgMode:false, orgSelected:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
+  const app = {data:null, community:null, showCommunity:false, communityMarker:null, organizations:null, orgMode:false, orgSelected:null, compass:null, compassMode:false, compassLayer:null, compassSelected:null, map:null, markers:new Map(), sector:'all', search:'', rolesOnly:false, selected:null};
   const $ = (id) => document.getElementById(id);
   const safe = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const link = (u) => {try {const url = new URL(u); return url.protocol === 'https:' ? url.href : '#';} catch {return '#';}};
@@ -29,6 +29,12 @@
 
   function renderMap(companies){
     if(!app.map) return;
+    if(app.compassMode){
+      for(const marker of app.markers.values())if(app.map.hasLayer(marker))app.map.removeLayer(marker);
+      if(app.communityMarker&&app.map.hasLayer(app.communityMarker))app.map.removeLayer(app.communityMarker);
+      return;
+    }
+
     const visible = new Set(companies.map(c=>c.id));
     for(const c of app.data.employers){
       let marker = app.markers.get(c.id);
@@ -254,6 +260,8 @@
       +(o.website?'<a class="action-link" href="'+link(o.website)+'" target="_blank" rel="noopener noreferrer">VISIT SOURCE WEBSITE ↗</a>':'')
       +'<hr class="detail-rule"><div class="detail-subheading">DOCUMENTED LINKS / '+o.connections.length+'</div>'
       +(connections||'<p class="status-muted">No relationship records in this archive.</p>')
+      +(app.compass?.crosswalk?.find(c=>c.observer_id===o.id)
+        ?'<button type="button" class="org-connection crosswalk-link" data-compass-crosswalk="'+safe(app.compass.crosswalk.find(c=>c.observer_id===o.id).compass_id)+'"><strong>VIEW SOURCE-CHECKED COMPASS RECORD ↗</strong><small>SAME ORGANIZATION / INDEPENDENT DATASET · NOT A PARTNERSHIP CLAIM</small></button>':'')
       +'<p class="details-note">These are archived assertions in The Observatory, not independently verified current relationships. No endorsement, job opening or recruiting affiliation is implied.</p>'
       +'<a class="secondary-link" href="'+link(o.source_url)+'" target="_blank" rel="noopener noreferrer">TRACE THE ORGANIZATION SOURCE ↗</a>'
       +'<p class="details-note">Source: The Observatory — BC + AI ecosystem map. Adapted under CC BY 4.0.</p>';
@@ -275,7 +283,132 @@
     renderOrganizations();
   }
 
-  function closeDetail(){app.selected=null;$('detail').hidden=true;render();app.orgSelected=null;renderOrganizations();}
+
+  function compassVisible(){
+    if(!app.compass)return[];
+    const q=$('compass-search').value.toLowerCase().trim();
+    const category=$('compass-category').value;
+    const metro=$('compass-local-only').checked;
+    return app.compass.organizations.filter(c=>{
+      if(metro&&c.region!=='Metro Vancouver')return false;
+      if(category!=='all'&&c.category!==category)return false;
+      return !q||[c.name,c.category,c.region,c.description||'',c.location||''].join(' ').toLowerCase().includes(q);
+    });
+  }
+
+  // Many independently sourced organizations share a single MUNICIPAL centroid.
+  // One clickable count marker represents a group, never an invented office.
+  function compassLocationGroups(records){
+    const clusters=new Map();
+    for(const o of records){
+      if(typeof o.lat!=='number'||typeof o.lng!=='number')continue;
+      const key=o.lat.toFixed(6)+'/'+o.lng.toFixed(6);
+      if(!clusters.has(key))clusters.set(key,[]);
+      clusters.get(key).push(o);
+    }
+    return [...clusters.values()];
+  }
+
+  function compassShowGroup(group){
+    app.selected=null;
+    app.compassSelected=null;
+    $('detail-code').textContent='COMPASS / LOCATION CLUSTER';
+    const precise=group.every(g=>g.geo_precision==='address');
+    const label=precise?'SOURCED LOCATION':'MUNICIPAL CENTROID / NOT AN OFFICE ADDRESS';
+    $('detail-body').innerHTML='<div class="details-sector community">✳ SOURCED ORGANIZATIONS / NOT JOBS</div>'
+      +'<h2>'+group.length+' organizations in range</h2>'
+      +'<div class="details-meta">'+label+'</div>'
+      +'<p class="details-note">Organizations share an approximate geographic marker. This is not a shared office, physical address, employer relationship or live vacancy feed.</p>'
+      +group.map(o=>'<button type="button" class="compass-result" data-compass-id="'+safe(o.id)+'"><strong>'+safe(o.name)+'</strong><small>'+safe(o.category)+' · '+safe(o.location||o.region)+'</small></button>').join('');
+    $('detail').hidden=false;
+  }
+
+  function compassShowOrg(id){
+    const o=app.compass?.organizations.find(c=>c.id===id);
+    if(!o)return;
+    app.selected=null;
+    app.orgSelected=null;
+    app.compassSelected=id;
+    $('detail-code').textContent='COMPASS / SOURCE-READ RECORD';
+    $('detail-body').innerHTML='<div class="details-sector community">✳ DOCUMENTED ORG / NOT A JOB POSTING</div>'
+      +'<h2>'+safe(o.name)+'</h2>'
+      +'<div class="details-meta">'+safe(o.category)+' · '+safe(o.region)+'<br>'+safe(o.location||'NO SPECIFIC PUBLIC LOCATION')+'</div>'
+      +(o.description?'<p class="detail-desc">'+safe(o.description)+'</p>':'<p class="status-muted">No supported description in source.</p>')
+      +'<p class="details-note">ORIGINAL SOURCE CHECKED: '+safe(fmtDate(o.source_date))+' · '+safe(o.geo_precision==='address'?'SOURCED ADDRESS':'MAP POSITION IS A MUNICIPAL CENTROID OR UNAVAILABLE')+'<br>'
+      +(o.quote_pending?'Source was checked, but a verbatim verification quote was pending in this snapshot.':'Source trace provided by BC AI Compass.')
+      +'<br>Source-checked ≠ verified currently hiring, collaborating, or still operating unchanged.</p>'
+      +(o.website?'<a class="action-link" href="'+link(o.website)+'" target="_blank" rel="noopener noreferrer">ORGANIZATION SITE ↗</a>':'')
+      +'<p><a class="secondary-link" href="'+link(o.source_url)+'" target="_blank" rel="noopener noreferrer">OPEN THE CHECKED EVIDENCE ↗</a></p>'
+      +(o.geo_source_url?'<p><a class="secondary-link" href="'+link(o.geo_source_url)+'" target="_blank" rel="noopener noreferrer">COORDINATE SOURCE ↗</a></p>':'')
+      +'<p><a class="secondary-link" href="https://bc-aicompass.ca" target="_blank" rel="noopener noreferrer">BROWSE THE ORIGINAL BC AI COMPASS ↗</a></p>'
+      +(app.compass.crosswalk?.find(c=>c.compass_id===o.id)
+        ?'<button type="button" class="org-connection crosswalk-link" data-observer-crosswalk="'+safe(app.compass.crosswalk.find(c=>c.compass_id===o.id).observer_id)+'"><strong>VIEW HISTORICAL COMMUNITY LINKS ↗</strong><small>SAME ORGANIZATION / OTHER DATASET · NOT PROOF OF A CURRENT RELATIONSHIP</small></button>':'')
+      +'<p class="details-note">Adapted from bc-aicompass.ca (Martin Montero), CC BY 4.0. No endorsement implied.</p>';
+    $('detail').hidden=false;
+    if(app.map&&typeof o.lat==='number'&&typeof o.lng==='number')
+      app.map.flyTo([o.lat,o.lng],Math.max(app.map.getZoom(),11),{duration:.8});
+    renderCompass();
+    if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function renderCompass(){
+    $('compass-panel').hidden=!app.compassMode;
+    document.querySelector('.shell').classList.toggle('compass-mode',app.compassMode);
+    if(!app.compassMode){
+      if(app.compassLayer&&app.map&&app.map.hasLayer(app.compassLayer))app.map.removeLayer(app.compassLayer);
+      return;
+    }
+    if(!app.compass){
+      $('compass-count').textContent='SOURCE LOADING';
+      $('compass-list').textContent='Tuning into the source-checked directory…';
+      return;
+    }
+    const records=compassVisible();
+    $('compass-count').textContent=records.length+' / '+app.compass.count;
+    $('compass-list').innerHTML=records.length?records.map(o=>
+      '<button type="button" class="compass-result" data-compass-id="'+safe(o.id)+'" aria-current="'+(app.compassSelected===o.id)+'">'
+      +'<strong>'+safe(o.name)+'</strong><small>'+safe(o.category)+' / '+safe(o.region)+' / CHECKED '+safe(o.source_date)+'</small></button>'
+    ).join(''):'<p class="status-muted">No sourced records match these filters.</p>';
+
+    if(!window.L||!app.map)return;
+    if(!app.compassLayer)app.compassLayer=window.L.layerGroup();
+    app.compassLayer.clearLayers();
+    const grouped=compassLocationGroups(records);
+    for(const group of grouped){
+      const one=group[0],n=group.length;
+      const marker=window.L.marker([one.lat,one.lng],{
+        keyboard:true,title:n+' source-checked organizations; location not necessarily an office',
+        icon:window.L.divIcon({
+          html:'<div class="compass-cluster '+(n>1?'compass-cluster--group':'')+'" aria-hidden="true"><span>'+n+'</span></div>',
+          iconSize:[48,48],iconAnchor:[24,24],className:'marker-wrapper'
+        })
+      }).on('click',()=>n===1?compassShowOrg(one.id):compassShowGroup(group));
+      marker.bindTooltip(n+' SOURCE-CHECKED ORGANIZATION'+(n===1?'':'S')+' / '+(one.geo_precision==='address'?'SOURCED PIN':'APPROXIMATE CENTROID'),{direction:'top',className:'afterimage-tip'});
+      marker.addTo(app.compassLayer);
+    }
+    if(!app.map.hasLayer(app.compassLayer))app.compassLayer.addTo(app.map);
+    $('compass-map-meta').textContent=grouped.length+' SOURCE-LOCATED CLUSTERS';
+  }
+
+  async function loadCompass(){
+    try{
+      const result=await fetch('./data/compass.json',{cache:'no-cache'});
+      if(!result.ok)throw new Error('HTTP '+result.status);
+      const data=await result.json();
+      if(data.status!=='licensed_historical_verification_snapshot_not_live_hiring'||!Array.isArray(data.organizations))
+        throw new Error('Unexpected Compass dataset');
+      app.compass=data;
+      $('compass-category').innerHTML='<option value="all">All kinds of organizations</option>'+data.categories.map(c=>
+        '<option value="'+safe(c)+'">'+safe(c)+'</option>').join('');
+      $('compass-asof').textContent='BC AI COMPASS / SOURCES CHECKED '+safe(fmtDate(data.source.generated));
+    }catch(e){
+      console.warn('Optional BC AI Compass snapshot unavailable',e);
+      $('compass-count').textContent='SOURCE ERROR';
+    }
+    renderCompass();
+  }
+
+  function closeDetail(){app.selected=null;$('detail').hidden=true;render();app.orgSelected=null;renderOrganizations();renderCompass();}
   function renderSignals(){
     $('signals-list').innerHTML=app.data.signals.map((s,i)=>`<article class="signal-card"><div class="signal-meta"><span class="${safe(s.category)}">${String(i+1).padStart(2,'0')} / ${safe(s.category.toUpperCase())}</span><span>✳</span></div><h3>${safe(s.title)}</h3><p>${safe(s.summary)}</p><a href="${link(s.source)}" target="_blank" rel="noopener noreferrer">READ THE SIGNAL ↗</a></article>`).join('');
   }
@@ -302,7 +435,7 @@
       $('job-count').textContent=app.data.counts.recent_roles;
       $('signal-count').textContent=app.data.signals.length;
       $('snapshot-label').textContent=`SNAPSHOT ${fmtDate(app.data.generated_at.slice(0,10)).toUpperCase()} // ${app.data.counts.needs_review} AGED LISTINGS`;
-      renderSignals();initMap();render();loadCommunity();loadOrganizations();
+      renderSignals();initMap();render();loadCommunity();loadOrganizations();loadCompass();
     }catch(err){
       $('company-list').innerHTML=`<div class="empty-state">Unable to load the atlas (${safe(err.message)}). Serve this folder with <code>python3 -m http.server</code>; opening index.html as a file will not work.</div>`;
       $('snapshot-label').textContent='SIGNAL LOST / DATA UNAVAILABLE';
@@ -326,8 +459,69 @@
   $('community-entries').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
   $('detail-body').addEventListener('click',e=>{const btn=e.target.closest('[data-community-id]');if(btn)showCommunityEvent(btn.dataset.communityId);});
 
+
+  $('compass-toggle').addEventListener('change',e=>{
+    app.compassMode=e.target.checked;
+    app.compassSelected=null;
+    $('detail').hidden=true;
+    if(app.compassMode&&app.orgMode){
+      app.orgMode=false;
+      $('org-network-toggle').checked=false;
+      renderOrganizations();
+    }
+    render();
+    renderCompass();
+  });
+  $('compass-search').addEventListener('input',renderCompass);
+  $('compass-category').addEventListener('change',renderCompass);
+  $('compass-local-only').addEventListener('change',renderCompass);
+  $('compass-list').addEventListener('click',e=>{
+    const btn=e.target.closest('[data-compass-id]');
+    if(btn)compassShowOrg(btn.dataset.compassId);
+  });
+  $('detail-body').addEventListener('click',e=>{
+    const btn=e.target.closest('[data-compass-id]');
+    if(btn)compassShowOrg(btn.dataset.compassId);
+  });
+
+  // Curated same-entity crosswalk. Switching frequency does not establish
+  // a current partnership, employer relation, funding or endorsement.
+  function navigateToCompass(id){
+    if(!app.compass)return;
+    app.orgMode=false;
+    $('org-network-toggle').checked=false;
+    renderOrganizations();
+    app.compassMode=true;
+    $('compass-toggle').checked=true;
+    render();
+    renderCompass();
+    compassShowOrg(id);
+  }
+  function navigateToObserver(id){
+    if(!app.organizations)return;
+    app.compassMode=false;
+    $('compass-toggle').checked=false;
+    renderCompass();
+    app.orgMode=true;
+    $('org-network-toggle').checked=true;
+    render();
+    renderOrganizations();
+    inspectOrganization(id);
+  }
+  $('detail-body').addEventListener('click',e=>{
+    const compass=e.target.closest('[data-compass-crosswalk]');
+    if(compass){navigateToCompass(compass.dataset.compassCrosswalk);return;}
+    const observer=e.target.closest('[data-observer-crosswalk]');
+    if(observer)navigateToObserver(observer.dataset.observerCrosswalk);
+  });
   $('org-network-toggle').addEventListener('change',e=>{
     app.orgMode=e.target.checked;
+    if(app.orgMode&&app.compassMode){
+      app.compassMode=false;
+      $('compass-toggle').checked=false;
+      renderCompass();
+      render();
+    }
     app.orgSelected=null;
     $('detail').hidden=true;
     renderOrganizations();
