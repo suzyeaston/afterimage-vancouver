@@ -1,8 +1,27 @@
 {
   "title": "AFTERIMAGE / LOCAL COVERAGE",
-  "observed_at": "2026-11-06",
-  "method": "Curated initial items from official press releases. Automated RSS refresh will only index publisher, headline, published date, original link, and deterministic issue labels. News mentions do NOT verify future impact or causality.",
+  "observed_at": "2026-11-07",
+  "method": "Publisher RSS headlines only; deterministic literal issue tags; no article scraping, inferred geographic impact, political sentiment, causal claims or electoral forecasts.",
+  "checked_sources": [
+    "Global BC"
+  ],
+  "source_errors": [
+    "City of Vancouver: HTTPError"
+  ],
   "items": [
+    {
+      "id": "rss-4f5db35b8b36f37fd3",
+      "title": "Vancouver landlords fined $90K after dividing home into 21 rooms for 17 tenants",
+      "publisher": "Global BC",
+      "publisher_kind": "independent-newsroom",
+      "published_on": "2026-11-06",
+      "url": "https://globalnews.ca/news/12138955/vancouver-landlords-fined-90k-dividing-home-21-rooms-17-tenants/",
+      "issue_ids": [
+        "housing"
+      ],
+      "location_scope": "citywide news subject; NOT a mapped geographic effect",
+      "origin": "rss-headline"
+    },
     {
       "id": "city-2026-inauguration",
       "title": "Vancouver Mayor and Council officially sworn in today",
@@ -12,19 +31,6 @@
       "url": "https://vancouver.ca/news-calendar/vancouver-mayor-and-council-officially-sworn-in-today-nov-2026.aspx",
       "issue_ids": [
         "council"
-      ],
-      "location_scope": "citywide",
-      "origin": "curated"
-    },
-    {
-      "id": "city-2026-housing",
-      "title": "Vancouver surpasses 2025 housing targets with decades-high rental delivery",
-      "publisher": "City of Vancouver",
-      "publisher_kind": "government-news-release",
-      "published_on": "2026-04-08",
-      "url": "https://vancouver.ca/news-calendar/vancouver-surpasses-2025-housing-targets-april-2026.aspx",
-      "issue_ids": [
-        "housing"
       ],
       "location_scope": "citywide",
       "origin": "curated"
