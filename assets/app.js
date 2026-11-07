@@ -260,6 +260,8 @@
       +(o.website?'<a class="action-link" href="'+link(o.website)+'" target="_blank" rel="noopener noreferrer">VISIT SOURCE WEBSITE ↗</a>':'')
       +'<hr class="detail-rule"><div class="detail-subheading">DOCUMENTED LINKS / '+o.connections.length+'</div>'
       +(connections||'<p class="status-muted">No relationship records in this archive.</p>')
+      +(app.compass?.crosswalk?.find(c=>c.observer_id===o.id)
+        ?'<button type="button" class="org-connection crosswalk-link" data-compass-crosswalk="'+safe(app.compass.crosswalk.find(c=>c.observer_id===o.id).compass_id)+'"><strong>VIEW SOURCE-CHECKED COMPASS RECORD ↗</strong><small>SAME ORGANIZATION / INDEPENDENT DATASET · NOT A PARTNERSHIP CLAIM</small></button>':'')
       +'<p class="details-note">These are archived assertions in The Observatory, not independently verified current relationships. No endorsement, job opening or recruiting affiliation is implied.</p>'
       +'<a class="secondary-link" href="'+link(o.source_url)+'" target="_blank" rel="noopener noreferrer">TRACE THE ORGANIZATION SOURCE ↗</a>'
       +'<p class="details-note">Source: The Observatory — BC + AI ecosystem map. Adapted under CC BY 4.0.</p>';
@@ -339,6 +341,8 @@
       +'<p><a class="secondary-link" href="'+link(o.source_url)+'" target="_blank" rel="noopener noreferrer">OPEN THE CHECKED EVIDENCE ↗</a></p>'
       +(o.geo_source_url?'<p><a class="secondary-link" href="'+link(o.geo_source_url)+'" target="_blank" rel="noopener noreferrer">COORDINATE SOURCE ↗</a></p>':'')
       +'<p><a class="secondary-link" href="https://bc-aicompass.ca" target="_blank" rel="noopener noreferrer">BROWSE THE ORIGINAL BC AI COMPASS ↗</a></p>'
+      +(app.compass.crosswalk?.find(c=>c.compass_id===o.id)
+        ?'<button type="button" class="org-connection crosswalk-link" data-observer-crosswalk="'+safe(app.compass.crosswalk.find(c=>c.compass_id===o.id).observer_id)+'"><strong>VIEW HISTORICAL COMMUNITY LINKS ↗</strong><small>SAME ORGANIZATION / OTHER DATASET · NOT PROOF OF A CURRENT RELATIONSHIP</small></button>':'')
       +'<p class="details-note">Adapted from bc-aicompass.ca (Martin Montero), CC BY 4.0. No endorsement implied.</p>';
     $('detail').hidden=false;
     if(app.map&&typeof o.lat==='number'&&typeof o.lng==='number')
@@ -478,6 +482,37 @@
   $('detail-body').addEventListener('click',e=>{
     const btn=e.target.closest('[data-compass-id]');
     if(btn)compassShowOrg(btn.dataset.compassId);
+  });
+
+  // Curated same-entity crosswalk. Switching frequency does not establish
+  // a current partnership, employer relation, funding or endorsement.
+  function navigateToCompass(id){
+    if(!app.compass)return;
+    app.orgMode=false;
+    $('org-network-toggle').checked=false;
+    renderOrganizations();
+    app.compassMode=true;
+    $('compass-toggle').checked=true;
+    render();
+    renderCompass();
+    compassShowOrg(id);
+  }
+  function navigateToObserver(id){
+    if(!app.organizations)return;
+    app.compassMode=false;
+    $('compass-toggle').checked=false;
+    renderCompass();
+    app.orgMode=true;
+    $('org-network-toggle').checked=true;
+    render();
+    renderOrganizations();
+    inspectOrganization(id);
+  }
+  $('detail-body').addEventListener('click',e=>{
+    const compass=e.target.closest('[data-compass-crosswalk]');
+    if(compass){navigateToCompass(compass.dataset.compassCrosswalk);return;}
+    const observer=e.target.closest('[data-observer-crosswalk]');
+    if(observer)navigateToObserver(observer.dataset.observerCrosswalk);
   });
   $('org-network-toggle').addEventListener('change',e=>{
     app.orgMode=e.target.checked;
