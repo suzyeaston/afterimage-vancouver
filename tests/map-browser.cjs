@@ -33,7 +33,9 @@ const { chromium } = require('playwright');
     assert.equal(await page.locator('#city-map .maplibregl-ctrl-zoom-in').count(),1);
     assert.equal(await page.locator('#jobs-list .job-card').count(),10,'Job list still visible');
     assert.equal(await page.locator('#directory-list .dir-row').count(),99,'Directory still visible');
-    await page.screenshot({path:path.join(out,'map-desktop.png'),fullPage:false});
+    await page.locator('#field').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1200); // let vector tiles and type labels settle
+    await page.locator('.map-layout').screenshot({path:path.join(out,'map-desktop.png')});
 
     await page.locator('#global-search').fill('Disney');
     await page.waitForFunction(()=>window.AfterimageCityMap?.status?.().employers===1,null,{timeout:5000});
@@ -45,7 +47,9 @@ const { chromium } = require('playwright');
     await page.waitForTimeout(400);
     const overflow = await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+5);
     assert.equal(overflow,false,'Map must not cause horizontal mobile overflow');
-    await page.screenshot({path:path.join(out,'map-mobile.png'),fullPage:false});
+    await page.locator('#field').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(450);
+    await page.locator('.map-layout').screenshot({path:path.join(out,'map-mobile.png')});
     assert.deepEqual(errors,[], 'No uncaught page errors');
     console.log('SUCCESS: real vector streets loaded with 10 employers, 6 Compass centroid groups, 99 directory records.');
   } catch (error) {
