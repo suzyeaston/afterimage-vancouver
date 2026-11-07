@@ -163,7 +163,9 @@
       window.setTimeout(()=>{if(!city.map)unavailable();},25000);
       return;
     }
-    if(!window.maplibregl.supported()){
+    // v6 ESM builds do not expose the legacy supported() utility.
+    // Let MapLibre initialize WebGL and catch real construction errors.
+    if(typeof window.maplibregl.supported==='function' && !window.maplibregl.supported()){
       unavailable();return;
     }
     const lib=window.maplibregl;
