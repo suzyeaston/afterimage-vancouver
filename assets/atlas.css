@@ -47,3 +47,47 @@ main{padding:0 clamp(18px,3.6vw,68px)}.intro{display:grid;grid-template-columns:
   .city-map .maplibregl-ctrl-top-right{top:45px}
   .readout .readout-list{max-height:190px}
 }
+
+
+/* AFTERIMAGE / CITY FUTURES — evidence, scenario, public context */
+.futures{--futures-blue:#a6c8fb;--futures-amber:#edc795}
+.futures-intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;border:1px solid #3e5168;padding:22px 25px;background:radial-gradient(circle at 88% 25%,#3440525e,transparent 46%),linear-gradient(145deg,#101f2d,#101624)}
+.futures-intro strong{font:13px 'DM Mono',monospace;color:var(--mint);letter-spacing:1px}
+.futures-intro p{margin:7px 0 0;color:#bbcad3;font-size:13px}
+.futures-intro label{font:10px 'DM Mono',monospace;color:var(--muted);letter-spacing:.5px}
+.futures-intro select{display:block;margin-top:8px;background:#0d1725;color:#f5f8fc;border:1px solid #638093;padding:10px 14px;width:220px;max-width:100%}
+.futures-statline{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:20px;color:var(--mint);font:10px 'DM Mono',monospace;letter-spacing:.6px}
+.futures-statline span:last-child{color:#aebdc9}
+.futures-milestones{display:flex;gap:10px;overflow-x:auto;padding:12px 1px 17px;scrollbar-color:#4e667b transparent}
+.futures-milestone{flex:0 0 235px;background:#111c2c;border:1px solid #374c5d;padding:16px 18px;min-height:123px}
+.futures-milestone time,.futures-milestone .futures-year{font:11px 'DM Mono',monospace;color:var(--futures-amber)}
+.futures-milestone h4{font-size:13px;line-height:1.3;margin:11px 0}
+.futures-milestone small{display:block;font:10px 'DM Mono',monospace;color:#9bb1bf}
+.futures-issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:18px}
+.futures-issue{padding:23px;background:linear-gradient(145deg,#142337,#0b1522);border:1px solid #3b5365;scroll-margin-top:20px}
+.futures-issue-top{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;color:#a6c8d6;font:10px 'DM Mono',monospace}
+.futures-issue-top span:first-child{color:var(--mint)}
+.futures-issue h3{font-size:clamp(21px,2vw,30px);line-height:1.14;letter-spacing:-.4px;margin:18px 0 10px}
+.futures-issue p{color:#c2d1da;font-size:13px;line-height:1.65}
+.futures-issue h4{font:10px 'DM Mono',monospace;letter-spacing:1px;color:var(--mint);margin:20px 0 6px}
+.futures-issue details{margin:18px 0 13px;background:#101c2a;border-left:3px solid var(--futures-amber);padding:12px 14px}
+.futures-issue summary{cursor:pointer;color:var(--futures-amber);font:11px 'DM Mono',monospace}
+.futures-issue details p{margin:9px 0 0;color:#cbd5d8}
+.futures-issue .futures-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:17px}
+.futures-issue .futures-links a{font:11px 'DM Mono',monospace}
+.futures-columns{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:38px}
+.futures-subtitle{font-size:22px;letter-spacing:-.5px;margin:0 0 8px}
+.futures-muted{color:#b0bdc9;font-size:12px;margin:0 0 15px;line-height:1.6}
+.futures-news,.futures-contacts{display:grid;gap:8px}
+.futures-news-card,.futures-contact{padding:16px;background:#0f1b2a;border:1px solid #31485b;min-width:0}
+.futures-news-card small,.futures-contact small{font:10px 'DM Mono',monospace;color:#a1b8c6}
+.futures-news-card h4,.futures-contact h4{margin:9px 0;font-size:15px;line-height:1.38}
+.futures-news-card .futures-source{color:var(--futures-amber)}
+.futures-news-card a,.futures-contact a{font:10px 'DM Mono',monospace;overflow-wrap:anywhere}
+.futures-contact p{font-size:12px;color:#b4c9d3;margin:6px 0}
+.futures-contact .contact-kind{color:var(--mint);text-transform:uppercase}
+.futures-contact .mail-link{display:inline-block;margin-left:10px}
+.futures-blank{border:1px dashed #425769;padding:18px;color:var(--muted);font:11px 'DM Mono',monospace}
+.dot.ice{background:#a6c8fb}
+@media(max-width:850px){.futures-issues,.futures-columns{grid-template-columns:1fr}}
+@media(max-width:700px){.futures-intro{padding:16px}.futures-intro label,.futures-intro select{width:100%}.futures-milestone{flex-basis:210px;min-height:110px}.futures-issue{padding:17px}.futures-statline{font-size:9px}}
