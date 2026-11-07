@@ -12,7 +12,7 @@
     "licence": "CC BY 4.0",
     "licence_url": "https://creativecommons.org/licenses/by/4.0/",
     "attribution": "BC AI Compass (bc-aicompass.ca), dataset by Martin Montero, CC BY 4.0",
-    "changes": "Filtered to Metro Vancouver and Province-wide verified organizations, removed people and contact fields; kept source URLs/dates/coordinates/precision; grouped identical points rather than inventing office locations.",
+    "changes": "Filtered to Metro Vancouver and Province-wide verified organizations, removed people and contact fields; kept source URLs/dates/coordinates/precision; grouped identical points rather than inventing office locations. Added a four-record editorial ID/name crosswalk to matching Observatory archive entries (same-entity references, NOT partnership claims).",
     "affiliate_notice": "AFTERIMAGE is independently made; this import does not claim BC AI Compass or listed organizations endorse AFTERIMAGE."
   },
   "count": 99,
@@ -1910,6 +1910,24 @@
       "geo_precision": "centroid",
       "geo_source_url": "https://www.latlong.net/place/vancouver-bc-canada-2279.html",
       "compass_id": "zymeworks"
+    }
+  ],
+  "crosswalk": [
+    {
+      "observer_id": "org-bc-ai-ecosystem-association",
+      "compass_id": "compass-bc-ai-ecosystem-association"
+    },
+    {
+      "observer_id": "org-eth-s-lab",
+      "compass_id": "compass-ethos-lab"
+    },
+    {
+      "observer_id": "org-innovate-bc",
+      "compass_id": "compass-innovate-bc"
+    },
+    {
+      "observer_id": "org-ubc",
+      "compass_id": "compass-ubc"
     }
   ]
 }
