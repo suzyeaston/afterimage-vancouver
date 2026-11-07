@@ -19,3 +19,6 @@ jobs:
         run: |
           node --check assets/app.js
           node --test tests/frontend.test.cjs
+          node --check assets/atlas-core.js
+          node --check assets/atlas.js
+          node --test tests/atlas.test.cjs
