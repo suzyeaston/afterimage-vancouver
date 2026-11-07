@@ -22,6 +22,7 @@ jobs:
           node --check assets/atlas-core.js
           node --check assets/atlas.js
           node --check assets/city-map.js
+          node --check assets/city-futures.js
           node --test tests/atlas.test.cjs
       - name: Browser smoke test against actual MapLibre street tiles
         run: |
