@@ -1,6 +1,6 @@
 {
   "title": "AFTERIMAGE / LOCAL COVERAGE",
-  "observed_at": "2026-11-09",
+  "observed_at": "2026-11-10",
   "method": "Publisher RSS headlines only; deterministic literal issue tags; no article scraping, inferred geographic impact, political sentiment, causal claims or electoral forecasts.",
   "checked_sources": [
     "Global BC"
@@ -9,6 +9,19 @@
     "City of Vancouver: HTTPError"
   ],
   "items": [
+    {
+      "id": "rss-e18b87d0ea5fe9ec16",
+      "title": "Vancouver’s illegal rental houses reminiscent of Hong Kong’s coffin apartments",
+      "publisher": "Global BC",
+      "publisher_kind": "independent-newsroom",
+      "published_on": "2026-11-10",
+      "url": "https://globalnews.ca/news/12143349/vancouvers-illegal-rental-houses-hong-kong-coffin-apartments/",
+      "issue_ids": [
+        "housing"
+      ],
+      "location_scope": "citywide news subject; NOT a mapped geographic effect",
+      "origin": "rss-headline"
+    },
     {
       "id": "rss-4f5db35b8b36f37fd3",
       "title": "Vancouver landlords fined $90K after dividing home into 21 rooms for 17 tenants",
