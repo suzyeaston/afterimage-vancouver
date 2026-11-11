@@ -1,6 +1,6 @@
 {
   "title": "AFTERIMAGE / LOCAL COVERAGE",
-  "observed_at": "2026-11-10",
+  "observed_at": "2026-11-11",
   "method": "Publisher RSS headlines only; deterministic literal issue tags; no article scraping, inferred geographic impact, political sentiment, causal claims or electoral forecasts.",
   "checked_sources": [
     "Global BC"
