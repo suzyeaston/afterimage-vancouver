@@ -1,6 +1,6 @@
 {
   "title": "AFTERIMAGE / VANCOUVER",
-  "generated_at": "2026-11-24T01:40:28+00:00",
+  "generated_at": "2026-11-24T23:28:49+00:00",
   "max_freshness_days": 14,
   "sources_refreshed": [
     "blackbird",
@@ -128,7 +128,7 @@
         "technical art"
       ],
       "fit": 82,
-      "recent_roles": 0,
+      "recent_roles": 1,
       "interest_forms": 1
     },
     {
@@ -245,6 +245,19 @@
     }
   ],
   "jobs": [
+    {
+      "id": "lever-blackbirdinteractive-b6902afe-0bf8-4117-9223-e141fc3b08de",
+      "employer_id": "blackbird",
+      "title": "Studio Head of Production",
+      "url": "https://jobs.lever.co/blackbirdinteractive/b6902afe-0bf8-4117-9223-e141fc3b08de",
+      "observed_at": "2026-11-24",
+      "posted_at": "",
+      "type": "listed",
+      "track": "Production",
+      "note": "Official Lever board · Vancouver, BC, Canada remote",
+      "origin": "api",
+      "status": "recently-listed"
+    },
     {
       "id": "gh-sonypicturesimageworks-7626867003",
       "employer_id": "sony-imageworks",
@@ -979,7 +992,7 @@
   ],
   "counts": {
     "employers": 10,
-    "recent_roles": 44,
+    "recent_roles": 45,
     "interest_forms": 3,
     "needs_review": 7
   },
